@@ -14,6 +14,22 @@
     function onScroll(){ if(dismissed) return; pop.classList.toggle('is-visible', window.scrollY>500); }
     window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
     x.addEventListener('click', function(){ dismissed=true; pop.classList.remove('is-visible'); });
-    form.addEventListener('submit', function(e){ e.preventDefault(); var email=((form.email&&form.email.value)||'').trim(); if(!email) return; window.location.href='https://app.goodword.com/auth/signup?email='+encodeURIComponent(email); });
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var email=((form.email&&form.email.value)||"").trim(); if(!email) return;
+      var signup='https://app.goodword.com/auth/signup?email='+encodeURIComponent(email);
+      var wrap=document.getElementById('gw-capture-wrap');
+      var wf=wrap&&wrap.querySelector('form');
+      var inp=wrap&&wrap.querySelector('input[type=email],input[name=Email],input[name=email]');
+      if(!wf||!inp){ window.location.href=signup; return; }
+      inp.value=email;
+      inp.dispatchEvent(new Event('input',{bubbles:true})); inp.dispatchEvent(new Event('change',{bubbles:true}));
+      var done=false; function go(){ if(done) return; done=true; window.location.href=signup; }
+      try{ if(wf.requestSubmit) wf.requestSubmit(); }catch(_){}
+      var tries=0; var iv=setInterval(function(){ tries++;
+        var dn=wrap.querySelector('.w-form-done'); var ok=dn&&getComputedStyle(dn).display!=='none';
+        if(ok||tries>=16){ clearInterval(iv); go(); } },150);
+      setTimeout(go,2600);
+    });
   })();
 })();
