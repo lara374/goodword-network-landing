@@ -2,14 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Goodword: Your network, put to work.</title>
 <meta name="description" content="The right connection changes everything. Goodword unifies your entire network and helps you reach the person who matters most, right now. Free 7-day trial.">
 <style>
-@font-face{font-family:"Domaine Display";src:url("DomaineDisplay-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap;}
-@font-face{font-family:"Domaine Text";src:url("DomaineDisplay-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap;}
-
   /* ============================================================
      GOODWORD , branded landing draft
      Normalized from the Product Builder's prototype; skin swapped
@@ -322,11 +318,14 @@
     .hero__copy { max-width: 620px; }
     /* Stacked: no right-bleed. Center the vertical video, frameless + feathered
        on the same warm background. Larger but sensible width. */
-    .hero__media { margin-right: 0; justify-content: center; padding-bottom: 8px; }
+    /* Full-bleed: break out of the container padding and center on the
+       viewport so the landscape crop reads large; feathered edges dissolve
+       into the cream. */
+    .hero__media { width: 100vw; margin-inline: calc(50% - 50vw); justify-content: center; padding-bottom: 8px; }
     .hero-d { display: none; }
-    .hero-m { display: block; width: min(360px, 82vw); max-width: 100%; }
-    .hero-poster-d { width: auto; max-width: 360px; }
-    .hero-poster-m { width: min(360px, 82vw); }
+    .hero-m { display: block; width: min(640px, 100vw); max-width: 100%; }
+    .hero-poster-d { width: auto; max-width: 640px; }
+    .hero-poster-m { width: min(640px, 100vw); }
   }
 
   /* ---------- Hero mockup (product-UI-in-HTML, recolored to brand) ---------- */
@@ -597,6 +596,37 @@
   .closing__lede { margin-top: 16px; font-size: 18px; color: var(--cream-300); max-width: 480px; margin-inline: auto; }
   .closing__cta { margin-top: 30px; }
   .closing__fine { margin-top: 16px; font-size: 13.5px; color: var(--cream-600); }
+  /* Bottom email capture (hands off to signup with the email prefilled) */
+  .capture { display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap; max-width: 520px; margin: 0 auto; }
+  .capture__input { flex: 1 1 240px; min-width: 0; height: 52px; border-radius: 44px; border: 1px solid var(--cream-300); background: var(--cream-100); color: var(--taupe-900); padding: 0 20px; font-family: var(--font-body); font-size: 16px; outline: none; }
+  .capture__input::placeholder { color: var(--taupe-600); }
+  .capture__input:focus { border-color: var(--clay-700); box-shadow: 0 0 0 3px color-mix(in oklch, var(--clay-700) 25%, transparent); }
+  .capture__btn { flex: 0 0 auto; white-space: nowrap; }
+  .capture__alt { display: inline-block; margin-top: 14px; color: var(--cream-300); font-size: 14px; text-decoration: underline; text-underline-offset: 3px; }
+  .capture__alt:hover { color: var(--cream-100); }
+  @media (max-width: 540px) { .capture { flex-direction: column; } .capture__input, .capture__btn { width: 100%; } }
+  /* ---------- Floating capture pop-up (fixed bottom-right, follows scroll) ---------- */
+  .gw-pop { position: fixed; right: 24px; bottom: 24px; z-index: 60; width: 340px; max-width: calc(100vw - 32px); background: var(--cream-100); border: 1px solid var(--cream-300); border-radius: 20px; box-shadow: 0 18px 50px -12px rgba(60,40,30,0.28), 0 4px 12px rgba(60,40,30,0.10); padding: 20px 20px 18px; opacity: 0; transform: translateY(16px); pointer-events: none; transition: opacity .35s ease, transform .35s ease; }
+  .gw-pop.is-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .gw-pop__x { position: absolute; top: 10px; right: 12px; border: 0; background: none; color: var(--taupe-600); font-size: 20px; line-height: 1; cursor: pointer; padding: 4px; border-radius: 6px; }
+  .gw-pop__x:hover { color: var(--taupe-900); background: var(--cream-200); }
+  .gw-pop__title { margin: 0 24px 2px 0; font-family: var(--font-head); font-size: 19px; color: var(--taupe-900); letter-spacing: -.01em; }
+  .gw-pop__sub { margin: 0 0 12px; font-size: 13.5px; color: var(--taupe-600); }
+  .gw-pop__form { display: flex; flex-direction: column; gap: 8px; }
+  .gw-pop__input { height: 46px; border-radius: 44px; border: 1px solid var(--cream-300); background: #fff; color: var(--taupe-900); padding: 0 16px; font-family: var(--font-body); font-size: 15px; outline: none; }
+  .gw-pop__input:focus { border-color: var(--clay-700); box-shadow: 0 0 0 3px color-mix(in oklch, var(--clay-700) 22%, transparent); }
+  .gw-pop__btn { width: 100%; justify-content: center; height: 46px; }
+  /* Mobile: slim sticky bottom bar instead of a big card (less weighted) */
+  @media (max-width: 600px) {
+    .gw-pop { right: 0; left: 0; bottom: 0; width: auto; max-width: none; border-radius: 16px 16px 0 0; padding: 11px 14px calc(12px + env(safe-area-inset-bottom, 0px)); box-shadow: 0 -8px 24px -10px rgba(60,40,30,0.22); }
+    .gw-pop__x { top: 8px; right: 10px; }
+    .gw-pop__title { font-size: 14px; margin: 0 26px 0 0; }
+    .gw-pop__sub { display: none; }
+    .gw-pop__form { flex-direction: row; gap: 8px; margin-top: 8px; }
+    .gw-pop__input { flex: 1 1 auto; min-width: 0; height: 44px; }
+    .gw-pop__btn { width: auto; flex: 0 0 auto; white-space: nowrap; padding: 0 16px; height: 44px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .gw-pop { transition: opacity .2s ease; transform: none; } }
   .closing .btn-on-dark .ico { color: var(--clay-700); }
 
   /* ---------- Footer ---------- */
@@ -902,7 +932,7 @@
     * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
 
     /* Hero loop: no autoplaying motion. Hide both <video> elements and show a
-       static poster <img> instead: the 16:9 still on wide screens, the 9:16
+       static poster image instead: the 16:9 still on wide screens, the 9:16
        still on narrow screens, matching the crop-swap breakpoint. */
     .hero-d, .hero-m { display: none !important; }
     .hero-poster-d { display: block !important; }
@@ -913,6 +943,8 @@
     .hero-poster-m { display: block !important; }
   }
 </style>
+<style>@font-face{font-family:"Domaine Display";src:url("https://cdn.jsdelivr.net/gh/lara374/goodword-network-landing@main/DomaineDisplay-Regular.ttf") format("truetype");font-weight:400;font-display:swap;}
+@font-face{font-family:"Domaine Text";src:url("https://cdn.jsdelivr.net/gh/lara374/goodword-network-landing@main/DomaineDisplay-Regular.ttf") format("truetype");font-weight:400;font-display:swap;}</style>
 </head>
 <body>
 
@@ -946,7 +978,7 @@
           <span class="hero__accent">put to work.</span>
         </h1>
         <p class="lede hero__lede">
-          The right connection changes everything. LinkedIn is just the start — Goodword unifies your entire network, remembers every relationship you've built, and helps you reach the person who matters most right now.
+          Goodword turns the people you already know into your next deal, hire, or intro.
         </p>
         <div class="hero__cta-row">
           <a class="btn btn-primary btn-lg" href="https://app.goodword.com/auth/signup">
@@ -959,19 +991,19 @@
 
       <!-- RIGHT: hero loop, two crops (16:9 desktop / 9:16 mobile) -->
       <div class="hero__media">
-        <!-- Desktop 16:9 loop -->
+        <!-- Desktop crop (landscape) -->
         <video class="hero-d" autoplay loop muted playsinline aria-hidden="true"
-               poster="https://cdn.prod.website-files.com/69fa6cfcb35d2098a830dd69/6a452c212fb9927616649482_goodword-hero-16x9.jpg">
-          <source src="https://cdn.prod.website-files.com/69fa6cfcb35d2098a830dd69/6a452c1f455ccb7371257316_goodword-hero-16x9.mp4" type="video/mp4">
+               poster="goodword-hero-v4-16x9.jpg">
+          <source src="goodword-hero-v4-16x9.mp4" type="video/mp4">
         </video>
-        <!-- Mobile 9:16 loop -->
+        <!-- Mobile crop: same landscape composition, contained smaller -->
         <video class="hero-m" autoplay loop muted playsinline aria-hidden="true"
-               poster="https://cdn.prod.website-files.com/69fa6cfcb35d2098a830dd69/6a452c2206bcbf79dbe6b323_goodword-hero-9x16.jpg">
-          <source src="https://cdn.prod.website-files.com/69fa6cfcb35d2098a830dd69/6a452c21c4d2978b5af434b5_goodword-hero-9x16.mp4" type="video/mp4">
+               poster="goodword-hero-v4-16x9.jpg">
+          <source src="goodword-hero-v4-16x9.mp4" type="video/mp4">
         </video>
         <!-- Reduced-motion still fallbacks (hidden unless prefers-reduced-motion) -->
-        <img class="hero-poster hero-poster-d" src="https://cdn.prod.website-files.com/69fa6cfcb35d2098a830dd69/6a452c212fb9927616649482_goodword-hero-16x9.jpg" alt="Goodword app: today's reminder to reconnect, with your network organized alongside." width="1600" height="900">
-        <img class="hero-poster hero-poster-m" src="https://cdn.prod.website-files.com/69fa6cfcb35d2098a830dd69/6a452c2206bcbf79dbe6b323_goodword-hero-9x16.jpg" alt="Goodword app: today's reminder to reconnect, with your network organized alongside." width="900" height="1600">
+        <img class="hero-poster hero-poster-d" src="goodword-hero-v4-16x9.jpg" alt="Goodword surfacing a contact card for Sarah Chen, VP of Sales, with recent context and your network of connections around it." width="1600" height="933">
+        <img class="hero-poster hero-poster-m" src="goodword-hero-v4-16x9.jpg" alt="Goodword surfacing a contact card for Sarah Chen, VP of Sales, with recent context and your network of connections around it." width="1600" height="933">
       </div>
       </div>
 
@@ -1210,5 +1242,39 @@
 
 </div>
 
+<!-- Floating capture pop-up: fixed bottom-right, appears after scrolling past the hero, dismissible -->
+<div class="gw-pop" id="gwPop" role="dialog" aria-label="Start your free trial">
+  <button class="gw-pop__x" id="gwPopX" type="button" aria-label="Dismiss">&times;</button>
+  <p class="gw-pop__title">Put your network to work</p>
+  <p class="gw-pop__sub">Free 7-day trial. Set up in 3 minutes.</p>
+  <form class="gw-pop__form" id="gwPopForm" novalidate>
+    <input class="gw-pop__input" type="email" name="email" required autocomplete="email" placeholder="you@company.com" aria-label="Work email">
+    <button class="btn btn-primary gw-pop__btn" type="submit">Get started for free</button>
+  </form>
+</div>
+<script>
+  /* Floating capture: appear after scrolling past the hero, dismissible, and on submit
+     hand off to signup with the email prefilled. (Also POST to Klaviyo here for lead capture.) */
+  (function () {
+    var pop = document.getElementById('gwPop'),
+        form = document.getElementById('gwPopForm'),
+        x = document.getElementById('gwPopX');
+    if (!pop) return;
+    var dismissed = false;
+    function onScroll() {
+      if (dismissed) return;
+      pop.classList.toggle('is-visible', window.scrollY > 500);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    x.addEventListener('click', function () { dismissed = true; pop.classList.remove('is-visible'); });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = (form.email.value || '').trim();
+      if (!email) return;
+      window.location.href = 'https://app.goodword.com/auth/signup?email=' + encodeURIComponent(email);
+    });
+  })();
+</script>
 </body>
 </html>
