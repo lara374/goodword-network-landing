@@ -719,9 +719,12 @@
     /* Logo bar: even 3-up grid (flex, last row centered). Each logo sits in a
        fixed cell so wide wordmarks (FLYBRIDGE, KKR) can't overhang or tower;
        max-height also caps OpenAI's inline height override. */
-    .trust__logos { gap: 20px; max-width: 360px; margin-inline: auto; }
-    .trust__logos li { flex: 0 0 calc((100% - 40px) / 3); justify-content: center; height: 22px; }
-    .trust__logo { height: auto; max-height: 20px; max-width: 100%; width: auto; object-fit: contain; }
+    .trust__logos { gap: 22px 16px; max-width: 360px; margin-inline: auto; align-items: center; }
+    .trust__logos li { flex: 0 0 calc((100% - 32px) / 3); justify-content: center; align-items: center; }
+    .trust__logo { height: auto; max-height: 20px; max-width: 92%; width: auto; object-fit: contain; }
+    /* Optical bumps: light/compact wordmarks read small at a uniform cap */
+    .trust__logo[alt="OpenAI"]   { max-height: 30px; max-width: 100%; }
+    .trust__logo[alt="DoorDash"] { max-height: 26px; max-width: 100%; }
   }
 
   /* Small phones , trim the art footprint and hide the outermost chips
@@ -737,9 +740,11 @@
     .float-globe { right: 2%; bottom: 12%; }
     .hero__cta-row .btn-lg { width: 100%; justify-content: center; }
     .hero__cta-row .btn-text { padding-left: 4px; }
-    .trust__logos { gap: 16px; max-width: 320px; }
-    .trust__logos li { flex: 0 0 calc((100% - 32px) / 3); height: 20px; }
+    .trust__logos { gap: 18px 14px; max-width: 320px; }
+    .trust__logos li { flex: 0 0 calc((100% - 28px) / 3); }
     .trust__logo { max-height: 18px; }
+    .trust__logo[alt="OpenAI"]   { max-height: 27px; }
+    .trust__logo[alt="DoorDash"] { max-height: 23px; }
   }
 
   /* ============================================================
