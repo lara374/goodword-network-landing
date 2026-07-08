@@ -1255,39 +1255,7 @@
 
 </div>
 
-<!-- Floating capture pop-up: fixed bottom-right, appears after scrolling past the hero, dismissible -->
-<div class="gw-pop" id="gwPop" role="dialog" aria-label="Start your free trial">
-  <button class="gw-pop__x" id="gwPopX" type="button" aria-label="Dismiss">&times;</button>
-  <p class="gw-pop__title">Put your network to work</p>
-  <p class="gw-pop__sub">Free 7-day trial. Set up in 3 minutes.</p>
-  <form class="gw-pop__form" id="gwPopForm" novalidate>
-    <input class="gw-pop__input" type="email" name="email" required autocomplete="email" placeholder="you@company.com" aria-label="Work email">
-    <button class="btn btn-primary gw-pop__btn" type="submit">Get started for free</button>
-  </form>
-</div>
-<script>
-  /* Floating capture: appear after scrolling past the hero, dismissible, and on submit
-     hand off to signup with the email prefilled. (Also POST to Klaviyo here for lead capture.) */
-  (function () {
-    var pop = document.getElementById('gwPop'),
-        form = document.getElementById('gwPopForm'),
-        x = document.getElementById('gwPopX');
-    if (!pop) return;
-    var dismissed = false;
-    function onScroll() {
-      if (dismissed) return;
-      pop.classList.toggle('is-visible', window.scrollY > 500);
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    x.addEventListener('click', function () { dismissed = true; pop.classList.remove('is-visible'); });
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var email = (form.email.value || '').trim();
-      if (!email) return;
-      window.location.href = 'https://app.goodword.com/auth/signup?email=' + encodeURIComponent(email);
-    });
-  })();
-</script>
+<!-- Capture pop-up is a native Webflow form in the page (light DOM) so Turnstile works;
+     it is styled + behavior-wired in the Webflow HTML embed, not in this bundle. -->
 </body>
 </html>
