@@ -322,12 +322,10 @@
        viewport so the landscape crop reads large; feathered edges dissolve
        into the cream. */
     .hero__media { width: 100vw; margin-inline: calc(50% - 50vw); justify-content: center; padding-bottom: 8px; }
-    /* Mobile: static sharp still instead of the video. iOS decodes inline
-       autoplay video at reduced resolution, softening the fine UI detail; the
-       full-res image stays crisp and loads faster. Animation stays on desktop. */
-    .hero-d, .hero-m { display: none; }
-    .hero-poster-d { display: none; }
-    .hero-poster-m { display: block; width: min(640px, 100vw); max-width: 100%; }
+    /* Mobile: dynamic landscape video crop, full-bleed. */
+    .hero-d { display: none; }
+    .hero-m { display: block; width: min(640px, 100vw); max-width: 100%; }
+    .hero-poster-d, .hero-poster-m { display: none; }
   }
 
   /* ---------- Hero mockup (product-UI-in-HTML, recolored to brand) ---------- */
@@ -481,7 +479,7 @@
      bar. SVGs keep their aspect: height set, width auto. */
   .trust__logo {
     height: 27px; width: auto; max-width: 100%; display: block;
-    opacity: 0.62; filter: grayscale(1);
+    opacity: 0.62;
     transition: opacity 150ms ease;
   }
   .trust__logo:hover { opacity: 0.85; }
@@ -1011,8 +1009,12 @@
                poster="goodword-hero-v4-16x9-hd.jpg">
           <source src="goodword-hero-v4-16x9-hd.mp4" type="video/mp4">
         </video>
-        <!-- Mobile + reduced-motion still fallbacks (mobile always uses the image;
-             desktop uses it only under prefers-reduced-motion) -->
+        <!-- Mobile landscape video crop (dynamic) -->
+        <video class="hero-m" autoplay loop muted playsinline aria-hidden="true"
+               poster="goodword-hero-v4-16x9-hd.jpg">
+          <source src="goodword-hero-v4-16x9-hd.mp4" type="video/mp4">
+        </video>
+        <!-- Reduced-motion still fallbacks -->
         <img class="hero-poster hero-poster-d" src="goodword-hero-v4-16x9-hd.jpg" alt="Goodword surfacing a contact card for Sarah Chen, VP of Sales, with recent context and your network of connections around it." width="1600" height="933">
         <img class="hero-poster hero-poster-m" src="goodword-hero-v4-16x9-hd.jpg" alt="Goodword surfacing a contact card for Sarah Chen, VP of Sales, with recent context and your network of connections around it." width="1600" height="933">
       </div>
@@ -1025,14 +1027,14 @@
         <div class="trust__logos-wrap">
           <span class="trust__label">Trusted by leaders at</span>
           <ul class="trust__logos">
-            <li><img class="trust__logo" src="https://cdn.prod.website-files.com/682def6dbd9734b97f595b64/68f900e0bd2259d5ab46e363_openai.svg" alt="OpenAI" style="height:clamp(38px,3.8vw,48px)" loading="lazy"></li>
-            <li><img class="trust__logo" src="https://cdn.prod.website-files.com/682def6dbd9734b97f595b64/68f90111dcc69455510b5e06_uber.svg" alt="Uber" loading="lazy"></li>
-            <li><img class="trust__logo" src="https://cdn.prod.website-files.com/682def6dbd9734b97f595b64/68f9014213d6845ad6db2cf8_kkr.svg" alt="KKR" loading="lazy"></li>
-            <li><img class="trust__logo" src="https://cdn.prod.website-files.com/682def6dbd9734b97f595b64/68f90151544009accfd85046_doordash.svg" alt="DoorDash" loading="lazy"></li>
-            <li><img class="trust__logo" src="https://cdn.prod.website-files.com/682def6dbd9734b97f595b64/68f901617f3a634af3047b59_airtable.svg" alt="Airtable" loading="lazy"></li>
-            <li><img class="trust__logo" src="https://cdn.prod.website-files.com/682def6dbd9734b97f595b64/68f9016f49e9e5995cd666a7_chief.svg" alt="Chief" loading="lazy"></li>
-            <li><img class="trust__logo" src="https://cdn.prod.website-files.com/682def6dbd9734b97f595b64/68f901a95805ed52a69ab2ab_carta.svg" alt="Carta" loading="lazy"></li>
-            <li><img class="trust__logo" src="https://cdn.prod.website-files.com/682def6dbd9734b97f595b64/68f901c51f35c2be5f14a369_flybridge.svg" alt="Flybridge" loading="lazy"></li>
+            <li><img class="trust__logo" src="goodword-logo-openai.png" alt="OpenAI" style="height:clamp(38px,3.8vw,48px)" loading="lazy"></li>
+            <li><img class="trust__logo" src="goodword-logo-uber.png" alt="Uber" loading="lazy"></li>
+            <li><img class="trust__logo" src="goodword-logo-kkr.png" alt="KKR" loading="lazy"></li>
+            <li><img class="trust__logo" src="goodword-logo-doordash.png" alt="DoorDash" loading="lazy"></li>
+            <li><img class="trust__logo" src="goodword-logo-airtable.png" alt="Airtable" loading="lazy"></li>
+            <li><img class="trust__logo" src="goodword-logo-chief.png" alt="Chief" loading="lazy"></li>
+            <li><img class="trust__logo" src="goodword-logo-carta.png" alt="Carta" loading="lazy"></li>
+            <li><img class="trust__logo" src="goodword-logo-flybridge.png" alt="Flybridge" loading="lazy"></li>
           </ul>
         </div>
       </div>
