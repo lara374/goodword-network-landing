@@ -3,7 +3,8 @@
     imessage: "iMessage", whatsapp: "WhatsApp", slack: "Slack", luma: "Luma",
     partiful: "Partiful", substack: "Substack", instagram: "Instagram",
     tiktok: "TikTok", airtable: "Airtable", hubspot: "HubSpot",
-    salesforce: "Salesforce", notion: "Notion", "google-drive": "Google Drive"
+    salesforce: "Salesforce", notion: "Notion", "google-drive": "Google Drive",
+    x: "X", twitter: "X"
   };
   var pick = new URLSearchParams(window.location.search).get("pick");
   var picked = (pick && MAP[pick])
