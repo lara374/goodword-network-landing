@@ -26,7 +26,7 @@
         '<h1 style="font-family:Georgia,serif;font-weight:400;font-size:clamp(30px,6.5vw,38px);line-height:1.15;letter-spacing:-.01em;margin:0 0 18px;">Got it &mdash; <em style="font-style:italic;color:#901D00;">noted</em>.</h1>' +
         picked +
         '<p style="font-size:17px;color:#2c321f;margin:0 0 16px;">Thanks for telling us what to build next. We read every vote, and it genuinely shapes what we connect next.</p>' +
-        '<a href="https://app.goodword.com" style="display:inline-block;margin-top:24px;font-size:15px;font-weight:700;color:#A85534;text-decoration:none;">Back to Goodword &rarr;</a>' +
+        '<a href="https://app.goodword.com" style="display:inline-block;margin-top:24px;font-size:15px;font-weight:700;color:#A85534;text-decoration:none;">Log into Goodword &rarr;</a>' +
       '</div>' +
     '</div>';
 })();
