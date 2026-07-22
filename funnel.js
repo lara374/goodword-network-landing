@@ -215,11 +215,49 @@
   .rinfo small{display:block;color:var(--muted);font-size:13px;margin-top:1px;}\
   .rhist{display:block;color:var(--green);font-size:12.5px;margin-top:5px;}\
   .rgo{flex:none;color:var(--green-soft);font-size:18px;}\
+  .surface{margin-top:14px;}\
+  .webframe{border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden;box-shadow:0 20px 46px -30px rgba(29,78,19,.55);opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.8,.2,1);}\
+  .webframe.show{opacity:1;transform:none;}\
+  .webtop{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--line);background:var(--green-tint);}\
+  .wdots{display:flex;gap:6px;}\
+  .wdots i{width:9px;height:9px;border-radius:50%;background:rgba(29,78,19,.18);}\
+  .wbrand{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:var(--green);}\
+  .gwdot{color:var(--green);font-weight:700;}\
+  .webframe .qwrap{margin:14px;padding:13px 15px;border:1px solid var(--line);background:var(--green-tint);border-radius:12px;min-height:auto;box-shadow:none;}\
+  .webframe .qwrap.box{background:#fff;}\
+  .webframe .results{padding:2px 8px 10px;margin:0;gap:0;}\
+  .webframe .rescard{border:none;border-top:1px solid var(--line);border-radius:0;box-shadow:none;background:transparent;padding:14px 8px;}\
+  .webframe .rescard:first-child{border-top:none;}\
+  .thread{display:flex;flex-direction:column;gap:9px;padding:6px 2px;}\
+  .tmsg{max-width:82%;padding:11px 15px;border-radius:19px;font-size:15px;line-height:1.35;opacity:0;transform:translateY(10px) scale(.98);transition:opacity .4s ease,transform .4s cubic-bezier(.2,.8,.2,1);}\
+  .tmsg.show{opacity:1;transform:none;}\
+  .tmsg.me{align-self:flex-end;background:var(--clay);color:#FFF7EF;border-bottom-right-radius:6px;}\
+  .tmsg.gw{align-self:flex-start;background:#ECE6DC;color:var(--ink);border-bottom-left-radius:6px;}\
+  .tmsg .gwtag{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--green);margin-bottom:3px;}\
+  .tmsg.typing{display:flex;gap:5px;align-items:center;padding:14px 16px;}\
+  .tmsg.typing span{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:tdot 1.2s infinite;}\
+  .tmsg.typing span:nth-child(2){animation-delay:.2s;}.tmsg.typing span:nth-child(3){animation-delay:.4s;}\
+  @keyframes tdot{0%,60%,100%{opacity:.3;transform:translateY(0);}30%{opacity:1;transform:translateY(-3px);}}\
+  .tmsg.tres{align-self:flex-start;background:#fff;border:1px solid var(--line);display:flex;align-items:center;gap:11px;max-width:90%;padding:11px 14px;border-bottom-left-radius:6px;box-shadow:0 10px 24px -22px rgba(29,78,19,.5);}\
+  .rav.sm{width:34px;height:34px;font-size:12px;}\
+  .aiwrap{display:flex;flex-direction:column;gap:12px;}\
+  .ailogos{display:flex;gap:8px;flex-wrap:wrap;opacity:0;transform:translateY(-6px);transition:opacity .45s ease,transform .45s ease;}\
+  .ailogos.show{opacity:1;transform:none;}\
+  .aichip{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 12px;}\
+  .aichip i{width:12px;height:12px;border-radius:3px;display:block;}\
+  .aichip.c-claude i{background:#D97757;}.aichip.c-gpt i{background:#10A37F;}.aichip.c-gem i{background:#4285F4;}.aichip.c-cdx i{background:#111;}\
+  .aiq{display:flex;gap:10px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:16px;line-height:1.35;color:var(--ink);opacity:0;transform:translateY(8px);transition:opacity .45s ease,transform .45s ease;}\
+  .aiq.show{opacity:1;transform:none;}\
+  .aiyou{flex:none;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--green-tint);border-radius:6px;padding:3px 7px;margin-top:1px;}\
+  .aistatus{display:none;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--green);}\
+  .aistatus.show{display:flex;}\
+  .aistatus.done{display:none;}\
+  .edots i{animation:tdot 1.2s infinite;display:inline-block;}.edots i:nth-child(2){animation-delay:.2s;}.edots i:nth-child(3){animation-delay:.4s;}\
   .reveal{opacity:0;transform:translateY(14px);}\
   .screen.in .reveal{animation:rise .55s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:var(--d,0ms);}\
   .screen.out{opacity:0;transform:translateY(-10px) scale(.995);transition:opacity .2s ease,transform .2s ease;}\
   @keyframes rise{to{opacity:1;transform:none;}}\
-  @media (prefers-reduced-motion:reduce){.reveal,.fade,.itile,.itiles,.gwmark,.ccap,.csub,.tabs2,.qpills,.rescard{opacity:1!important;transform:none!important;animation:none!important;transition:none!important;}.qwrap{background:#fff;border-color:var(--line);}.qpills{display:none!important;}.cta:before,.cursor{animation:none;}.screen.out{transition:none;}}\
+  @media (prefers-reduced-motion:reduce){.reveal,.fade,.itile,.itiles,.gwmark,.ccap,.csub,.tabs2,.qpills,.rescard,.webframe,.tmsg,.ailogos,.aiq{opacity:1!important;transform:none!important;animation:none!important;transition:none!important;}.qpills{display:none!important;}.tmsg.typing{display:none!important;}.cta:before,.cursor,.edots i{animation:none;}.screen.out{transition:none;}}\
   ";
 
   var shadow = mount.attachShadow ? mount.attachShadow({ mode: "open" }) : mount;
@@ -369,6 +407,7 @@
   }
 
   // ---- SEARCH ----
+  var surfaceRender = null;
   function renderSearch() {
     barEl.classList.add("on");
     var o = g();
@@ -376,37 +415,57 @@
     var question = tidy(o.q(picks));
     var pills = picks.map(function (p) { return '<span class="qpill">' + esc(tidy(p)) + "</span>"; }).join("");
     var res = RESULTS[state.goal || "customer"] || [];
-    var resHTML = res.map(function (r, i) {
-      return '<div class="rescard" data-ri="' + i + '"><span class="rav">' + esc(r.i) + '</span><div class="rinfo"><b>' + esc(r.n) + '</b><small>' + esc(r.r) + '</small><span class="rhist">' + esc(r.h) + '</span></div><span class="rgo">→</span></div>';
-    }).join("");
+    function rows() { return res.map(function (r, i) { return '<div class="rescard" data-ri="' + i + '"><span class="rav">' + esc(r.i) + '</span><div class="rinfo"><b>' + esc(r.n) + '</b><small>' + esc(r.r) + '</small><span class="rhist">' + esc(r.h) + '</span></div><span class="rgo">→</span></div>'; }).join(""); }
+    function bubbles() { return res.map(function (r, i) { return '<div class="tmsg tres" data-ri="' + i + '"><span class="rav sm">' + esc(r.i) + '</span><div class="rinfo"><b>' + esc(r.n) + '</b><small>' + esc(r.r) + '</small><span class="rhist">' + esc(r.h) + '</span></div></div>'; }).join(""); }
+    function aichip(name, cls) { return '<span class="aichip ' + cls + '"><i></i>' + name + "</span>"; }
+
     screenEl.innerHTML =
-      '<div class="srch2 s-app">' +
-      '<div class="tabs tabs2"><button class="tab on" data-tab="app">In the web app</button><button class="tab" data-tab="text">Over text</button><button class="tab" data-tab="ai">In your AI</button></div>' +
-      '<div class="qwrap"><span class="qchrome">⌕</span><span class="qpills">' + pills + '</span><span class="qtype"></span><span class="cursor"></span></div>' +
-      '<div class="airow2"><span>Claude</span><span>ChatGPT</span><span>Gemini</span></div>' +
-      '<div class="results">' + resHTML + "</div></div>" +
+      '<div class="srch2"><div class="tabs tabs2 show"><button class="tab on" data-tab="app">In the web app</button><button class="tab" data-tab="text">Over text</button><button class="tab" data-tab="ai">In your AI</button></div>' +
+      '<div class="surface"></div></div>' +
       '<button class="cta" data-next>Next</button>';
-    var tabs = screenEl.querySelector(".tabs2"), qwrap = screenEl.querySelector(".qwrap"),
-      qpills = screenEl.querySelector(".qpills"), qtype = screenEl.querySelector(".qtype"),
-      cards = screenEl.querySelectorAll(".rescard"), cta = screenEl.querySelector(".cta");
-    function popResults() {
-      for (var i = 0; i < cards.length; i++) (function (el, k) { later(function () { el.classList.add("show"); }, k * 200); })(cards[i], i);
-      later(function () { cta.classList.add("show"); }, cards.length * 200 + 260);
+    var srch = screenEl.querySelector(".srch2"), surface = screenEl.querySelector(".surface"), cta = screenEl.querySelector(".cta");
+    function showCta() { cta.classList.add("show"); }
+    function stagger(sel, base) { var els = surface.querySelectorAll(sel); for (var i = 0; i < els.length; i++)(function (el, k) { later(function () { el.classList.add("show"); }, base + k * 190); })(els[i], i); later(showCta, base + els.length * 190 + 120); }
+
+    function renderApp(animate) {
+      surface.innerHTML =
+        '<div class="webframe"><div class="webtop"><span class="wdots"><i></i><i></i><i></i></span><span class="wbrand"><span class="gwdot">◑</span>Goodword</span></div>' +
+        '<div class="qwrap"><span class="qchrome">⌕</span><span class="qpills">' + pills + '</span><span class="qtype"></span><span class="cursor"></span></div>' +
+        '<div class="results">' + rows() + "</div></div>";
+      var qpills = surface.querySelector(".qpills"), qtype = surface.querySelector(".qtype"), qwrap = surface.querySelector(".qwrap"), frame = surface.querySelector(".webframe");
+      if (!animate) { qpills.style.display = "none"; qtype.textContent = question; qwrap.classList.add("box"); frame.classList.add("show"); var cs = surface.querySelectorAll(".rescard"); for (var i = 0; i < cs.length; i++) cs[i].classList.add("show"); showCta(); return; }
+      frame.classList.add("show");
+      raf2(function () { qpills.classList.add("in"); });
+      later(function () { qpills.classList.add("out"); }, 850);
+      later(function () { qpills.style.display = "none"; qwrap.classList.add("box"); typewriter(qtype, question, function () { stagger(".rescard", 0); }); }, 1200);
     }
-    if (REDUCE) {
-      qpills.style.display = "none"; qtype.textContent = question;
-      tabs.classList.add("show"); qwrap.classList.add("box");
-      for (var i = 0; i < cards.length; i++) cards[i].classList.add("show");
-      cta.classList.add("show"); return;
+    function renderText(animate) {
+      surface.innerHTML =
+        '<div class="thread"><div class="tmsg me">' + esc(question) + "</div>" +
+        '<div class="tmsg gw typing"><span></span><span></span><span></span></div>' +
+        '<div class="tmsg gw reply"><span class="gwtag">Goodword</span>Found 3 people in your network 👇</div>' +
+        bubbles() + "</div>";
+      var me = surface.querySelector(".me"), typing = surface.querySelector(".typing"), reply = surface.querySelector(".reply");
+      if (!animate) { var all = surface.querySelectorAll(".tmsg"); for (var i = 0; i < all.length; i++) all[i].classList.add("show"); typing.style.display = "none"; showCta(); return; }
+      raf2(function () { me.classList.add("show"); });
+      later(function () { typing.classList.add("show"); }, 550);
+      later(function () { typing.style.display = "none"; reply.classList.add("show"); stagger(".tres", 220); }, 1300);
     }
-    raf2(function () { qpills.classList.add("in"); });
-    later(function () { qpills.classList.add("out"); }, 900);
-    later(function () {
-      qpills.style.display = "none";
-      qwrap.classList.add("box");
-      tabs.classList.add("show");
-      typewriter(qtype, question, popResults);
-    }, 1250);
+    function renderAI(animate) {
+      surface.innerHTML =
+        '<div class="aiwrap"><div class="ailogos">' + aichip("Claude", "c-claude") + aichip("ChatGPT", "c-gpt") + aichip("Gemini", "c-gem") + aichip("Codex", "c-cdx") + "</div>" +
+        '<div class="aiq"><span class="aiyou">You</span><span>' + esc(question) + "</span></div>" +
+        '<div class="aistatus"><span class="gwdot">◑</span>Accessing Goodword Network<span class="edots"><i>.</i><i>.</i><i>.</i></span></div>' +
+        '<div class="results">' + rows() + "</div></div>";
+      var logos = surface.querySelector(".ailogos"), aiq = surface.querySelector(".aiq"), status = surface.querySelector(".aistatus");
+      if (!animate) { logos.classList.add("show"); aiq.classList.add("show"); var cs = surface.querySelectorAll(".rescard"); for (var i = 0; i < cs.length; i++) cs[i].classList.add("show"); showCta(); return; }
+      raf2(function () { logos.classList.add("show"); });
+      later(function () { aiq.classList.add("show"); }, 350);
+      later(function () { status.classList.add("show"); }, 800);
+      later(function () { status.classList.add("done"); stagger(".rescard", 200); }, 2000);
+    }
+    surfaceRender = function (which, animate) { srch.className = "srch2 s-" + which; if (which === "text") renderText(animate); else if (which === "ai") renderAI(animate); else renderApp(animate); };
+    surfaceRender("app", !REDUCE);
   }
 
   function renderRole() {
@@ -449,11 +508,8 @@
     }
     if (btn.hasAttribute("data-tab")) {
       var tabs = screenEl.querySelectorAll(".tab"); for (var ti = 0; ti < tabs.length; ti++) tabs[ti].classList.remove("on"); btn.classList.add("on");
-      var want = btn.getAttribute("data-tab"), sr = screenEl.querySelector(".srch2");
-      if (sr) {
-        sr.className = "srch2 s-" + want;
-        var qc = sr.querySelector(".qchrome"); if (qc) qc.textContent = (want === "app" ? "⌕" : (want === "ai" ? "◑ Goodword" : ""));
-      }
+      var want = btn.getAttribute("data-tab");
+      if (surfaceRender) surfaceRender(want, !REDUCE);
       return;
     }
     if (btn.hasAttribute("data-role")) { btn.classList.add("chosen"); var v2 = btn.getAttribute("data-role"); later(function () { state.role = v2; go("sell"); }, REDUCE ? 0 : 160); return; }
