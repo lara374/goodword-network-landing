@@ -23,38 +23,38 @@
     advisor: [{ i: "SC", n: "Sarah Chen", r: "2x Founder · Advisor", h: "Been exactly where you are · trusted circle" }, { i: "RP", n: "Raj Patel", r: "Ex-VP GTM · scaled 0→$50M", h: "Intro'd by a mentor" }, { i: "MG", n: "Maria Gomez", r: "Operator → Advisor", h: "Followed your journey · offered to help" }],
     career: [{ i: "SC", n: "Sarah Chen", r: "Director · Acme (hiring)", h: "Your mentor knows her well" }, { i: "JW", n: "James Wu", r: "Hiring Manager · Northwind", h: "2nd degree · warm path" }, { i: "ER", n: "Elena Ross", r: "Recruiter · Talent Co", h: "Placed 2 people you know" }]
   };
-  function tidy(s) { return s.replace(/\bai\b/g, "AI").replace(/\bsmb\b/g, "SMB").replace(/\bic\b/g, "IC"); }
+  function tidy(s) { return s.replace(/\bai\b/g, "AI").replace(/\bsmb\b/g, "SMB").replace(/\bic\b/g, "IC").replace(/\bsaas\b/gi, "SaaS"); }
 
   var GOALS = {
     customer: { label: "My next customer", hook: "Your next customer is already in your network.",
       refineHead: "Who's your ideal customer?",
-      refine: [{ label: "What you sell", opts: ["Software", "Product", "Service", "Marketplace"] }, { label: "Who buys it", opts: ["Startups", "Enterprise", "SMBs", "Consumers"] }],
-      q: function (p) { return "who's a warm " + p[1].toLowerCase().replace(/s$/, "") + " lead for my " + p[0].toLowerCase() + "?"; },
+      refine: [{ label: "Who buys from you", opts: ["Founders", "Sales leaders", "Marketing leaders", "Product leaders", "Ops leaders"] }, { label: "Their company", opts: ["Startups", "Mid-market", "Enterprise", "SMBs"] }],
+      q: function (p) { return "who's a warm " + p[1].toLowerCase().replace(/s$/, "") + " " + p[0].toLowerCase().replace(/s$/, "") + " in my network?"; },
       person: { role: "VP Partnerships · Acme", match: "Ideal customer fit", history: "Met at SaaStr · last spoke in March · 2 mutual connections", act: "Draft a warm intro" } },
     investor: { label: "My next investor", hook: "Your next investor is already in your network.",
       refineHead: "Tell us about your raise",
-      refine: [{ label: "Stage", opts: ["Pre-seed", "Seed", "Series A", "Series B+"] }, { label: "What you're building in", opts: ["Software", "AI", "Fintech", "Health", "Consumer", "Climate"] }],
+      refine: [{ label: "Stage", opts: ["Pre-seed", "Seed", "Series A", "Series B+"] }, { label: "Sector", opts: ["AI", "Fintech", "Health", "Consumer", "Climate", "SaaS"] }],
       q: function (p) { var st = p[0]; var lead = /Series/.test(st) ? st : st.toLowerCase() + "-stage"; return lead + " investors who back " + p[1].toLowerCase(); },
       person: { role: "Partner · Northstar Ventures", match: "Backs your stage & space", history: "Met at a founder dinner · 3 founders you know are in her portfolio", act: "Draft a warm intro" } },
     hire: { label: "My next hire", hook: "Your next hire is already in your network.",
       refineHead: "Who are you hiring?",
-      refine: [{ label: "For which team", opts: ["Engineering", "Sales", "Design", "Marketing", "Operations"] }, { label: "At what level", opts: ["Junior", "Mid", "Senior", "Exec"] }],
+      refine: [{ label: "For which team", opts: ["Engineering", "Sales", "Design", "Product", "Marketing", "Ops"] }, { label: "At what level", opts: ["Junior", "Mid", "Senior", "Exec"] }],
       q: function (p) { return "who could be my next " + p[1].toLowerCase() + " " + p[0].toLowerCase() + " hire?"; },
       person: { role: "Staff Engineer · ex-Stripe", match: "Matches the role", history: "Met at a hackathon · vouched for by 2 people you trust", act: "Draft a warm intro" } },
     partner: { label: "My next partnership", hook: "Your next partnership is already in your network.",
       refineHead: "What kind of partner?",
-      refine: [{ label: "Partnership type", opts: ["Distribution", "Integration", "Co-marketing", "Reseller"] }, { label: "Industry", opts: ["Tech", "Finance", "Health", "Retail", "Media"] }],
-      q: function (p) { return p[0].toLowerCase() + " partners in " + p[1].toLowerCase(); },
+      refine: [{ label: "What you want from it", opts: ["Get in front of their customers", "Plug into their product", "Market together", "Have them sell for me"] }, { label: "Who with", opts: ["Bigger platforms", "Peer startups", "Agencies", "Industry leaders"] }],
+      q: function (p) { var v = { "Get in front of their customers": "get me in front of their customers", "Plug into their product": "integrate with me", "Market together": "market alongside me", "Have them sell for me": "sell my product for me" }; return p[1].toLowerCase() + " who could " + (v[p[0]] || p[0].toLowerCase()); },
       person: { role: "BD Lead · Northwind", match: "Strong partnership fit", history: "Met at a conference · already partners with 2 companies you know", act: "Draft a warm intro" } },
     advisor: { label: "My next advisor", hook: "The advisor you need is already in your network.",
       refineHead: "What do you need advice on?",
-      refine: [{ label: "Advice on", opts: ["Fundraising", "Go-to-market", "Product", "Hiring", "Scaling"] }, { label: "At what stage", opts: ["Idea", "Pre-seed", "Seed", "Growth"] }],
-      q: function (p) { return "advisors who've mastered " + p[0].toLowerCase() + " at " + p[1].toLowerCase() + " stage"; },
+      refine: [{ label: "What you need help with", opts: ["Fundraising", "Go-to-market", "Product", "Hiring", "Scaling"] }, { label: "Who you'd trust on it", opts: ["Done it before", "Exited founders", "Operators at scale", "Domain experts"] }],
+      q: function (p) { var c = { "Done it before": "who've done it before", "Exited founders": "who've exited", "Operators at scale": "who've operated at scale", "Domain experts": "who know the space" }; return "advisors " + (c[p[1]] || "like " + p[1].toLowerCase()) + " to help with " + p[0].toLowerCase(); },
       person: { role: "2x Founder · Advisor", match: "Been exactly where you are", history: "Met at a workshop · backed by people you trust", act: "Ask to connect" } },
     career: { label: "My next career move", hook: "Your next move starts with someone you know.",
-      refineHead: "What's your next move?",
-      refine: [{ label: "What you're after", opts: ["Founder role", "Exec seat", "IC role", "Board seat"] }, { label: "In which space", opts: ["Tech", "AI", "Finance", "Health", "Climate"] }],
-      q: function (p) { return "who can open doors to " + p[0].toLowerCase() + "s in " + p[1].toLowerCase() + "?"; },
+      refineHead: "What's next for you?",
+      refine: [{ label: "Your next move", opts: ["A bigger leadership role", "An exec seat", "A founder role", "A board seat", "A new industry"] }, { label: "Who could open the door", opts: ["Investors", "Founders", "Execs", "Recruiters"] }],
+      q: function (p) { var m = p[0].charAt(0).toLowerCase() + p[0].slice(1); return p[1].toLowerCase() + " who could open a door to " + m; },
       person: { role: "Director · Acme (hiring now)", match: "Hiring for roles like yours", history: "2nd degree · your mentor knows her well", act: "Ask for a warm intro" } }
   };
   var ROLES = {
@@ -194,10 +194,13 @@
   .qwrap{position:relative;display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin:16px 0;padding:15px 16px;font-size:16px;line-height:1.35;color:var(--ink);border:1px solid transparent;border-radius:14px;background:transparent;min-height:56px;transition:background .45s ease,border-color .45s ease,box-shadow .45s ease;}\
   .qwrap.box{background:#fff;border-color:var(--line);box-shadow:0 16px 38px -28px rgba(29,78,19,.55);}\
   .qchrome{color:var(--green);font-weight:600;font-size:15px;flex:none;}\
-  .qpills{display:flex;gap:9px;justify-content:center;flex:1;opacity:0;transform:translateY(12px) scale(1.06);transition:opacity .5s ease,transform .6s cubic-bezier(.2,.8,.2,1);}\
-  .qpills.in{opacity:1;transform:none;}\
-  .qpills.out{opacity:0;transform:translateY(-12px);}\
-  .qtype{flex:1 1 auto;min-width:0;white-space:normal;overflow-wrap:break-word;}\
+  .qpills{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px 6px;}\
+  .qpills .qpill{opacity:0;transform:translateY(-10px) scale(.92);transition:opacity .45s ease,transform .55s cubic-bezier(.2,.8,.2,1);}\
+  .qpills.in .qpill{opacity:1;transform:none;}\
+  .qpills.in .qpill:nth-child(2){transition-delay:.08s;}\
+  .qpills .qpill.drop{opacity:0;transform:translateY(30px) scale(.8);}\
+  .qtype{flex:0 1 auto;min-width:0;white-space:normal;overflow-wrap:break-word;}\
+  .qtype::after{content:\"\";display:inline-block;width:2px;height:1.05em;background:var(--green);margin-left:2px;vertical-align:-0.14em;animation:blink 1s step-end infinite;}\
   .airow2{display:none;gap:8px;margin:-4px 0 12px;flex-wrap:wrap;}\
   .airow2 span{font-size:13px;font-weight:600;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px;}\
   .s-ai .airow2{display:flex;}\
@@ -215,7 +218,8 @@
   .rinfo small{display:block;color:var(--muted);font-size:13px;margin-top:1px;}\
   .rhist{display:block;color:var(--green);font-size:12.5px;margin-top:5px;}\
   .rgo{flex:none;color:var(--green-soft);font-size:18px;}\
-  .surface{margin-top:14px;}\
+  .surface{margin-top:14px;margin-bottom:30px;}\
+  .qzone{margin:14px;}\
   .webframe{border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden;box-shadow:0 20px 46px -30px rgba(29,78,19,.55);opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.8,.2,1);}\
   .webframe.show{opacity:1;transform:none;}\
   .webtop{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--line);background:var(--green-tint);}\
@@ -223,7 +227,7 @@
   .wdots i{width:9px;height:9px;border-radius:50%;background:rgba(29,78,19,.18);}\
   .wbrand{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:var(--green);}\
   .gwdot{color:var(--green);font-weight:700;}\
-  .webframe .qwrap{margin:14px;padding:13px 15px;border:1px solid var(--line);background:var(--green-tint);border-radius:12px;min-height:auto;box-shadow:none;}\
+  .webframe .qwrap{margin:0;padding:13px 15px;border:1px solid var(--line);background:var(--green-tint);border-radius:12px;min-height:auto;box-shadow:none;}\
   .webframe .qwrap.box{background:#fff;}\
   .webframe .results{padding:2px 8px 10px;margin:0;gap:0;}\
   .webframe .rescard{border:none;border-top:1px solid var(--line);border-radius:0;box-shadow:none;background:transparent;padding:14px 8px;}\
@@ -257,7 +261,7 @@
   .screen.in .reveal{animation:rise .55s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:var(--d,0ms);}\
   .screen.out{opacity:0;transform:translateY(-10px) scale(.995);transition:opacity .2s ease,transform .2s ease;}\
   @keyframes rise{to{opacity:1;transform:none;}}\
-  @media (prefers-reduced-motion:reduce){.reveal,.fade,.itile,.itiles,.gwmark,.ccap,.csub,.tabs2,.qpills,.rescard,.webframe,.tmsg,.ailogos,.aiq{opacity:1!important;transform:none!important;animation:none!important;transition:none!important;}.qpills{display:none!important;}.tmsg.typing{display:none!important;}.cta:before,.cursor,.edots i{animation:none;}.screen.out{transition:none;}}\
+  @media (prefers-reduced-motion:reduce){.reveal,.fade,.itile,.itiles,.gwmark,.ccap,.csub,.tabs2,.qpills,.rescard,.webframe,.tmsg,.ailogos,.aiq{opacity:1!important;transform:none!important;animation:none!important;transition:none!important;}.qpills{display:none!important;}.tmsg.typing{display:none!important;}.cta:before,.cursor,.edots i,.qtype::after{animation:none;}.screen.out{transition:none;}}\
   ";
 
   var shadow = mount.attachShadow ? mount.attachShadow({ mode: "open" }) : mount;
@@ -281,7 +285,7 @@
   function later(fn, ms) { var id = setTimeout(fn, ms); timers.push(id); return id; }
   function clearTimers() { timers.forEach(clearTimeout); timers = []; }
   function raf2(fn) { requestAnimationFrame(function () { requestAnimationFrame(fn); }); }
-  function typewriter(el, text, cb) { var i = 0; (function tick() { el.textContent = text.slice(0, i); i++; if (i <= text.length) later(tick, 28); else if (cb) later(cb, 260); })(); }
+  function typewriter(el, text, cb, onProg) { var i = 0, n = text.length; (function tick() { el.textContent = text.slice(0, i); if (onProg) onProg(n ? i / n : 1); i++; if (i <= n) later(tick, 28); else if (cb) later(cb, 260); })(); }
   function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
   function g() { return GOALS[state.goal || "customer"]; }
   function r() { return ROLES[state.role || "founder"]; }
@@ -430,14 +434,21 @@
     function renderApp(animate) {
       surface.innerHTML =
         '<div class="webframe"><div class="webtop"><span class="wdots"><i></i><i></i><i></i></span><span class="wbrand"><span class="gwdot">◑</span>Goodword</span></div>' +
-        '<div class="qwrap"><span class="qchrome">⌕</span><span class="qpills">' + pills + '</span><span class="qtype"></span><span class="cursor"></span></div>' +
+        '<div class="qzone"><div class="qpills">' + pills + "</div>" +
+        '<div class="qwrap"><span class="qchrome">⌕</span><span class="qtype"></span></div></div>' +
         '<div class="results">' + rows() + "</div></div>";
-      var qpills = surface.querySelector(".qpills"), qtype = surface.querySelector(".qtype"), qwrap = surface.querySelector(".qwrap"), frame = surface.querySelector(".webframe");
-      if (!animate) { qpills.style.display = "none"; qtype.textContent = question; qwrap.classList.add("box"); frame.classList.add("show"); var cs = surface.querySelectorAll(".rescard"); for (var i = 0; i < cs.length; i++) cs[i].classList.add("show"); showCta(); return; }
+      var qpz = surface.querySelector(".qpills"), qpEls = surface.querySelectorAll(".qpills .qpill"), qtype = surface.querySelector(".qtype"), qwrap = surface.querySelector(".qwrap"), frame = surface.querySelector(".webframe");
+      qwrap.classList.add("box");
+      if (!animate) { qpz.style.display = "none"; qtype.textContent = question; frame.classList.add("show"); var cs = surface.querySelectorAll(".rescard"); for (var i = 0; i < cs.length; i++) cs[i].classList.add("show"); showCta(); return; }
       frame.classList.add("show");
-      raf2(function () { qpills.classList.add("in"); });
-      later(function () { qpills.classList.add("out"); }, 850);
-      later(function () { qpills.style.display = "none"; qwrap.classList.add("box"); typewriter(qtype, question, function () { stagger(".rescard", 0); }); }, 1200);
+      raf2(function () { qpz.classList.add("in"); });
+      var dropped = [false, false];
+      later(function () {
+        typewriter(qtype, question, function () { stagger(".rescard", 0); }, function (frac) {
+          if (!dropped[0] && frac >= 0.34 && qpEls[0]) { dropped[0] = true; qpEls[0].classList.add("drop"); }
+          if (!dropped[1] && frac >= 0.68 && qpEls[1]) { dropped[1] = true; qpEls[1].classList.add("drop"); }
+        });
+      }, 800);
     }
     function renderText(animate) {
       surface.innerHTML =
