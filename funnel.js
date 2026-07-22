@@ -15,6 +15,14 @@
   window.__GW_LOGO = "<svg width=\"73\" height=\"48\" viewBox=\"0 0 73 48\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" > <path d=\"M48.9109 48.0001V24H24.9111C24.9111 37.1667 35.7443 48.0001 48.9109 48.0001Z\" fill=\"#901D00\" /> <path d=\"M24.9111 0V24.0001H48.9109C48.9109 10.8334 38.0777 0 24.9111 0Z\" fill=\"#1D4E13\" /> <path d=\"M0.910156 24.0001H24.9099V0C11.7434 0 0.910156 10.8334 0.910156 24.0001Z\" fill=\"#71955E\" /> <path d=\"M24.9099 48.0001V24H0.910156C0.910156 37.1667 11.7434 48.0001 24.9099 48.0001Z\" fill=\"#A2BB8A\" /> <path d=\"M48.9109 24H24.9111V48.0001C38.0777 48.0001 48.9109 37.1667 48.9109 24Z\" fill=\"#D1D7B5\" /> <path d=\"M48.9111 0V24.0001H72.9109C72.9109 10.8334 62.0777 0 48.9111 0Z\" fill=\"#E1AE89\" /> <path d=\"M24.9111 24.0001H48.9109V0C35.7443 0 24.9111 10.8334 24.9111 24.0001Z\" fill=\"#F1DEC5\" /> <path d=\"M72.9109 24H48.9111V48.0001C62.0777 48.0001 72.9109 37.1667 72.9109 24Z\" fill=\"#B86845\" /> </svg>";
   var ICON_ORDER = ["linkedin", "gmail", "google-calendar", "outlook", "google-contacts", "granola", "luma", "instagram", "x"];
   var NOUN = { customer: "Customers", investor: "Investors", hire: "Candidates", partner: "Partners", advisor: "Advisors", career: "Opportunities" };
+  var RESULTS = {
+    customer: [{ i: "SC", n: "Sarah Chen", r: "VP Partnerships · Acme", h: "Met at SaaStr · 2 mutual connections" }, { i: "MR", n: "Marcus Reyes", r: "Head of Growth · Northwind", h: "Intro'd by Dana · replied warmly in March" }, { i: "PN", n: "Priya Nair", r: "COO · Brightline", h: "Followed your launch · engaged 3 times" }],
+    investor: [{ i: "SC", n: "Sarah Chen", r: "Partner · Northstar Ventures", h: "Met at a founder dinner · backs 3 founders you know" }, { i: "DO", n: "David Okoro", r: "Principal · Seedwave", h: "Replied to your last update · warm" }, { i: "LF", n: "Lena Fischer", r: "GP · Atlas Fund", h: "2 portfolio founders you know well" }],
+    hire: [{ i: "SC", n: "Sarah Chen", r: "Staff Engineer · ex-Stripe", h: "Met at a hackathon · vouched for by 2 you trust" }, { i: "TR", n: "Tomás Rivera", r: "Senior Engineer · ex-Datadog", h: "Referred by a teammate · open to moving" }, { i: "AK", n: "Aisha Khan", r: "Eng Lead · ex-Figma", h: "You worked together in 2022" }],
+    partner: [{ i: "SC", n: "Sarah Chen", r: "BD Lead · Northwind", h: "Already partners with 2 companies you know" }, { i: "BC", n: "Ben Carter", r: "Head of Partnerships · Loop", h: "Met at a conference · shared customer" }, { i: "NS", n: "Nina Sato", r: "Alliances · Vertex", h: "Warm intro via your advisor" }],
+    advisor: [{ i: "SC", n: "Sarah Chen", r: "2x Founder · Advisor", h: "Been exactly where you are · trusted circle" }, { i: "RP", n: "Raj Patel", r: "Ex-VP GTM · scaled 0→$50M", h: "Intro'd by a mentor" }, { i: "MG", n: "Maria Gomez", r: "Operator → Advisor", h: "Followed your journey · offered to help" }],
+    career: [{ i: "SC", n: "Sarah Chen", r: "Director · Acme (hiring)", h: "Your mentor knows her well" }, { i: "JW", n: "James Wu", r: "Hiring Manager · Northwind", h: "2nd degree · warm path" }, { i: "ER", n: "Elena Ross", r: "Recruiter · Talent Co", h: "Placed 2 people you know" }]
+  };
   function tidy(s) { return s.replace(/\bai\b/g, "AI").replace(/\bsmb\b/g, "SMB").replace(/\bic\b/g, "IC"); }
 
   var GOALS = {
@@ -180,11 +188,38 @@
   .pc-badge{flex:none;font-size:11.5px;font-weight:600;color:var(--green);background:var(--green-tint);border-radius:999px;padding:6px 11px;}\
   .pc-hist{font-size:13.5px;color:var(--muted);border-top:1px solid var(--line);margin-top:13px;padding-top:12px;}\
   .pc-act{display:inline-block;margin-top:13px;font-size:14px;font-weight:600;color:#FFF7EF;background:var(--clay);border-radius:999px;padding:10px 18px;text-decoration:none;}\
+  .srch2{margin:6px 0 4px;}\
+  .tabs2{opacity:0;transform:translateY(-6px);transition:opacity .5s ease,transform .5s ease;pointer-events:none;}\
+  .tabs2.show{opacity:1;transform:none;pointer-events:auto;}\
+  .qwrap{position:relative;display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin:16px 0;padding:15px 16px;font-size:16px;line-height:1.35;color:var(--ink);border:1px solid transparent;border-radius:14px;background:transparent;min-height:56px;transition:background .45s ease,border-color .45s ease,box-shadow .45s ease;}\
+  .qwrap.box{background:#fff;border-color:var(--line);box-shadow:0 16px 38px -28px rgba(29,78,19,.55);}\
+  .qchrome{color:var(--green);font-weight:600;font-size:15px;flex:none;}\
+  .qpills{display:flex;gap:9px;justify-content:center;flex:1;opacity:0;transform:translateY(12px) scale(1.06);transition:opacity .5s ease,transform .6s cubic-bezier(.2,.8,.2,1);}\
+  .qpills.in{opacity:1;transform:none;}\
+  .qpills.out{opacity:0;transform:translateY(-12px);}\
+  .qtype{flex:1 1 auto;min-width:0;white-space:normal;overflow-wrap:break-word;}\
+  .airow2{display:none;gap:8px;margin:-4px 0 12px;flex-wrap:wrap;}\
+  .airow2 span{font-size:13px;font-weight:600;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px;}\
+  .s-ai .airow2{display:flex;}\
+  .s-text .qwrap.box{background:var(--clay);border-color:transparent;color:#FFF7EF;margin-left:auto;max-width:88%;border-bottom-right-radius:5px;box-shadow:0 16px 38px -28px rgba(120,43,15,.6);}\
+  .s-text .qtype{color:#FFF7EF;}\
+  .s-text .qchrome{display:none;}\
+  .s-text .cursor{background:#FFF7EF;}\
+  .s-ai .qchrome{color:var(--green);font-weight:700;}\
+  .results{display:flex;flex-direction:column;gap:10px;margin-top:4px;}\
+  .rescard{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:0 12px 28px -24px rgba(29,78,19,.55);opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.8,.2,1);}\
+  .rescard.show{opacity:1;transform:none;}\
+  .rav{flex:none;width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--green-soft),var(--green));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;}\
+  .rinfo{flex:1;min-width:0;}\
+  .rinfo b{font-size:15.5px;color:var(--ink);}\
+  .rinfo small{display:block;color:var(--muted);font-size:13px;margin-top:1px;}\
+  .rhist{display:block;color:var(--green);font-size:12.5px;margin-top:5px;}\
+  .rgo{flex:none;color:var(--green-soft);font-size:18px;}\
   .reveal{opacity:0;transform:translateY(14px);}\
   .screen.in .reveal{animation:rise .55s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:var(--d,0ms);}\
   .screen.out{opacity:0;transform:translateY(-10px) scale(.995);transition:opacity .2s ease,transform .2s ease;}\
   @keyframes rise{to{opacity:1;transform:none;}}\
-  @media (prefers-reduced-motion:reduce){.reveal,.fade,.itile,.itiles,.gwmark,.ccap,.csub{opacity:1!important;transform:none!important;animation:none!important;transition:none!important;}.cta:before,.cursor{animation:none;}.screen.out{transition:none;}}\
+  @media (prefers-reduced-motion:reduce){.reveal,.fade,.itile,.itiles,.gwmark,.ccap,.csub,.tabs2,.qpills,.rescard{opacity:1!important;transform:none!important;animation:none!important;transition:none!important;}.qwrap{background:#fff;border-color:var(--line);}.qpills{display:none!important;}.cta:before,.cursor{animation:none;}.screen.out{transition:none;}}\
   ";
 
   var shadow = mount.attachShadow ? mount.attachShadow({ mode: "open" }) : mount;
@@ -208,6 +243,7 @@
   function later(fn, ms) { var id = setTimeout(fn, ms); timers.push(id); return id; }
   function clearTimers() { timers.forEach(clearTimeout); timers = []; }
   function raf2(fn) { requestAnimationFrame(function () { requestAnimationFrame(fn); }); }
+  function typewriter(el, text, cb) { var i = 0; (function tick() { el.textContent = text.slice(0, i); i++; if (i <= text.length) later(tick, 28); else if (cb) later(cb, 260); })(); }
   function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
   function g() { return GOALS[state.goal || "customer"]; }
   function r() { return ROLES[state.role || "founder"]; }
@@ -335,21 +371,42 @@
   // ---- SEARCH ----
   function renderSearch() {
     barEl.classList.add("on");
-    var o = g(), s = o.person;
+    var o = g();
     var picks = (state.refine && state.refineGoal === state.goal) ? state.refine : o.refine.map(function (gr) { return gr.opts[0]; });
-    var lead = NOUN[state.goal || "customer"];
-    var pills = '<span class="qlead">' + esc(lead) + "</span>" + picks.map(function (p) { return '<span class="qpill">' + esc(tidy(p)) + "</span>"; }).join("");
-    var app = '<div class="sbar"><span class="mag">⌕</span>' + pills + '<span class="cursor"></span></div>';
-    var text = '<div class="bub me">' + pills + '</div><div class="bub gw"><span class="gwtag">Goodword</span>On it, one sec…</div>';
-    var ai = '<div class="aibar"><span class="gwchip">◑ Goodword</span>' + pills + '</div><div class="airow"><span>Claude</span><span>ChatGPT</span><span>Gemini</span></div>';
+    var question = tidy(o.q(picks));
+    var pills = picks.map(function (p) { return '<span class="qpill">' + esc(tidy(p)) + "</span>"; }).join("");
+    var res = RESULTS[state.goal || "customer"] || [];
+    var resHTML = res.map(function (r, i) {
+      return '<div class="rescard" data-ri="' + i + '"><span class="rav">' + esc(r.i) + '</span><div class="rinfo"><b>' + esc(r.n) + '</b><small>' + esc(r.r) + '</small><span class="rhist">' + esc(r.h) + '</span></div><span class="rgo">→</span></div>';
+    }).join("");
     screenEl.innerHTML =
-      '<div class="srch reveal" style="--d:0ms"><div class="tabs"><button class="tab on" data-tab="app">In the web app</button><button class="tab" data-tab="text">Over text</button><button class="tab" data-tab="ai">In your AI</button></div>' +
-      '<div class="panel" data-panel="app">' + app + '</div><div class="panel" hidden data-panel="text">' + text + '</div><div class="panel" hidden data-panel="ai">' + ai + "</div></div>" +
-      '<div class="found reveal" style="--d:220ms"><div class="found-label">…and finds the one who fits</div>' +
-      '<div class="pcard"><div class="pc-top"><span class="pc-av">SC</span><div class="pc-id"><b>Sarah Chen</b><small>' + esc(s.role) + '</small></div><span class="pc-badge">' + esc(s.match) + '</span></div>' +
-      '<div class="pc-hist">' + esc(s.history) + '</div><span class="pc-act">' + esc(s.act) + ' →</span></div></div>' +
-      '<button class="cta reveal" style="--d:300ms" data-next>Next</button>';
-    screenEl.classList.remove("in"); void screenEl.offsetWidth; screenEl.classList.add("in");
+      '<div class="srch2 s-app">' +
+      '<div class="tabs tabs2"><button class="tab on" data-tab="app">In the web app</button><button class="tab" data-tab="text">Over text</button><button class="tab" data-tab="ai">In your AI</button></div>' +
+      '<div class="qwrap"><span class="qchrome">⌕</span><span class="qpills">' + pills + '</span><span class="qtype"></span><span class="cursor"></span></div>' +
+      '<div class="airow2"><span>Claude</span><span>ChatGPT</span><span>Gemini</span></div>' +
+      '<div class="results">' + resHTML + "</div></div>" +
+      '<button class="cta" data-next>Next</button>';
+    var tabs = screenEl.querySelector(".tabs2"), qwrap = screenEl.querySelector(".qwrap"),
+      qpills = screenEl.querySelector(".qpills"), qtype = screenEl.querySelector(".qtype"),
+      cards = screenEl.querySelectorAll(".rescard"), cta = screenEl.querySelector(".cta");
+    function popResults() {
+      for (var i = 0; i < cards.length; i++) (function (el, k) { later(function () { el.classList.add("show"); }, k * 200); })(cards[i], i);
+      later(function () { cta.classList.add("show"); }, cards.length * 200 + 260);
+    }
+    if (REDUCE) {
+      qpills.style.display = "none"; qtype.textContent = question;
+      tabs.classList.add("show"); qwrap.classList.add("box");
+      for (var i = 0; i < cards.length; i++) cards[i].classList.add("show");
+      cta.classList.add("show"); return;
+    }
+    raf2(function () { qpills.classList.add("in"); });
+    later(function () { qpills.classList.add("out"); }, 900);
+    later(function () {
+      qpills.style.display = "none";
+      qwrap.classList.add("box");
+      tabs.classList.add("show");
+      typewriter(qtype, question, popResults);
+    }, 1250);
   }
 
   function renderRole() {
@@ -392,8 +449,11 @@
     }
     if (btn.hasAttribute("data-tab")) {
       var tabs = screenEl.querySelectorAll(".tab"); for (var ti = 0; ti < tabs.length; ti++) tabs[ti].classList.remove("on"); btn.classList.add("on");
-      var want = btn.getAttribute("data-tab"), panels = screenEl.querySelectorAll(".panel");
-      for (var pi = 0; pi < panels.length; pi++) panels[pi].hidden = (panels[pi].getAttribute("data-panel") !== want);
+      var want = btn.getAttribute("data-tab"), sr = screenEl.querySelector(".srch2");
+      if (sr) {
+        sr.className = "srch2 s-" + want;
+        var qc = sr.querySelector(".qchrome"); if (qc) qc.textContent = (want === "app" ? "⌕" : (want === "ai" ? "◑ Goodword" : ""));
+      }
       return;
     }
     if (btn.hasAttribute("data-role")) { btn.classList.add("chosen"); var v2 = btn.getAttribute("data-role"); later(function () { state.role = v2; go("sell"); }, REDUCE ? 0 : 160); return; }
