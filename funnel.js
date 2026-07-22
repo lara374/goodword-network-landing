@@ -161,8 +161,10 @@
   .ccap em{color:var(--green);font-style:italic;}\
   .csub{font-size:16px;color:var(--muted);margin:0;opacity:0;transition:opacity .5s ease;}\
   .csub.show{opacity:1;}\
-  .rgroup{margin-bottom:24px;}\
-  .rlabel{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:11px;}\
+  .refh{margin-top:auto;margin-bottom:36px;}\
+  .rgroup{margin-bottom:36px;}\
+  .rgroup:last-of-type{margin-bottom:0;}\
+  .rlabel{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:13px;}\
   .rchips{display:flex;flex-wrap:wrap;gap:9px;}\
   .rchip{font:inherit;font-size:15px;font-weight:500;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:11px 17px;cursor:pointer;transition:transform .15s,border-color .15s,background .15s,box-shadow .15s;}\
   .rchip:hover{transform:translateY(-1px);border-color:var(--green-soft);}\
@@ -233,7 +235,7 @@
   .rinfo small{display:block;color:var(--muted);font-size:13px;margin-top:1px;}\
   .rhist{display:block;color:var(--green);font-size:12.5px;margin-top:5px;}\
   .rgo{flex:none;color:var(--green-soft);font-size:18px;}\
-  .surface{margin-top:14px;margin-bottom:30px;}\
+  .surface{margin-top:14px;margin-bottom:30px;min-height:470px;}\
   .qzone{margin:14px;}\
   .webframe{border:1px solid transparent;border-radius:18px;background:transparent;overflow:hidden;box-shadow:none;transition:border-color .55s ease,background .55s ease,box-shadow .55s ease;}\
   .webframe.built{border-color:var(--line);background:#fff;box-shadow:0 20px 46px -30px rgba(29,78,19,.5);}\
@@ -244,6 +246,8 @@
   .wdots i{width:9px;height:9px;border-radius:50%;background:rgba(29,78,19,.18);}\
   .wbrand{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:var(--green);}\
   .gwdot{color:var(--green);font-weight:700;}\
+  .gwlogo{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;flex:none;}\
+  .gwlogo svg{width:100%;height:100%;display:block;}\
   .webframe .qwrap{margin:0;padding:13px 15px;border:1px solid var(--line);background:var(--green-tint);border-radius:12px;min-height:auto;box-shadow:none;}\
   .webframe .qwrap.box{background:#fff;}\
   .webframe .results{padding:2px 8px 10px;margin:0;gap:0;}\
@@ -254,7 +258,8 @@
   .tmsg.show{opacity:1;transform:none;}\
   .tmsg.me{align-self:flex-end;background:var(--clay);color:#FFF7EF;border-bottom-right-radius:6px;}\
   .tmsg.gw{align-self:flex-start;background:#ECE6DC;color:var(--ink);border-bottom-left-radius:6px;}\
-  .tmsg .gwtag{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--green);margin-bottom:3px;}\
+  .tmsg .gwtag{display:flex;align-items:center;gap:5px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--green);margin-bottom:5px;}\
+  .tmsg .gwtag .gwlogo{width:14px;height:14px;}\
   .tmsg.typing{display:flex;gap:5px;align-items:center;padding:14px 16px;}\
   .tmsg.typing span{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:tdot 1.2s infinite;}\
   .tmsg.typing span:nth-child(2){animation-delay:.2s;}.tmsg.typing span:nth-child(3){animation-delay:.4s;}\
@@ -267,11 +272,17 @@
   .aichip{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 12px;}\
   .ailogo{display:inline-flex;align-items:center;line-height:0;}\
   .ailogo svg{display:block;}\
-  .aiq{display:flex;gap:10px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:16px;line-height:1.35;color:var(--ink);opacity:0;transform:translateY(8px);transition:opacity .45s ease,transform .45s ease;}\
-  .aiq.show{opacity:1;transform:none;}\
-  .aiyou{flex:none;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--green-tint);border-radius:6px;padding:3px 7px;margin-top:1px;}\
-  .aistatus{display:none;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--green);}\
-  .aistatus.show{display:flex;}\
+  .ailabel{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;opacity:0;transition:opacity .45s ease;}\
+  .ailabel.show{opacity:1;}\
+  .aichat{display:flex;flex-direction:column;gap:14px;margin-top:6px;}\
+  .aiuser{align-self:flex-end;max-width:86%;background:#fff;border:1px solid var(--line);border-radius:16px;border-bottom-right-radius:5px;padding:12px 16px;font-size:15px;line-height:1.4;color:var(--ink);box-shadow:0 10px 24px -20px rgba(29,78,19,.5);opacity:0;transform:translateY(8px);transition:opacity .45s ease,transform .45s ease;}\
+  .aiuser.show{opacity:1;transform:none;}\
+  .airesp{display:flex;gap:10px;align-items:flex-start;opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease;}\
+  .airesp.show{opacity:1;transform:none;}\
+  .aiava{flex:none;width:30px;height:30px;border-radius:9px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;padding:5px;box-shadow:0 6px 14px -10px rgba(29,78,19,.5);}\
+  .aiava svg{width:100%;height:100%;display:block;}\
+  .aibody{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px;padding-top:3px;}\
+  .aistatus{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--green);}\
   .aistatus.done{display:none;}\
   .edots i{animation:tdot 1.2s infinite;display:inline-block;}.edots i:nth-child(2){animation-delay:.2s;}.edots i:nth-child(3){animation-delay:.4s;}\
   .bridge{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;flex:1;padding:24px 0;}\
@@ -320,7 +331,7 @@
   .screen.in .reveal{animation:rise .55s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:var(--d,0ms);}\
   .screen.out{opacity:0;transform:translateY(-10px) scale(.995);transition:opacity .2s ease,transform .2s ease;}\
   @keyframes rise{to{opacity:1;transform:none;}}\
-  @media (prefers-reduced-motion:reduce){.reveal,.fade,.itile,.itiles,.gwmark,.ccap,.csub,.cstat,.tabs2,.qpills,.rescard,.webframe,.tmsg,.ailogos,.aiq,.bstep,.bhelps,.bask{opacity:1!important;transform:none!important;animation:none!important;transition:none!important;}.qpills{display:none!important;}.tmsg.typing{display:none!important;}.cta:before,.cursor,.edots i,.qtype::after{animation:none;}.screen.out{transition:none;}}\
+  @media (prefers-reduced-motion:reduce){.reveal,.fade,.itile,.itiles,.gwmark,.ccap,.csub,.cstat,.tabs2,.qpills,.rescard,.webframe,.tmsg,.ailogos,.aiuser,.airesp,.ailabel,.bstep,.bhelps,.bask{opacity:1!important;transform:none!important;animation:none!important;transition:none!important;}.qpills{display:none!important;}.tmsg.typing{display:none!important;}.cta:before,.cursor,.edots i,.qtype::after{animation:none;}.screen.out{transition:none;}}\
   ";
 
   var shadow = mount.attachShadow ? mount.attachShadow({ mode: "open" }) : mount;
@@ -424,18 +435,18 @@
       '<div class="gwmark">' + logo + "</div>" +
       '<p class="ccap">Goodword pulls everyone into <em>one place</em>.</p>' +
       '<p class="csub">Who you need, when you need them.</p>' +
-      '<div class="cstat"><span class="cstat-num">5.2M</span><span class="cstat-lbl">people already mapped in Goodword</span></div></div></div>' +
+      '<div class="cstat"><span class="cstat-num">5.2M</span><span class="cstat-lbl">people already mapped on Goodword</span></div></div></div>' +
       "</div>" +
       '<button class="cta fade" data-next style="margin-top:26px">Show me how</button>';
     var b1 = screenEl.querySelector(".b1 h1"), b2 = screenEl.querySelector(".b2"), cta = screenEl.querySelector(".cta"),
       itiles = screenEl.querySelector(".itiles"), gwmark = screenEl.querySelector(".gwmark"),
-      ccap = screenEl.querySelector(".ccap"), csub = screenEl.querySelector(".csub"), cstat = screenEl.querySelector(".cstat"), tileEls = screenEl.querySelectorAll(".itile");
+      ccap = screenEl.querySelector(".ccap"), csub = screenEl.querySelector(".csub"), cstat = screenEl.querySelector(".cstat"), cstatNum = screenEl.querySelector(".cstat-num"), tileEls = screenEl.querySelectorAll(".itile");
     var doneV = false;
     function finishAll() {
       if (doneV) return; doneV = true; clearTimers();
       b1.classList.add("show"); b2.classList.add("show"); cta.classList.add("show"); itiles.classList.remove("flow");
       for (var i = 0; i < tileEls.length; i++) tileEls[i].classList.add("show");
-      gwmark.classList.add("show"); ccap.classList.add("show"); csub.classList.add("show"); cstat.classList.add("show");
+      gwmark.classList.add("show"); ccap.classList.add("show"); csub.classList.add("show"); cstat.classList.add("show"); if (cstatNum) cstatNum.textContent = "5.2M";
     }
     function vskip(e) { if (e.target.closest && e.target.closest(".cta,.back")) return; if (!doneV) finishAll(); root.removeEventListener("click", vskip, true); }
     root.addEventListener("click", vskip, true);
@@ -449,7 +460,7 @@
     later(function () { itiles.classList.remove("flow"); }, tBack);
     later(function () { ccap.classList.add("show"); }, tBack + 300);
     later(function () { csub.classList.add("show"); }, tBack + 650);
-    later(function () { cstat.classList.add("show"); }, tBack + 900);
+    later(function () { cstat.classList.add("show"); if (cstatNum) countUp(cstatNum, 5.2, 1150); }, tBack + 900);
     later(function () { cta.classList.add("show"); }, tBack + 1300);
   }
 
@@ -465,7 +476,7 @@
       return '<div class="rgroup reveal" style="--d:' + (100 + gi * 120) + 'ms"><div class="rlabel">' + esc(gr.label) + '</div><div class="rchips">' + chips + "</div></div>";
     }).join("");
     screenEl.innerHTML =
-      '<h1 class="reveal" style="--d:0ms">' + esc(o.refineHead) + "</h1>" +
+      '<h1 class="reveal refh" style="--d:0ms">' + esc(o.refineHead) + "</h1>" +
       groups +
       '<button class="cta reveal" style="--d:' + (100 + o.refine.length * 120 + 120) + 'ms" data-next>Find them</button>';
     screenEl.classList.remove("in"); void screenEl.offsetWidth; screenEl.classList.add("in");
@@ -479,6 +490,13 @@
     codex: AI_OAI,
     gemini: '<svg viewBox="0 0 24 24" width="15" height="15"><defs><linearGradient id="gemg" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#4285F4"/><stop offset=".5" stop-color="#9B72CB"/><stop offset="1" stop-color="#D96570"/></linearGradient></defs><path fill="url(#gemg)" d="M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81"/></svg>'
   };
+  var GWLOGO = window.__GW_LOGO || "";
+  function countUp(el, target, dur) {
+    el.textContent = "0.0M";
+    var start = null;
+    function tick(ts) { if (start === null) start = ts; var p = Math.min(1, (ts - start) / dur); var e = 1 - Math.pow(1 - p, 3); el.textContent = (target * e).toFixed(1) + "M"; if (p < 1) requestAnimationFrame(tick); else el.textContent = target.toFixed(1) + "M"; }
+    requestAnimationFrame(tick);
+  }
   var surfaceRender = null;
   function renderSearch() {
     barEl.classList.add("on");
@@ -502,7 +520,7 @@
 
     function renderApp(animate) {
       surface.innerHTML =
-        '<div class="webframe"><div class="webtop"><span class="wdots"><i></i><i></i><i></i></span><span class="wbrand"><span class="gwdot">◑</span>Goodword</span></div>' +
+        '<div class="webframe"><div class="webtop"><span class="wdots"><i></i><i></i><i></i></span><span class="wbrand"><span class="gwlogo">' + GWLOGO + "</span>Goodword</span></div>" +
         '<div class="qzone"><div class="qpills">' + pills + "</div>" +
         '<div class="qwrap"><span class="qchrome">⌕</span><span class="qtype"></span></div></div>' +
         '<div class="results">' + rows() + "</div></div>";
@@ -519,7 +537,7 @@
       surface.innerHTML =
         '<div class="thread"><div class="tmsg me">' + esc(question) + "</div>" +
         '<div class="tmsg gw typing"><span></span><span></span><span></span></div>' +
-        '<div class="tmsg gw reply"><span class="gwtag">Goodword</span>Found 3 people in your network 👇</div>' +
+        '<div class="tmsg gw reply"><span class="gwtag"><span class="gwlogo">' + GWLOGO + "</span>Goodword</span>Found 3 people in your network 👇</div>" +
         bubbles() + "</div>";
       var me = surface.querySelector(".me"), typing = surface.querySelector(".typing"), reply = surface.querySelector(".reply");
       showTabs();
@@ -530,17 +548,18 @@
     }
     function renderAI(animate) {
       surface.innerHTML =
-        '<div class="aiwrap"><div class="ailogos">' + aichip("Claude", "claude") + aichip("ChatGPT", "chatgpt") + aichip("Gemini", "gemini") + aichip("Codex", "codex") + "</div>" +
-        '<div class="aiq"><span class="aiyou">You</span><span>' + esc(question) + "</span></div>" +
-        '<div class="aistatus"><span class="gwdot">◑</span>Accessing Goodword Network<span class="edots"><i>.</i><i>.</i><i>.</i></span></div>' +
-        '<div class="results">' + rows() + "</div></div>";
-      var logos = surface.querySelector(".ailogos"), aiq = surface.querySelector(".aiq"), status = surface.querySelector(".aistatus");
+        '<div class="aiwrap"><div class="ailabel">Ask Goodword right inside</div><div class="ailogos">' + aichip("Claude", "claude") + aichip("ChatGPT", "chatgpt") + aichip("Gemini", "gemini") + aichip("Codex", "codex") + "</div>" +
+        '<div class="aichat"><div class="aiuser">' + esc(question) + "</div>" +
+        '<div class="airesp"><span class="aiava">' + GWLOGO + '</span><div class="aibody">' +
+        '<div class="aistatus">Searching your Goodword network<span class="edots"><i>.</i><i>.</i><i>.</i></span></div>' +
+        '<div class="results">' + rows() + "</div></div></div></div></div>";
+      var logos = surface.querySelector(".ailogos"), label = surface.querySelector(".ailabel"), aiuser = surface.querySelector(".aiuser"), airesp = surface.querySelector(".airesp"), status = surface.querySelector(".aistatus");
       showTabs();
-      if (!animate) { logos.classList.add("show"); aiq.classList.add("show"); var cs = surface.querySelectorAll(".rescard"); for (var i = 0; i < cs.length; i++) cs[i].classList.add("show"); showCta(); return; }
-      raf2(function () { logos.classList.add("show"); });
-      later(function () { aiq.classList.add("show"); }, 350);
-      later(function () { status.classList.add("show"); }, 800);
-      later(function () { status.classList.add("done"); stagger(".rescard", 200); }, 2000);
+      if (!animate) { label.classList.add("show"); logos.classList.add("show"); aiuser.classList.add("show"); airesp.classList.add("show"); status.classList.add("done"); var cs = surface.querySelectorAll(".rescard"); for (var i = 0; i < cs.length; i++) cs[i].classList.add("show"); showCta(); return; }
+      raf2(function () { label.classList.add("show"); logos.classList.add("show"); });
+      later(function () { aiuser.classList.add("show"); }, 450);
+      later(function () { airesp.classList.add("show"); }, 1000);
+      later(function () { status.classList.add("done"); stagger(".rescard", 150); }, 2100);
     }
     surfaceRender = function (which, animate) { srch.className = "srch2 s-" + which; if (which === "text") renderText(animate); else if (which === "ai") renderAI(animate); else renderApp(animate); };
     surfaceRender("app", !REDUCE);
@@ -555,7 +574,7 @@
       '<div class="bhelps"><span class="bhead">Goodword helps</span><span class="brole"></span></div>' +
       '<div class="bsteps">' +
       '<div class="bstep"><b>Consolidate</b> their whole network</div>' +
-      '<div class="bstep"><b>Search</b> it in plain language</div>' +
+      '<div class="bstep"><b>Search</b> it just by asking</div>' +
       '<div class="bstep"><b>Activate</b> the connections that matter</div>' +
       "</div>" +
       '<div class="bask"><h2>So — which one are you?</h2><div class="rolechips">' + chips + "</div></div>" +
@@ -567,12 +586,11 @@
     helps.classList.add("show");
     var ri = 0; brole.textContent = roleWords[0]; brole.classList.add("swap");
     var cycling = true;
-    (function spin() { if (!cycling) return; ri = (ri + 1) % roleWords.length; brole.classList.remove("swap"); void brole.offsetWidth; brole.textContent = roleWords[ri]; brole.classList.add("swap"); later(spin, 440); })();
-    later(function () { cycling = false; }, 1250);
-    later(function () { steps[0].classList.add("show"); }, 1450);
-    later(function () { steps[1].classList.add("show"); }, 2200);
-    later(function () { steps[2].classList.add("show"); }, 2950);
-    later(function () { ask.classList.add("show"); }, 3750);
+    (function spin() { if (!cycling) return; ri = (ri + 1) % roleWords.length; brole.classList.remove("swap"); void brole.offsetWidth; brole.textContent = roleWords[ri]; brole.classList.add("swap"); later(spin, 240); })();
+    later(function () { steps[0].classList.add("show"); }, 1550);
+    later(function () { steps[1].classList.add("show"); }, 2350);
+    later(function () { steps[2].classList.add("show"); }, 3150);
+    later(function () { cycling = false; ask.classList.add("show"); }, 3950);
   }
   function renderSell() {
     barEl.classList.add("on");
@@ -581,10 +599,10 @@
     var feats = ro.features.map(function (f) { return '<li><span class="tick">✓</span><span>' + esc(f) + "</span></li>"; }).join("");
     screenEl.innerHTML =
       '<h1 class="reveal" style="--d:0ms">' + cl.h + "</h1>" +
-      '<p class="body reveal" style="--d:90ms">' + esc(cl.sub) + "</p>" +
-      '<ul class="feat reveal" style="--d:180ms">' + feats + "</ul>" +
-      '<figure class="quote reveal" style="--d:270ms"><div class="stars">★★★★★</div><p>“' + esc(qt.text) + '”</p><figcaption><span class="qavatar">' + esc(qt.name.charAt(0)) + '</span><span class="qwho"><span class="qname">' + esc(qt.name) + '</span><span class="qrole">' + esc(qt.title) + "</span></span></figcaption></figure>" +
-      '<a class="cta reveal" style="--d:350ms" data-signup href="' + esc(signupHref()) + '">Start free →</a>';
+      '<p class="body reveal" style="--d:700ms">' + esc(cl.sub) + "</p>" +
+      '<ul class="feat reveal" style="--d:1400ms">' + feats + "</ul>" +
+      '<figure class="quote reveal" style="--d:2100ms"><div class="stars">★★★★★</div><p>“' + esc(qt.text) + '”</p><figcaption><span class="qavatar">' + esc(qt.name.charAt(0)) + '</span><span class="qwho"><span class="qname">' + esc(qt.name) + '</span><span class="qrole">' + esc(qt.title) + "</span></span></figcaption></figure>" +
+      '<a class="cta reveal" style="--d:2800ms" data-signup href="' + esc(signupHref()) + '">Start free →</a>';
     screenEl.classList.remove("in"); void screenEl.offsetWidth; screenEl.classList.add("in");
   }
 
