@@ -41,7 +41,14 @@
   };
   var GOAL_ORDER = ["customer", "raise", "hire", "role", "exploring"];
   var ROLE_ORDER = ["founder", "investor", "recruiter", "sales", "community", "operator"];
-  var ORDER = ["goal", "value", "role", "sell"];
+  var ORDER = ["goal", "value", "search", "role", "sell"];
+  var SEARCH = {
+    customer: { query: "who's a warm lead for what I sell?", role: "VP Partnerships · Acme", match: "Ideal customer fit", history: "Met at SaaStr · last spoke in March · 2 mutual connections", act: "Draft a warm intro", initials: "SC" },
+    raise: { query: "which investors back companies like mine?", role: "Partner · Northstar Ventures", match: "Backs your stage & space", history: "Met at a founder dinner · 3 founders you know are in her portfolio", act: "Draft a warm intro", initials: "SC" },
+    hire: { query: "who could be my next senior engineer?", role: "Staff Engineer · ex-Stripe", match: "Matches the role you're hiring", history: "Met at a hackathon · vouched for by 2 people you trust", act: "Draft a warm intro", initials: "SC" },
+    role: { query: "who can open doors at my target companies?", role: "Director · Acme (hiring now)", match: "Hiring for roles like yours", history: "2nd degree · your mentor knows her well", act: "Ask for a warm intro", initials: "SC" },
+    exploring: { query: "who should I reconnect with this week?", role: "Founder · Carbon Capture", match: "Worth reconnecting", history: "Met at SaaStr · you last spoke 8 months ago · 4 mutuals", act: "Say hello", initials: "SC" }
+  };
   var REEL = ["my next customer", "my next investor", "my next hire", "my next advisor", "an expert who gets it"];
 
   var CSS = "\
@@ -137,6 +144,32 @@
   .smock .rn{flex:1;font-size:14.5px;}\
   .smock .rn small{display:block;color:var(--muted);font-size:12.5px;}\
   .smock .act{font-size:13px;font-weight:600;color:#FFF7EF;background:var(--clay);border-radius:999px;padding:7px 14px;white-space:nowrap;}\
+  .srch{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.6);padding:12px;margin:2px 0 20px;box-shadow:0 14px 34px -30px rgba(29,78,19,.5);}\
+  .tabs{display:flex;gap:6px;background:var(--green-tint);border-radius:12px;padding:4px;margin-bottom:12px;}\
+  .tab{flex:1;font:inherit;font-size:13px;font-weight:600;color:var(--muted);background:none;border:none;border-radius:9px;padding:9px 4px;cursor:pointer;transition:background .2s,color .2s;}\
+  .tab.on{background:#fff;color:var(--green);box-shadow:0 2px 8px -4px rgba(29,78,19,.4);}\
+  .panel{padding:4px 4px 6px;}\
+  .sbar,.aibar{display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px;font-size:15px;color:var(--ink);}\
+  .sbar .mag{color:var(--green);font-size:17px;}\
+  .cursor{display:inline-block;width:1.5px;height:17px;background:var(--green);animation:blink 1s step-end infinite;vertical-align:middle;}\
+  .bub{max-width:84%;padding:12px 15px;border-radius:16px;font-size:15px;margin:4px 0;line-height:1.35;}\
+  .bub.me{background:var(--clay);color:#FFF7EF;margin-left:auto;border-bottom-right-radius:5px;}\
+  .bub.gw{background:var(--green-tint);color:var(--ink);border-bottom-left-radius:5px;}\
+  .bub .gwtag{color:var(--green);font-weight:700;font-size:12px;margin-right:6px;}\
+  .aibar .gwchip{color:var(--green);font-weight:700;font-size:13px;background:var(--green-tint);border-radius:8px;padding:3px 8px;white-space:nowrap;}\
+  .airow{display:flex;gap:8px;margin-top:9px;flex-wrap:wrap;}\
+  .airow span{font-size:13px;font-weight:600;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px;}\
+  .found{margin:2px 0 22px;}\
+  .found-label{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:10px;}\
+  .pcard{border:1px solid var(--line);border-radius:18px;background:#fff;padding:16px;box-shadow:0 18px 40px -28px rgba(29,78,19,.5);}\
+  .pc-top{display:flex;align-items:center;gap:12px;}\
+  .pc-av{flex:none;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--green-soft),var(--green));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;}\
+  .pc-id{flex:1;min-width:0;}\
+  .pc-id b{font-size:17px;}\
+  .pc-id small{display:block;color:var(--muted);font-size:13px;}\
+  .pc-badge{flex:none;font-size:11.5px;font-weight:600;color:var(--green);background:var(--green-tint);border-radius:999px;padding:6px 11px;}\
+  .pc-hist{font-size:13.5px;color:var(--muted);border-top:1px solid var(--line);margin-top:13px;padding-top:12px;}\
+  .pc-act{display:inline-block;margin-top:13px;font-size:14px;font-weight:600;color:#FFF7EF;background:var(--clay);border-radius:999px;padding:10px 18px;text-decoration:none;}\
   .reveal{opacity:0;transform:translateY(14px);}\
   .screen.in .reveal{animation:rise .55s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:var(--d,0ms);}\
   .screen.out{opacity:0;transform:translateY(-10px) scale(.995);transition:opacity .2s ease,transform .2s ease;}\
@@ -243,11 +276,9 @@
     screenEl.innerHTML =
       '<div class="beats">' +
       '<div class="beat b1"><h1 class="fade">' + esc(o.hook) + "</h1></div>" +
-      '<div class="beat b2 fade"><p class="beat-h">First, Goodword pulls your whole network into <em>one place</em>.</p>' +
+      '<div class="beat b2 fade"><p class="beat-h">First, everyone you know, pulled into <em>one place</em>.</p>' +
       '<div class="itiles">' + tiles + '</div><div class="hub">↓&nbsp; Everyone you know, in one place</div></div>' +
-      '<div class="beat b3 fade"><p class="beat-h">Then just ask, in plain language, and act on who you find.</p>' +
-      '<div class="smock"><div class="sq"><span class="mag">⌕</span> who could introduce me to a buyer at Acme?<span class="cursor"></span></div>' +
-      '<div class="res"><span class="av"></span><span class="rn">Dana Rivera<small>2nd · knows your VP Sales · warm path</small></span><span class="act">Ask for intro</span></div></div></div>' +
+      '<div class="beat b3 fade"><p class="beat-h">Then find exactly who you need, the moment it matters.</p></div>' +
       "</div>" +
       '<button class="cta fade" data-next style="margin-top:26px">Show me how</button>';
     var b1 = screenEl.querySelector(".b1 h1"), b2 = screenEl.querySelector(".b2"), b3 = screenEl.querySelector(".b3"),
@@ -285,7 +316,28 @@
     screenEl.classList.remove("in"); void screenEl.offsetWidth; screenEl.classList.add("in");
   }
 
-  var RENDER = { goal: renderGoal, value: renderValue, role: renderRole, sell: renderSell };
+  function renderSearch() {
+    barEl.classList.add("on");
+    var s = SEARCH[state.goal || "exploring"];
+    var app = '<div class="sbar"><span class="mag">⌕</span><span>' + esc(s.query) + '</span><span class="cursor"></span></div>';
+    var text = '<div class="bub me">' + esc(s.query) + '</div><div class="bub gw"><span class="gwtag">Goodword</span>On it, one sec…</div>';
+    var ai = '<div class="aibar"><span class="gwchip">◑ Goodword</span><span>' + esc(s.query) + '</span></div><div class="airow"><span>Claude</span><span>ChatGPT</span><span>Gemini</span></div>';
+    screenEl.innerHTML =
+      '<h1 class="reveal" style="--d:0ms">Ask <em>wherever</em> you already work.</h1>' +
+      '<p class="body reveal" style="--d:70ms">In the app, over text, or right inside your AI. Goodword finds the right person.</p>' +
+      '<div class="srch reveal" style="--d:140ms">' +
+      '<div class="tabs"><button class="tab on" data-tab="app">In the app</button><button class="tab" data-tab="text">Over text</button><button class="tab" data-tab="ai">In your AI</button></div>' +
+      '<div class="panel" data-panel="app">' + app + '</div>' +
+      '<div class="panel" hidden data-panel="text">' + text + '</div>' +
+      '<div class="panel" hidden data-panel="ai">' + ai + '</div></div>' +
+      '<div class="found reveal" style="--d:220ms"><div class="found-label">…and finds the one who fits</div>' +
+      '<div class="pcard"><div class="pc-top"><span class="pc-av">' + esc(s.initials) + '</span><div class="pc-id"><b>Sarah Chen</b><small>' + esc(s.role) + '</small></div><span class="pc-badge">' + esc(s.match) + '</span></div>' +
+      '<div class="pc-hist">' + esc(s.history) + '</div><span class="pc-act">' + esc(s.act) + ' →</span></div></div>' +
+      '<button class="cta reveal" style="--d:300ms" data-next>Next</button>';
+    screenEl.classList.remove("in"); void screenEl.offsetWidth; screenEl.classList.add("in");
+  }
+
+  var RENDER = { goal: renderGoal, value: renderValue, search: renderSearch, role: renderRole, sell: renderSell };
   function paint() { clearTimers(); screenEl.classList.remove("out"); RENDER[current](); paintChrome(); }
   function transitionTo(next) { clearTimers(); if (REDUCE) { current = next; try { window.scrollTo(0, 0); } catch (e) {} paint(); return; } screenEl.classList.add("out"); setTimeout(function () { current = next; try { window.scrollTo(0, 0); } catch (e) {} paint(); }, 200); }
   function go(next) { state.history.push(current); transitionTo(next); }
@@ -296,6 +348,12 @@
     if (btn.hasAttribute("data-signup")) return;
     if (btn.hasAttribute("data-goal")) { if (!btn.classList.contains("show")) return; btn.classList.add("chosen"); var v = btn.getAttribute("data-goal"); later(function () { state.goal = v; go("value"); }, REDUCE ? 0 : 160); return; }
     if (btn.hasAttribute("data-role")) { btn.classList.add("chosen"); var v2 = btn.getAttribute("data-role"); later(function () { state.role = v2; go("sell"); }, REDUCE ? 0 : 160); return; }
+    if (btn.hasAttribute("data-tab")) {
+      var tabs = screenEl.querySelectorAll(".tab"); for (var ti = 0; ti < tabs.length; ti++) tabs[ti].classList.remove("on"); btn.classList.add("on");
+      var want = btn.getAttribute("data-tab"), panels = screenEl.querySelectorAll(".panel");
+      for (var pi = 0; pi < panels.length; pi++) panels[pi].hidden = (panels[pi].getAttribute("data-panel") !== want);
+      return;
+    }
     if (btn.hasAttribute("data-next")) { var i = ORDER.indexOf(current); if (i < ORDER.length - 1) go(ORDER[i + 1]); return; }
   });
   backBtn.addEventListener("click", function () { if (!state.history.length) return; current = state.history.pop(); try { window.scrollTo(0, 0); } catch (e) {} paint(); });
