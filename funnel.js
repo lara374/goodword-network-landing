@@ -27,9 +27,9 @@
 
   var GOALS = {
     customer: { label: "My next customer", hook: "Your next customer is already in your network.",
-      refineHead: "Who's your ideal customer?",
-      refine: [{ label: "Who buys from you", opts: ["Founders", "Sales leaders", "Marketing leaders", "Product leaders", "Ops leaders"] }, { label: "Their company", opts: ["Startups", "Mid-market", "Enterprise", "SMBs"] }],
-      q: function (p) { return "who's a warm " + p[1].toLowerCase().replace(/s$/, "") + " " + p[0].toLowerCase().replace(/s$/, "") + " in my network?"; },
+      refineHead: "Who are you trying to reach?",
+      refine: [{ label: "What you sell", opts: ["Product", "Service", "Consulting", "Agency"] }, { label: "Who buys it", opts: ["Startups", "Scale-ups", "Enterprises", "SMBs", "Consumers"] }],
+      q: function (p) { return "who's a warm " + p[1].toLowerCase().replace(/s$/, "") + " lead for my " + p[0].toLowerCase() + "?"; },
       person: { role: "VP Partnerships · Acme", match: "Ideal customer fit", history: "Met at SaaStr · last spoke in March · 2 mutual connections", act: "Draft a warm intro" } },
     investor: { label: "My next investor", hook: "Your next investor is already in your network.",
       refineHead: "Tell us about your raise",
@@ -80,6 +80,7 @@
   };
   var GOAL_ORDER = ["customer", "investor", "hire", "partner", "advisor", "career"];
   var ROLE_ORDER = ["founder", "investor", "recruiter", "sales", "community", "operator"];
+  var ROLE_PLURAL = { founder: "Founders", investor: "Investors", recruiter: "Recruiters", sales: "Sales & BD", community: "Community builders", operator: "Operators" };
   var ORDER = ["goal", "value", "refine", "search", "role", "sell"];
   var REEL = GOAL_ORDER.map(function (k) { return GOALS[k].label; });
 
@@ -292,10 +293,16 @@
   .prodshot{margin:6px 0 22px;}\
   .prodshot .webframe{box-shadow:0 20px 46px -30px rgba(29,78,19,.5);}\
   .pqt{flex:1 1 auto;min-width:0;color:var(--ink);white-space:normal;overflow-wrap:break-word;}\
-  .quote{margin:2px 0 22px;padding:16px 18px;border-left:3px solid var(--green-soft);background:var(--green-tint);border-radius:0 12px 12px 0;}\
-  .stars{color:var(--clay);font-size:14px;letter-spacing:3px;margin-bottom:9px;}\
-  .quote p{margin:0 0 9px;font-size:16px;font-style:italic;color:var(--ink);line-height:1.42;}\
-  .quote figcaption{font-size:13px;color:var(--muted);font-weight:600;}\
+  .quote{margin:2px 0 22px;padding:24px 22px 20px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 50px -34px rgba(29,78,19,.45);}\
+  .stars{color:var(--clay);font-size:15px;letter-spacing:3px;margin-bottom:14px;}\
+  .quote p{margin:0 0 18px;font-size:16px;color:var(--ink);line-height:1.5;}\
+  .quote figcaption{display:flex;align-items:center;gap:12px;}\
+  .qavatar{flex:none;width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--green-soft),var(--green));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;}\
+  .qwho{display:flex;flex-direction:column;line-height:1.25;}\
+  .qname{font-weight:700;color:var(--ink);font-size:14px;}\
+  .qrole{color:var(--muted);font-size:13px;}\
+  .bnet{color:var(--line);transition:color .55s ease;}\
+  .bnet.lit{color:var(--ink);}\
   .qtag{display:inline-block;margin-left:8px;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--clay);background:rgba(184,104,69,.1);border-radius:6px;padding:2px 6px;font-weight:700;vertical-align:middle;}\
   .cstat{margin:14px 0 0;font-size:14px;color:var(--green);font-weight:600;opacity:0;transition:opacity .5s ease;}\
   .cstat.show{opacity:1;}\
@@ -526,17 +533,18 @@
 
   function renderRole() {
     barEl.classList.add("on");
-    var roleWords = ROLE_ORDER.map(function (k) { return ROLES[k].label; });
+    var roleWords = ROLE_ORDER.map(function (k) { return ROLE_PLURAL[k]; });
     var chips = ROLE_ORDER.map(function (k) { return '<button class="rolechip" data-role="' + k + '">' + esc(ROLES[k].label) + "</button>"; }).join("");
     screenEl.innerHTML =
       '<div class="bridge">' +
       '<div class="bhelps"><span class="bhead">Goodword helps</span><span class="brole"></span></div>' +
-      '<div class="bverbs"><span class="bverb">Consolidate</span><span class="bsep">→</span><span class="bverb">Search</span><span class="bsep">→</span><span class="bverb">Activate</span></div>' +
+      '<div class="bverbs"><span class="bverb">Consolidate</span><span class="bsep">·</span><span class="bverb">Search</span><span class="bsep">·</span><span class="bverb">Activate</span><span class="bnet"> their network.</span></div>' +
       '<div class="bask"><h2>So — which one are you?</h2><div class="rolechips">' + chips + "</div></div>" +
       "</div>";
     screenEl.classList.remove("in"); void screenEl.offsetWidth; screenEl.classList.add("in");
     var brole = screenEl.querySelector(".brole"), verbs = screenEl.querySelectorAll(".bverb"), ask = screenEl.querySelector(".bask"), helps = screenEl.querySelector(".bhelps"), verbsWrap = screenEl.querySelector(".bverbs");
-    function finish() { brole.textContent = roleWords[0]; helps.classList.add("show"); verbsWrap.classList.add("show"); for (var i = 0; i < verbs.length; i++) verbs[i].classList.add("lit"); ask.classList.add("show"); }
+    var bnet = screenEl.querySelector(".bnet");
+    function finish() { brole.textContent = roleWords[0]; helps.classList.add("show"); verbsWrap.classList.add("show"); for (var i = 0; i < verbs.length; i++) verbs[i].classList.add("lit"); if (bnet) bnet.classList.add("lit"); ask.classList.add("show"); }
     if (REDUCE) { finish(); return; }
     helps.classList.add("show"); verbsWrap.classList.add("show");
     var ri = 0; brole.textContent = roleWords[0]; brole.classList.add("swap");
@@ -544,7 +552,7 @@
     (function spin() { if (!cycling) return; ri = (ri + 1) % roleWords.length; brole.classList.remove("swap"); void brole.offsetWidth; brole.textContent = roleWords[ri]; brole.classList.add("swap"); later(spin, 440); })();
     later(function () { verbs[0].classList.add("lit"); }, 900);
     later(function () { verbs[1].classList.add("lit"); }, 1500);
-    later(function () { verbs[2].classList.add("lit"); }, 2100);
+    later(function () { verbs[2].classList.add("lit"); if (bnet) bnet.classList.add("lit"); }, 2100);
     later(function () { cycling = false; ask.classList.add("show"); }, 2800);
   }
   function renderSell() {
@@ -556,7 +564,7 @@
       '<h1 class="reveal" style="--d:0ms">' + cl.h + "</h1>" +
       '<p class="body reveal" style="--d:90ms">' + esc(cl.sub) + "</p>" +
       '<ul class="feat reveal" style="--d:180ms">' + feats + "</ul>" +
-      '<figure class="quote reveal" style="--d:270ms"><div class="stars">★★★★★</div><p>“' + esc(qt.text) + '”</p><figcaption>— ' + esc(qt.name) + ", " + esc(qt.title) + "</figcaption></figure>" +
+      '<figure class="quote reveal" style="--d:270ms"><div class="stars">★★★★★</div><p>“' + esc(qt.text) + '”</p><figcaption><span class="qavatar">' + esc(qt.name.charAt(0)) + '</span><span class="qwho"><span class="qname">' + esc(qt.name) + '</span><span class="qrole">' + esc(qt.title) + "</span></span></figcaption></figure>" +
       '<a class="cta reveal" style="--d:350ms" data-signup href="' + esc(signupHref()) + '">Start free →</a>';
     screenEl.classList.remove("in"); void screenEl.offsetWidth; screenEl.classList.add("in");
   }
