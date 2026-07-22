@@ -574,7 +574,7 @@
       '<div class="bhelps"><span class="bhead">Goodword helps</span><span class="brole"></span></div>' +
       '<div class="bsteps">' +
       '<div class="bstep"><b>Consolidate</b> their whole network</div>' +
-      '<div class="bstep"><b>Search</b> it however you remember them</div>' +
+      '<div class="bstep"><b>Search</b> anyone, instantly</div>' +
       '<div class="bstep"><b>Activate</b> the connections that matter</div>' +
       "</div>" +
       '<div class="bask"><h2>So — which one are you?</h2><div class="rolechips">' + chips + "</div></div>" +
