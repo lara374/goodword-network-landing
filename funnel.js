@@ -58,12 +58,12 @@
       person: { role: "Director · Acme (hiring now)", match: "Hiring for roles like yours", history: "2nd degree · your mentor knows her well", act: "Ask for a warm intro" } }
   };
   var ROLES = {
-    founder: { label: "Founder", features: ["Hiring & fundraising searches across your real network", "Warm paths to any investor or candidate", "Context before every meeting"] },
-    investor: { label: "Investor", features: ["Portfolio & founder groups you can share", "Source from people you already know", "Never lose a founder relationship to time"] },
-    recruiter: { label: "Recruiter", features: ["Candidate search in plain language", "Warm referral paths, not cold InMails", "Every past candidate, one query away"] },
-    sales: { label: "Sales or BD", features: ["Prospects hiding in your existing network", "Who-knows-whom paths to every account", "Follow-up nudges that keep deals warm"] },
-    community: { label: "Community builder", features: ["Curated groups you can pull up in a second", "Intro suggestions both directions", "The details that make you memorable"] },
-    operator: { label: "Operator", features: ["Every conversation captured automatically", "Context before every meeting", "Follow-ups tracked so nothing slips"] }
+    founder: { label: "Founder", features: ["Find any hire or investor across people you already know", "See the warm path to anyone — skip the cold outreach", "Walk into every meeting already briefed"] },
+    investor: { label: "Investor", features: ["Source deals from founders you already trust", "Share portfolio & founder lists in a tap", "Never lose a founder relationship to time"] },
+    recruiter: { label: "Recruiter", features: ["Search candidates in plain language, not boolean", "Surface warm referrals over cold InMails", "Every past candidate, one query away"] },
+    sales: { label: "Sales or BD", features: ["Find prospects hiding in your own network", "See who-knows-whom into any account", "Timely nudges that keep every deal warm"] },
+    community: { label: "Community builder", features: ["Pull up any curated group in a second", "Make intros both directions, effortlessly", "Remember the details that make you memorable"] },
+    operator: { label: "Operator", features: ["Every conversation captured automatically", "Full context before every meeting", "Follow-ups tracked so nothing slips"] }
   };
   var GOAL_ORDER = ["customer", "investor", "hire", "partner", "advisor", "career"];
   var ROLE_ORDER = ["founder", "investor", "recruiter", "sales", "community", "operator"];
@@ -257,6 +257,35 @@
   .aistatus.show{display:flex;}\
   .aistatus.done{display:none;}\
   .edots i{animation:tdot 1.2s infinite;display:inline-block;}.edots i:nth-child(2){animation-delay:.2s;}.edots i:nth-child(3){animation-delay:.4s;}\
+  .bridge{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;flex:1;padding:24px 0;}\
+  .bhelps{opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease;}\
+  .bhelps.show{opacity:1;transform:none;}\
+  .bhead{display:block;font-size:14px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px;}\
+  .brole{display:block;font-family:'Domaine Display',Georgia,serif;font-style:italic;font-size:clamp(30px,8.5vw,48px);line-height:1.05;color:var(--green);min-height:1.1em;}\
+  .brole.swap{animation:roleswap .44s cubic-bezier(.2,.8,.2,1);}\
+  @keyframes roleswap{0%{opacity:0;transform:translateY(12px);}100%{opacity:1;transform:none;}}\
+  .bverbs{display:flex;align-items:center;gap:11px;margin-top:30px;opacity:0;transition:opacity .5s ease;flex-wrap:wrap;justify-content:center;}\
+  .bverbs.show{opacity:1;}\
+  .bverb{font-size:17px;font-weight:700;color:var(--line);transition:color .55s ease;}\
+  .bverb.lit{color:var(--green);}\
+  .bsep{color:var(--green-soft);font-weight:700;}\
+  .bask{margin-top:44px;opacity:0;transform:translateY(12px);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.8,.2,1);}\
+  .bask.show{opacity:1;transform:none;}\
+  .bask h2{font-size:20px;margin:0 0 16px;color:var(--ink);font-weight:700;}\
+  .rolechips{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;}\
+  .rolechip{font:inherit;font-size:15px;font-weight:600;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:999px;padding:11px 18px;cursor:pointer;transition:transform .15s,border-color .15s,background .15s,box-shadow .15s;}\
+  .rolechip:hover,.rolechip:focus-visible{transform:translateY(-2px);border-color:var(--green-soft);background:var(--green-tint);outline:none;box-shadow:0 10px 24px -16px rgba(29,78,19,.5);}\
+  .rolechip.chosen{background:var(--green);color:#fff;border-color:var(--green);}\
+  .prodshot{margin:6px 0 22px;}\
+  .prodshot .webframe{box-shadow:0 20px 46px -30px rgba(29,78,19,.5);}\
+  .pqt{flex:1 1 auto;min-width:0;color:var(--ink);white-space:normal;overflow-wrap:break-word;}\
+  .quote{margin:2px 0 22px;padding:15px 18px;border-left:3px solid var(--green-soft);background:var(--green-tint);border-radius:0 12px 12px 0;}\
+  .quote p{margin:0 0 9px;font-size:16px;font-style:italic;color:var(--ink);line-height:1.42;}\
+  .quote figcaption{font-size:13px;color:var(--muted);font-weight:600;}\
+  .qtag{display:inline-block;margin-left:8px;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--clay);background:rgba(184,104,69,.1);border-radius:6px;padding:2px 6px;font-weight:700;vertical-align:middle;}\
+  .cstat{margin:14px 0 0;font-size:14px;color:var(--green);font-weight:600;opacity:0;transition:opacity .5s ease;}\
+  .cstat.show{opacity:1;}\
+  .reassure{text-align:center;font-size:12.5px;color:var(--muted);margin:12px 0 0;}\
   .reveal{opacity:0;transform:translateY(14px);}\
   .screen.in .reveal{animation:rise .55s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:var(--d,0ms);}\
   .screen.out{opacity:0;transform:translateY(-10px) scale(.995);transition:opacity .2s ease,transform .2s ease;}\
@@ -364,18 +393,19 @@
       '<div class="beat b2 fade"><div class="consolidate"><div class="itiles">' + tiles + "</div>" +
       '<div class="gwmark">' + logo + "</div>" +
       '<p class="ccap">Goodword pulls everyone into <em>one place</em>.</p>' +
-      '<p class="csub">Who you need, when you need them.</p></div></div>' +
+      '<p class="csub">Who you need, when you need them.</p>' +
+      '<p class="cstat">92% of the people who can help you are 1–2 intros away.<span class="qtag">illustrative</span></p></div></div>' +
       "</div>" +
       '<button class="cta fade" data-next style="margin-top:26px">Show me how</button>';
     var b1 = screenEl.querySelector(".b1 h1"), b2 = screenEl.querySelector(".b2"), cta = screenEl.querySelector(".cta"),
       itiles = screenEl.querySelector(".itiles"), gwmark = screenEl.querySelector(".gwmark"),
-      ccap = screenEl.querySelector(".ccap"), csub = screenEl.querySelector(".csub"), tileEls = screenEl.querySelectorAll(".itile");
+      ccap = screenEl.querySelector(".ccap"), csub = screenEl.querySelector(".csub"), cstat = screenEl.querySelector(".cstat"), tileEls = screenEl.querySelectorAll(".itile");
     var doneV = false;
     function finishAll() {
       if (doneV) return; doneV = true; clearTimers();
       b1.classList.add("show"); b2.classList.add("show"); cta.classList.add("show"); itiles.classList.remove("flow");
       for (var i = 0; i < tileEls.length; i++) tileEls[i].classList.add("show");
-      gwmark.classList.add("show"); ccap.classList.add("show"); csub.classList.add("show");
+      gwmark.classList.add("show"); ccap.classList.add("show"); csub.classList.add("show"); cstat.classList.add("show");
     }
     function vskip(e) { if (e.target.closest && e.target.closest(".cta,.back")) return; if (!doneV) finishAll(); root.removeEventListener("click", vskip, true); }
     root.addEventListener("click", vskip, true);
@@ -389,7 +419,8 @@
     later(function () { itiles.classList.remove("flow"); }, tBack);
     later(function () { ccap.classList.add("show"); }, tBack + 300);
     later(function () { csub.classList.add("show"); }, tBack + 650);
-    later(function () { cta.classList.add("show"); }, tBack + 1050);
+    later(function () { cstat.classList.add("show"); }, tBack + 900);
+    later(function () { cta.classList.add("show"); }, tBack + 1300);
   }
 
   // ---- REFINE ----
@@ -426,7 +457,7 @@
     screenEl.innerHTML =
       '<div class="srch2"><div class="tabs tabs2 show"><button class="tab on" data-tab="app">In the web app</button><button class="tab" data-tab="text">Over text</button><button class="tab" data-tab="ai">In your AI</button></div>' +
       '<div class="surface"></div></div>' +
-      '<button class="cta" data-next>Next</button>';
+      '<button class="cta" data-next>Put my network to work →</button>';
     var srch = screenEl.querySelector(".srch2"), surface = screenEl.querySelector(".surface"), cta = screenEl.querySelector(".cta");
     function showCta() { cta.classList.add("show"); }
     function stagger(sel, base) { var els = surface.querySelectorAll(sel); for (var i = 0; i < els.length; i++)(function (el, k) { later(function () { el.classList.add("show"); }, base + k * 190); })(els[i], i); later(showCta, base + els.length * 190 + 120); }
@@ -481,21 +512,45 @@
 
   function renderRole() {
     barEl.classList.add("on");
-    var opts = ROLE_ORDER.map(function (k, i) { return '<button class="opt reveal" style="--d:' + (120 + i * 50) + 'ms" data-role="' + k + '">' + esc(ROLES[k].label) + "</button>"; }).join("");
-    screenEl.innerHTML = '<h1 class="reveal" style="--d:0ms">What best describes you?</h1><div class="opts">' + opts + "</div>";
+    var roleWords = ROLE_ORDER.map(function (k) { return ROLES[k].label; });
+    var chips = ROLE_ORDER.map(function (k) { return '<button class="rolechip" data-role="' + k + '">' + esc(ROLES[k].label) + "</button>"; }).join("");
+    screenEl.innerHTML =
+      '<div class="bridge">' +
+      '<div class="bhelps"><span class="bhead">Goodword helps</span><span class="brole"></span></div>' +
+      '<div class="bverbs"><span class="bverb">Consolidate</span><span class="bsep">→</span><span class="bverb">Search</span><span class="bsep">→</span><span class="bverb">Activate</span></div>' +
+      '<div class="bask"><h2>So — which one are you?</h2><div class="rolechips">' + chips + "</div></div>" +
+      "</div>";
     screenEl.classList.remove("in"); void screenEl.offsetWidth; screenEl.classList.add("in");
+    var brole = screenEl.querySelector(".brole"), verbs = screenEl.querySelectorAll(".bverb"), ask = screenEl.querySelector(".bask"), helps = screenEl.querySelector(".bhelps"), verbsWrap = screenEl.querySelector(".bverbs");
+    function finish() { brole.textContent = roleWords[0]; helps.classList.add("show"); verbsWrap.classList.add("show"); for (var i = 0; i < verbs.length; i++) verbs[i].classList.add("lit"); ask.classList.add("show"); }
+    if (REDUCE) { finish(); return; }
+    helps.classList.add("show"); verbsWrap.classList.add("show");
+    var ri = 0; brole.textContent = roleWords[0]; brole.classList.add("swap");
+    var cycling = true;
+    (function spin() { if (!cycling) return; ri = (ri + 1) % roleWords.length; brole.classList.remove("swap"); void brole.offsetWidth; brole.textContent = roleWords[ri]; brole.classList.add("swap"); later(spin, 440); })();
+    later(function () { verbs[0].classList.add("lit"); }, 900);
+    later(function () { verbs[1].classList.add("lit"); }, 1500);
+    later(function () { verbs[2].classList.add("lit"); }, 2100);
+    later(function () { cycling = false; ask.classList.add("show"); }, 2800);
   }
   function renderSell() {
     barEl.classList.add("on");
-    var ro = r();
+    var ro = r(), o = g();
+    var short = o.label.replace(/^My next /i, "");
+    var picks = (state.refine && state.refineGoal === state.goal) ? state.refine : o.refine.map(function (gr) { return gr.opts[0]; });
+    var question = tidy(o.q(picks));
+    var top = (RESULTS[state.goal || "customer"] || [])[0] || {};
     var feats = ro.features.map(function (f) { return '<li><span class="tick">✓</span><span>' + esc(f) + "</span></li>"; }).join("");
     screenEl.innerHTML =
-      '<h1 class="reveal" style="--d:0ms">Your network, <em>put to work</em></h1>' +
-      '<p class="body reveal" style="--d:80ms">Goodword turns the people you already know into your next deal, hire, or intro.</p>' +
-      '<div class="media reveal" style="--d:150ms"><span>product preview — ' + esc(ro.label.toLowerCase()) + " view</span></div>" +
+      '<h1 class="reveal" style="--d:0ms">Your next <em>' + esc(short) + "</em> is already in your network.</h1>" +
+      '<p class="body reveal" style="--d:80ms">You just saw it. Goodword turns the people you already know into your next ' + esc(short) + " — and keeps them warm.</p>" +
+      '<div class="prodshot reveal" style="--d:150ms"><div class="webframe show"><div class="webtop"><span class="wdots"><i></i><i></i><i></i></span><span class="wbrand"><span class="gwdot">◑</span>Goodword</span></div>' +
+      '<div class="qzone"><div class="qwrap box"><span class="qchrome">⌕</span><span class="pqt">' + esc(question) + "</span></div></div>" +
+      '<div class="results"><div class="rescard show"><span class="rav">' + esc(top.i || "SC") + '</span><div class="rinfo"><b>' + esc(top.n || "Sarah Chen") + '</b><small>' + esc(top.r || "") + '</small><span class="rhist">' + esc(top.h || "") + "</span></div><span class=\"rgo\">→</span></div></div></div></div>" +
       '<ul class="feat reveal" style="--d:220ms">' + feats + "</ul>" +
-      '<div class="draft reveal" style="--d:280ms"><b>Founder proof — to write</b>A short line from the team on how a ' + esc(ro.label.toLowerCase()) + " wins with Goodword.</div>" +
-      '<a class="cta reveal" style="--d:340ms" data-signup href="' + esc(signupHref()) + '">Get started for free</a>';
+      '<figure class="quote reveal" style="--d:290ms"><p>“I found three warm intros to exactly the people I needed — in my first ten minutes.”</p><figcaption>— Founder, seed-stage SaaS <span class="qtag">illustrative · to finalize</span></figcaption></figure>' +
+      '<a class="cta reveal" style="--d:360ms" data-signup href="' + esc(signupHref()) + '">Start free →</a>' +
+      '<p class="reassure reveal" style="--d:420ms">Free to start · your network stays yours</p>';
     screenEl.classList.remove("in"); void screenEl.offsetWidth; screenEl.classList.add("in");
   }
 
