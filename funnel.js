@@ -208,7 +208,8 @@
   .qwrap{position:relative;display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin:16px 0;padding:15px 16px;font-size:16px;line-height:1.35;color:var(--ink);border:1px solid transparent;border-radius:14px;background:transparent;min-height:56px;transition:background .45s ease,border-color .45s ease,box-shadow .45s ease;}\
   .qwrap.box{background:#fff;border-color:var(--line);box-shadow:0 16px 38px -28px rgba(29,78,19,.55);}\
   .qchrome{color:var(--green);font-weight:600;font-size:15px;flex:none;}\
-  .qpills{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px 6px;}\
+  .qpills{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px 6px;transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .5s ease;}\
+  .qpills.intobar{transform:translateY(48px);opacity:0;}\
   .qpills .qpill{opacity:0;transform:translateY(-10px) scale(.92);transition:opacity .45s ease,transform .55s cubic-bezier(.2,.8,.2,1);}\
   .qpills.in .qpill{opacity:1;transform:none;}\
   .qpills.in .qpill:nth-child(2){transition-delay:.08s;}\
@@ -234,9 +235,11 @@
   .rgo{flex:none;color:var(--green-soft);font-size:18px;}\
   .surface{margin-top:14px;margin-bottom:30px;}\
   .qzone{margin:14px;}\
-  .webframe{border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden;box-shadow:0 20px 46px -30px rgba(29,78,19,.55);opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.8,.2,1);}\
-  .webframe.show{opacity:1;transform:none;}\
-  .webtop{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--line);background:var(--green-tint);}\
+  .webframe{border:1px solid transparent;border-radius:18px;background:transparent;overflow:hidden;box-shadow:none;transition:border-color .55s ease,background .55s ease,box-shadow .55s ease;}\
+  .webframe.built{border-color:var(--line);background:#fff;box-shadow:0 20px 46px -30px rgba(29,78,19,.5);}\
+  .webframe:not(.built) .results{display:none;}\
+  .webtop{display:flex;align-items:center;justify-content:space-between;max-height:0;opacity:0;padding:0 14px;overflow:hidden;background:var(--green-tint);transition:max-height .5s ease,opacity .5s ease,padding .5s ease;}\
+  .webframe.built .webtop{max-height:64px;opacity:1;padding:11px 14px;border-bottom:1px solid var(--line);}\
   .wdots{display:flex;gap:6px;}\
   .wdots i{width:9px;height:9px;border-radius:50%;background:rgba(29,78,19,.18);}\
   .wbrand{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:var(--green);}\
@@ -278,6 +281,10 @@
   .brole{display:block;font-family:'Domaine Display',Georgia,serif;font-style:italic;font-size:clamp(30px,8.5vw,48px);line-height:1.05;color:var(--green);min-height:1.1em;}\
   .brole.swap{animation:roleswap .44s cubic-bezier(.2,.8,.2,1);}\
   @keyframes roleswap{0%{opacity:0;transform:translateY(12px);}100%{opacity:1;transform:none;}}\
+  .bsteps{display:flex;flex-direction:column;gap:16px;margin-top:36px;align-items:center;}\
+  .bstep{font-size:19px;color:var(--muted);opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .7s cubic-bezier(.2,.8,.2,1);}\
+  .bstep b{color:var(--green);font-weight:700;}\
+  .bstep.show{opacity:1;transform:none;}\
   .bverbs{display:flex;align-items:center;gap:11px;margin-top:30px;opacity:0;transition:opacity .5s ease;flex-wrap:wrap;justify-content:center;}\
   .bverbs.show{opacity:1;}\
   .bverb{font-size:17px;font-weight:700;color:var(--line);transition:color .55s ease;}\
@@ -304,14 +311,16 @@
   .bnet{color:var(--line);transition:color .55s ease;}\
   .bnet.lit{color:var(--ink);}\
   .qtag{display:inline-block;margin-left:8px;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--clay);background:rgba(184,104,69,.1);border-radius:6px;padding:2px 6px;font-weight:700;vertical-align:middle;}\
-  .cstat{margin:14px 0 0;font-size:14px;color:var(--green);font-weight:600;opacity:0;transition:opacity .5s ease;}\
-  .cstat.show{opacity:1;}\
+  .cstat{display:inline-flex;align-items:center;gap:10px;margin:22px auto 0;padding:11px 18px;background:#fff;border:1px solid var(--green-soft);border-radius:999px;box-shadow:0 14px 32px -22px rgba(29,78,19,.55);opacity:0;transform:translateY(10px) scale(.96);transition:opacity .5s ease,transform .6s cubic-bezier(.2,.8,.2,1);}\
+  .cstat.show{opacity:1;transform:none;}\
+  .cstat-num{font-size:23px;font-weight:800;color:var(--green);font-variant-numeric:tabular-nums;letter-spacing:-.01em;}\
+  .cstat-lbl{font-size:13.5px;color:var(--ink);font-weight:600;}\
   .reassure{text-align:center;font-size:12.5px;color:var(--muted);margin:12px 0 0;}\
   .reveal{opacity:0;transform:translateY(14px);}\
   .screen.in .reveal{animation:rise .55s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:var(--d,0ms);}\
   .screen.out{opacity:0;transform:translateY(-10px) scale(.995);transition:opacity .2s ease,transform .2s ease;}\
   @keyframes rise{to{opacity:1;transform:none;}}\
-  @media (prefers-reduced-motion:reduce){.reveal,.fade,.itile,.itiles,.gwmark,.ccap,.csub,.tabs2,.qpills,.rescard,.webframe,.tmsg,.ailogos,.aiq{opacity:1!important;transform:none!important;animation:none!important;transition:none!important;}.qpills{display:none!important;}.tmsg.typing{display:none!important;}.cta:before,.cursor,.edots i,.qtype::after{animation:none;}.screen.out{transition:none;}}\
+  @media (prefers-reduced-motion:reduce){.reveal,.fade,.itile,.itiles,.gwmark,.ccap,.csub,.cstat,.tabs2,.qpills,.rescard,.webframe,.tmsg,.ailogos,.aiq,.bstep,.bhelps,.bask{opacity:1!important;transform:none!important;animation:none!important;transition:none!important;}.qpills{display:none!important;}.tmsg.typing{display:none!important;}.cta:before,.cursor,.edots i,.qtype::after{animation:none;}.screen.out{transition:none;}}\
   ";
 
   var shadow = mount.attachShadow ? mount.attachShadow({ mode: "open" }) : mount;
@@ -415,7 +424,7 @@
       '<div class="gwmark">' + logo + "</div>" +
       '<p class="ccap">Goodword pulls everyone into <em>one place</em>.</p>' +
       '<p class="csub">Who you need, when you need them.</p>' +
-      '<p class="cstat">5.2M people already mapped in Goodword.</p></div></div>' +
+      '<div class="cstat"><span class="cstat-num">5.2M</span><span class="cstat-lbl">people already mapped in Goodword</span></div></div></div>' +
       "</div>" +
       '<button class="cta fade" data-next style="margin-top:26px">Show me how</button>';
     var b1 = screenEl.querySelector(".b1 h1"), b2 = screenEl.querySelector(".b2"), cta = screenEl.querySelector(".cta"),
@@ -476,11 +485,12 @@
     function aichip(name, cls) { return '<span class="aichip ' + cls + '"><i></i>' + name + "</span>"; }
 
     screenEl.innerHTML =
-      '<div class="srch2"><div class="tabs tabs2 show"><button class="tab on" data-tab="app">In the web app</button><button class="tab" data-tab="text">Over text</button><button class="tab" data-tab="ai">In your AI</button></div>' +
+      '<div class="srch2"><div class="tabs tabs2"><button class="tab on" data-tab="app">In the web app</button><button class="tab" data-tab="text">Over text</button><button class="tab" data-tab="ai">In your AI</button></div>' +
       '<div class="surface"></div></div>' +
       '<button class="cta" data-next>Put my network to work →</button>';
     var srch = screenEl.querySelector(".srch2"), surface = screenEl.querySelector(".surface"), cta = screenEl.querySelector(".cta");
     function showCta() { cta.classList.add("show"); }
+    function showTabs() { var t = screenEl.querySelector(".tabs2"); if (t) t.classList.add("show"); }
     function stagger(sel, base) { var els = surface.querySelectorAll(sel); for (var i = 0; i < els.length; i++)(function (el, k) { later(function () { el.classList.add("show"); }, base + k * 190); })(els[i], i); later(showCta, base + els.length * 190 + 120); }
 
     function renderApp(animate) {
@@ -489,18 +499,14 @@
         '<div class="qzone"><div class="qpills">' + pills + "</div>" +
         '<div class="qwrap"><span class="qchrome">⌕</span><span class="qtype"></span></div></div>' +
         '<div class="results">' + rows() + "</div></div>";
-      var qpz = surface.querySelector(".qpills"), qpEls = surface.querySelectorAll(".qpills .qpill"), qtype = surface.querySelector(".qtype"), qwrap = surface.querySelector(".qwrap"), frame = surface.querySelector(".webframe");
+      var qpz = surface.querySelector(".qpills"), qtype = surface.querySelector(".qtype"), qwrap = surface.querySelector(".qwrap"), frame = surface.querySelector(".webframe");
       qwrap.classList.add("box");
-      if (!animate) { qpz.style.display = "none"; qtype.textContent = question; frame.classList.add("show"); var cs = surface.querySelectorAll(".rescard"); for (var i = 0; i < cs.length; i++) cs[i].classList.add("show"); showCta(); return; }
-      frame.classList.add("show");
+      function buildAround() { frame.classList.add("built"); showTabs(); stagger(".rescard", 160); }
+      if (!animate) { qpz.style.display = "none"; qtype.textContent = question; frame.classList.add("built"); showTabs(); var cs = surface.querySelectorAll(".rescard"); for (var i = 0; i < cs.length; i++) cs[i].classList.add("show"); showCta(); return; }
+      // Phase 1: only the pills + the bare search bar. Phase 2: both pills glide into the bar together. Phase 3: type, then the window builds around it.
       raf2(function () { qpz.classList.add("in"); });
-      var dropped = [false, false];
-      later(function () {
-        typewriter(qtype, question, function () { stagger(".rescard", 0); }, function (frac) {
-          if (!dropped[0] && frac >= 0.34 && qpEls[0]) { dropped[0] = true; qpEls[0].classList.add("drop"); }
-          if (!dropped[1] && frac >= 0.68 && qpEls[1]) { dropped[1] = true; qpEls[1].classList.add("drop"); }
-        });
-      }, 800);
+      later(function () { qpz.classList.add("intobar"); }, 800);
+      later(function () { qpz.style.display = "none"; typewriter(qtype, question, buildAround); }, 1500);
     }
     function renderText(animate) {
       surface.innerHTML =
@@ -509,6 +515,7 @@
         '<div class="tmsg gw reply"><span class="gwtag">Goodword</span>Found 3 people in your network 👇</div>' +
         bubbles() + "</div>";
       var me = surface.querySelector(".me"), typing = surface.querySelector(".typing"), reply = surface.querySelector(".reply");
+      showTabs();
       if (!animate) { var all = surface.querySelectorAll(".tmsg"); for (var i = 0; i < all.length; i++) all[i].classList.add("show"); typing.style.display = "none"; showCta(); return; }
       raf2(function () { me.classList.add("show"); });
       later(function () { typing.classList.add("show"); }, 550);
@@ -521,6 +528,7 @@
         '<div class="aistatus"><span class="gwdot">◑</span>Accessing Goodword Network<span class="edots"><i>.</i><i>.</i><i>.</i></span></div>' +
         '<div class="results">' + rows() + "</div></div>";
       var logos = surface.querySelector(".ailogos"), aiq = surface.querySelector(".aiq"), status = surface.querySelector(".aistatus");
+      showTabs();
       if (!animate) { logos.classList.add("show"); aiq.classList.add("show"); var cs = surface.querySelectorAll(".rescard"); for (var i = 0; i < cs.length; i++) cs[i].classList.add("show"); showCta(); return; }
       raf2(function () { logos.classList.add("show"); });
       later(function () { aiq.classList.add("show"); }, 350);
@@ -538,22 +546,26 @@
     screenEl.innerHTML =
       '<div class="bridge">' +
       '<div class="bhelps"><span class="bhead">Goodword helps</span><span class="brole"></span></div>' +
-      '<div class="bverbs"><span class="bverb">Consolidate</span><span class="bsep">·</span><span class="bverb">Search</span><span class="bsep">·</span><span class="bverb">Activate</span><span class="bnet"> their network.</span></div>' +
+      '<div class="bsteps">' +
+      '<div class="bstep"><b>Consolidate</b> their whole network</div>' +
+      '<div class="bstep"><b>Search</b> it in plain language</div>' +
+      '<div class="bstep"><b>Activate</b> the connections that matter</div>' +
+      "</div>" +
       '<div class="bask"><h2>So — which one are you?</h2><div class="rolechips">' + chips + "</div></div>" +
       "</div>";
     screenEl.classList.remove("in"); void screenEl.offsetWidth; screenEl.classList.add("in");
-    var brole = screenEl.querySelector(".brole"), verbs = screenEl.querySelectorAll(".bverb"), ask = screenEl.querySelector(".bask"), helps = screenEl.querySelector(".bhelps"), verbsWrap = screenEl.querySelector(".bverbs");
-    var bnet = screenEl.querySelector(".bnet");
-    function finish() { brole.textContent = roleWords[0]; helps.classList.add("show"); verbsWrap.classList.add("show"); for (var i = 0; i < verbs.length; i++) verbs[i].classList.add("lit"); if (bnet) bnet.classList.add("lit"); ask.classList.add("show"); }
+    var brole = screenEl.querySelector(".brole"), steps = screenEl.querySelectorAll(".bstep"), ask = screenEl.querySelector(".bask"), helps = screenEl.querySelector(".bhelps");
+    function finish() { brole.textContent = roleWords[0]; helps.classList.add("show"); for (var i = 0; i < steps.length; i++) steps[i].classList.add("show"); ask.classList.add("show"); }
     if (REDUCE) { finish(); return; }
-    helps.classList.add("show"); verbsWrap.classList.add("show");
+    helps.classList.add("show");
     var ri = 0; brole.textContent = roleWords[0]; brole.classList.add("swap");
     var cycling = true;
     (function spin() { if (!cycling) return; ri = (ri + 1) % roleWords.length; brole.classList.remove("swap"); void brole.offsetWidth; brole.textContent = roleWords[ri]; brole.classList.add("swap"); later(spin, 440); })();
-    later(function () { verbs[0].classList.add("lit"); }, 900);
-    later(function () { verbs[1].classList.add("lit"); }, 1500);
-    later(function () { verbs[2].classList.add("lit"); if (bnet) bnet.classList.add("lit"); }, 2100);
-    later(function () { cycling = false; ask.classList.add("show"); }, 2800);
+    later(function () { cycling = false; }, 1250);
+    later(function () { steps[0].classList.add("show"); }, 1450);
+    later(function () { steps[1].classList.add("show"); }, 2200);
+    later(function () { steps[2].classList.add("show"); }, 2950);
+    later(function () { ask.classList.add("show"); }, 3750);
   }
   function renderSell() {
     barEl.classList.add("on");
