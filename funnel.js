@@ -65,6 +65,19 @@
     community: { label: "Community builder", features: ["Pull up any curated group in a second", "Make intros both directions, effortlessly", "Remember the details that make you memorable"] },
     operator: { label: "Operator", features: ["Every conversation captured automatically", "Full context before every meeting", "Follow-ups tracked so nothing slips"] }
   };
+  // Real published-site testimonials (goodword.com), mapped to the closest role.
+  var RANA = { text: "Goodword is the first tool I've seen that actually surfaces the right connection at the right moment. That's how deals get done.", name: "Rana", title: "Investor & Exited Founder" };
+  var LAUREN = { text: "RUN, don't walk. Worth its weight in gold — it helps me find the needles in my huge networking haystack.", name: "Lauren", title: "Product Executive" };
+  var KATIE = { text: "I dictate notes after meeting someone and Goodword reminds me why the relationship matters, without relying on my memory.", name: "Katie", title: "Angel Investor" };
+  var QUOTES = { founder: RANA, investor: RANA, sales: RANA, recruiter: LAUREN, community: KATIE, operator: KATIE };
+  var CLOSE = {
+    founder: { h: "Founders sell through people — <em>not ads.</em>", sub: "Goodword turns the network you've already built into your warmest pipeline." },
+    investor: { h: "Your best deals come from people you <em>already trust.</em>", sub: "Goodword surfaces the founders and intros already sitting in your network." },
+    recruiter: { h: "Your next great hire is a <em>warm intro away.</em>", sub: "Find candidates across the people you already know — skip the cold InMails." },
+    sales: { h: "Your warmest pipeline is the one you <em>already know.</em>", sub: "Goodword shows you who-knows-whom into every account." },
+    community: { h: "You're the connector. <em>Goodword makes it effortless.</em>", sub: "Every person, every detail, every intro — in one place." },
+    operator: { h: "Never walk into a meeting <em>cold again.</em>", sub: "Goodword captures every conversation and hands you the context." }
+  };
   var GOAL_ORDER = ["customer", "investor", "hire", "partner", "advisor", "career"];
   var ROLE_ORDER = ["founder", "investor", "recruiter", "sales", "community", "operator"];
   var ORDER = ["goal", "value", "refine", "search", "role", "sell"];
@@ -279,7 +292,8 @@
   .prodshot{margin:6px 0 22px;}\
   .prodshot .webframe{box-shadow:0 20px 46px -30px rgba(29,78,19,.5);}\
   .pqt{flex:1 1 auto;min-width:0;color:var(--ink);white-space:normal;overflow-wrap:break-word;}\
-  .quote{margin:2px 0 22px;padding:15px 18px;border-left:3px solid var(--green-soft);background:var(--green-tint);border-radius:0 12px 12px 0;}\
+  .quote{margin:2px 0 22px;padding:16px 18px;border-left:3px solid var(--green-soft);background:var(--green-tint);border-radius:0 12px 12px 0;}\
+  .stars{color:var(--clay);font-size:14px;letter-spacing:3px;margin-bottom:9px;}\
   .quote p{margin:0 0 9px;font-size:16px;font-style:italic;color:var(--ink);line-height:1.42;}\
   .quote figcaption{font-size:13px;color:var(--muted);font-weight:600;}\
   .qtag{display:inline-block;margin-left:8px;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--clay);background:rgba(184,104,69,.1);border-radius:6px;padding:2px 6px;font-weight:700;vertical-align:middle;}\
@@ -394,7 +408,7 @@
       '<div class="gwmark">' + logo + "</div>" +
       '<p class="ccap">Goodword pulls everyone into <em>one place</em>.</p>' +
       '<p class="csub">Who you need, when you need them.</p>' +
-      '<p class="cstat">92% of the people who can help you are 1–2 intros away.<span class="qtag">illustrative</span></p></div></div>' +
+      '<p class="cstat">5.2M people already mapped in Goodword.</p></div></div>' +
       "</div>" +
       '<button class="cta fade" data-next style="margin-top:26px">Show me how</button>';
     var b1 = screenEl.querySelector(".b1 h1"), b2 = screenEl.querySelector(".b2"), cta = screenEl.querySelector(".cta"),
@@ -535,22 +549,15 @@
   }
   function renderSell() {
     barEl.classList.add("on");
-    var ro = r(), o = g();
-    var short = o.label.replace(/^My next /i, "");
-    var picks = (state.refine && state.refineGoal === state.goal) ? state.refine : o.refine.map(function (gr) { return gr.opts[0]; });
-    var question = tidy(o.q(picks));
-    var top = (RESULTS[state.goal || "customer"] || [])[0] || {};
+    var ro = r(), roleKey = state.role || "founder";
+    var cl = CLOSE[roleKey] || CLOSE.founder, qt = QUOTES[roleKey] || QUOTES.founder;
     var feats = ro.features.map(function (f) { return '<li><span class="tick">✓</span><span>' + esc(f) + "</span></li>"; }).join("");
     screenEl.innerHTML =
-      '<h1 class="reveal" style="--d:0ms">Your next <em>' + esc(short) + "</em> is already in your network.</h1>" +
-      '<p class="body reveal" style="--d:80ms">You just saw it. Goodword turns the people you already know into your next ' + esc(short) + " — and keeps them warm.</p>" +
-      '<div class="prodshot reveal" style="--d:150ms"><div class="webframe show"><div class="webtop"><span class="wdots"><i></i><i></i><i></i></span><span class="wbrand"><span class="gwdot">◑</span>Goodword</span></div>' +
-      '<div class="qzone"><div class="qwrap box"><span class="qchrome">⌕</span><span class="pqt">' + esc(question) + "</span></div></div>" +
-      '<div class="results"><div class="rescard show"><span class="rav">' + esc(top.i || "SC") + '</span><div class="rinfo"><b>' + esc(top.n || "Sarah Chen") + '</b><small>' + esc(top.r || "") + '</small><span class="rhist">' + esc(top.h || "") + "</span></div><span class=\"rgo\">→</span></div></div></div></div>" +
-      '<ul class="feat reveal" style="--d:220ms">' + feats + "</ul>" +
-      '<figure class="quote reveal" style="--d:290ms"><p>“I found three warm intros to exactly the people I needed — in my first ten minutes.”</p><figcaption>— Founder, seed-stage SaaS <span class="qtag">illustrative · to finalize</span></figcaption></figure>' +
-      '<a class="cta reveal" style="--d:360ms" data-signup href="' + esc(signupHref()) + '">Start free →</a>' +
-      '<p class="reassure reveal" style="--d:420ms">Free to start · your network stays yours</p>';
+      '<h1 class="reveal" style="--d:0ms">' + cl.h + "</h1>" +
+      '<p class="body reveal" style="--d:90ms">' + esc(cl.sub) + "</p>" +
+      '<ul class="feat reveal" style="--d:180ms">' + feats + "</ul>" +
+      '<figure class="quote reveal" style="--d:270ms"><div class="stars">★★★★★</div><p>“' + esc(qt.text) + '”</p><figcaption>— ' + esc(qt.name) + ", " + esc(qt.title) + "</figcaption></figure>" +
+      '<a class="cta reveal" style="--d:350ms" data-signup href="' + esc(signupHref()) + '">Start free →</a>';
     screenEl.classList.remove("in"); void screenEl.offsetWidth; screenEl.classList.add("in");
   }
 
