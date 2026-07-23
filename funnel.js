@@ -26,7 +26,7 @@
   function tidy(s) { return s.replace(/\bai\b/g, "AI").replace(/\bsmb\b/g, "SMB").replace(/\bic\b/g, "IC").replace(/\bsaas\b/gi, "SaaS"); }
 
   var GOALS = {
-    customer: { label: "My next customer", hook: "Your next customer is already in your network.",
+    customer: { label: "My next deal", hook: "Your next deal is already in your network.",
       refineHead: "Who are you trying to reach?",
       refine: [{ label: "What you sell", opts: ["Product", "Service", "Consulting", "Agency"] }, { label: "Who buys it", opts: ["Startups", "Scale-ups", "Enterprises", "SMBs", "Consumers"] }],
       q: function (p) { return "who's a warm " + p[1].toLowerCase().replace(/s$/, "") + " lead for my " + p[0].toLowerCase() + "?"; },
@@ -137,9 +137,9 @@
   .fade.show{opacity:1;transform:none;}\
   .fade.gone{opacity:0;transform:translateY(-10px);}\
   .opener{flex:1;display:flex;flex-direction:column;justify-content:flex-start;padding-top:5vh;}\
-  .imagine{font-family:'Domaine Display',Georgia,serif;font-style:italic;font-size:clamp(30px,9vw,52px);color:var(--muted);opacity:0;transform:scale(.94);transition:opacity .8s ease,transform 1.4s cubic-bezier(.2,.8,.2,1);}\
+  .imagine{font-family:'Domaine Display',Georgia,serif;font-style:italic;font-size:clamp(30px,9vw,52px);color:var(--muted);text-align:center;transform-origin:center;opacity:0;transform:scale(.94);transition:opacity .8s ease,transform 1.4s cubic-bezier(.2,.8,.2,1);}\
   .imagine.show{opacity:.85;transform:scale(1.05);}\
-  .imagine.gone{opacity:0;transform:scale(1.14);transition:opacity .55s ease,transform .7s ease;position:absolute;}\
+  .imagine.gone{opacity:0;transform:scale(1.14);transition:opacity .55s ease,transform .7s ease;position:absolute;left:0;right:0;text-align:center;}\
   .opener h1{font-size:clamp(29px,7.4vw,46px);}\
   .reelwrap{font-family:'Domaine Display',Georgia,serif;font-size:clamp(24px,6.6vw,38px);line-height:1.1;margin-top:6px;min-height:1.3em;}\
   .reel{font-style:italic;color:var(--green);display:inline-block;transition:opacity .12s ease,transform .12s ease;}\
@@ -153,7 +153,7 @@
   .itile{width:48px;height:48px;border-radius:14px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px -12px rgba(29,78,19,.5);opacity:0;transform:translateY(10px) scale(.9);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.8,.2,1);}\
   .itile.show{opacity:1;transform:none;}\
   .itile svg{width:26px !important;height:26px !important;display:block;}\
-  .gwmark{width:76px;margin:6px auto 26px;opacity:0;transform:scale(.5);transition:opacity .7s ease,transform .8s cubic-bezier(.2,.8,.2,1);}\
+  .gwmark{width:180px;max-width:70%;margin:10px auto 26px;opacity:0;transform:scale(.6);transition:opacity .7s ease,transform .8s cubic-bezier(.2,.8,.2,1);}\
   .gwmark.show{opacity:1;transform:scale(1);}\
   .gwmark svg{width:100%;height:auto;display:block;}\
   .ccap{font-family:'Domaine Display','Domaine Text',Georgia,serif;font-size:clamp(22px,5.6vw,29px);line-height:1.15;color:var(--ink);margin:0 0 12px;opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease;}\
@@ -322,10 +322,10 @@
   .bnet{color:var(--line);transition:color .55s ease;}\
   .bnet.lit{color:var(--ink);}\
   .qtag{display:inline-block;margin-left:8px;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--clay);background:rgba(184,104,69,.1);border-radius:6px;padding:2px 6px;font-weight:700;vertical-align:middle;}\
-  .cstat{display:inline-flex;align-items:center;gap:10px;margin:22px auto 0;padding:11px 18px;background:#fff;border:1px solid var(--green-soft);border-radius:999px;box-shadow:0 14px 32px -22px rgba(29,78,19,.55);opacity:0;transform:translateY(10px) scale(.96);transition:opacity .5s ease,transform .6s cubic-bezier(.2,.8,.2,1);}\
+  .cstat{display:inline-flex;flex-direction:column;align-items:center;gap:3px;margin:24px auto 0;padding:15px 26px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 16px 36px -24px rgba(29,78,19,.5);opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .6s cubic-bezier(.2,.8,.2,1);}\
   .cstat.show{opacity:1;transform:none;}\
-  .cstat-num{font-size:23px;font-weight:800;color:var(--green);font-variant-numeric:tabular-nums;letter-spacing:-.01em;}\
-  .cstat-lbl{font-size:13.5px;color:var(--ink);font-weight:600;}\
+  .cstat-num{font-size:30px;font-weight:800;color:var(--green);font-variant-numeric:tabular-nums;letter-spacing:-.02em;line-height:1;}\
+  .cstat-lbl{font-size:13.5px;color:var(--muted);font-weight:600;}\
   .reassure{text-align:center;font-size:12.5px;color:var(--muted);margin:12px 0 0;}\
   .reveal{opacity:0;transform:translateY(14px);}\
   .screen.in .reveal{animation:rise .55s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:var(--d,0ms);}\
@@ -438,7 +438,7 @@
     later(function () { hint.classList.add("on"); }, 900);
     later(function () { imagine.classList.add("gone"); }, 1500);
     later(function () { imagine.style.display = "none"; q.classList.add("show"); }, 2150);
-    later(function () { reelWrap.classList.add("show"); spinReel(reel, revealOptions); }, 2900);
+    later(function () { reelWrap.classList.add("show"); spinReel(reel, revealOptions); }, 4200);
   }
   function spinReel(el, doneCb) {
     var i = 0, ticks = 0, total = 15;
@@ -455,15 +455,15 @@
     barEl.classList.add("on");
     var o = g();
     var tiles = ICON_ORDER.map(function (k) { return '<span class="itile" data-icn="' + k + '">' + (window.__GW_ICONS && window.__GW_ICONS[k] ? window.__GW_ICONS[k] : "") + "</span>"; }).join("");
-    var logo = (window.__GW_LOGO || "");
+    var logo = GWWORD;
     screenEl.innerHTML =
       '<div class="beats">' +
       '<div class="beat b1"><h1 class="fade">' + esc(o.hook) + "</h1></div>" +
       '<div class="beat b2 fade"><div class="consolidate"><div class="itiles">' + tiles + "</div>" +
       '<div class="gwmark">' + logo + "</div>" +
-      '<p class="ccap">Goodword pulls everyone into <em>one place</em>.</p>' +
-      '<p class="csub">Who you need, when you need them.</p>' +
-      '<div class="cstat"><span class="cstat-num">5.2M</span><span class="cstat-lbl">people already mapped on Goodword</span></div></div></div>' +
+      '<p class="ccap">Everyone, in <em>one place</em>.</p>' +
+      '<p class="csub">Who you need, ready when you need them.</p>' +
+      '<div class="cstat"><span class="cstat-num">5.2M</span><span class="cstat-lbl">people already mapped in Goodword</span></div></div></div>' +
       "</div>" +
       '<button class="cta fade" data-next style="margin-top:26px">Show me how</button>';
     var b1 = screenEl.querySelector(".b1 h1"), b2 = screenEl.querySelector(".b2"), cta = screenEl.querySelector(".cta"),
@@ -472,9 +472,8 @@
     var doneV = false;
     function finishAll() {
       if (doneV) return; doneV = true; clearTimers();
-      b1.classList.add("show"); b2.classList.add("show"); cta.classList.add("show"); itiles.classList.remove("flow");
-      for (var i = 0; i < tileEls.length; i++) tileEls[i].classList.add("show");
-      gwmark.classList.add("show"); ccap.classList.add("show"); csub.classList.add("show"); cstat.classList.add("show"); if (cstatNum) cstatNum.textContent = "5.2M";
+      b1.classList.add("show"); b2.classList.add("show"); cta.classList.add("show"); itiles.classList.add("flow");
+      gwmark.classList.add("show"); ccap.classList.add("show"); csub.classList.add("show"); cstat.classList.add("show"); if (cstatNum) cstatNum.textContent = "5.2M+";
     }
     function vskip(e) { if (e.target.closest && e.target.closest(".cta,.back")) return; if (!doneV) finishAll(); root.removeEventListener("click", vskip, true); }
     root.addEventListener("click", vskip, true);
@@ -484,11 +483,10 @@
     later(function () { b2.classList.add("show"); for (var i = 0; i < tileEls.length; i++) (function (el, i) { later(function () { el.classList.add("show"); }, i * 140); })(tileEls[i], i); }, tIn);
     var tFlow = tIn + ICON_ORDER.length * 140 + 900;
     later(function () { itiles.classList.add("flow"); gwmark.classList.add("show"); }, tFlow);
-    var tBack = tFlow + 1300;
-    later(function () { itiles.classList.remove("flow"); }, tBack);
-    later(function () { ccap.classList.add("show"); }, tBack + 300);
-    later(function () { csub.classList.add("show"); }, tBack + 650);
-    later(function () { cstat.classList.add("show"); if (cstatNum) countUp(cstatNum, 5.2, 1150); }, tBack + 900);
+    later(function () { ccap.classList.add("show"); }, tFlow + 1150);
+    later(function () { csub.classList.add("show"); }, tFlow + 1500);
+    later(function () { cstat.classList.add("show"); if (cstatNum) countUp(cstatNum, 5.2, 1200); }, tFlow + 1800);
+    later(function () { cta.classList.add("show"); }, tFlow + 2250);
     later(function () { cta.classList.add("show"); }, tBack + 1300);
   }
 
@@ -519,10 +517,11 @@
     gemini: '<svg viewBox="0 0 24 24" width="15" height="15"><defs><linearGradient id="gemg" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#4285F4"/><stop offset=".5" stop-color="#9B72CB"/><stop offset="1" stop-color="#D96570"/></linearGradient></defs><path fill="url(#gemg)" d="M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81"/></svg>'
   };
   var GWLOGO = window.__GW_LOGO || "";
+  var GWWORD = '<svg width="139" height="21" viewBox="0 0 139 21" fill="none" xmlns="http://www.w3.org/2000/svg"> <g clip-path="url(#clip0_4052_4403)"> <path d="M19.0147 20.021L19.0295 10.5387L9.54735 10.5239C9.53923 15.726 13.8127 20.0129 19.0147 20.021Z" fill="#901D00"/> <path d="M9.56224 1.0415L9.54743 10.5238L19.0296 10.5386C19.0377 5.33651 14.7643 1.04963 9.56224 1.0415Z" fill="#1D4E13"/> <path d="M0.0652557 10.5092L9.54739 10.524L9.5622 1.04167C4.3602 1.03354 0.0733809 5.30705 0.0652557 10.5092Z" fill="#71955E"/> <path d="M9.53249 20.0064L9.5473 10.5241L0.0651736 10.5093C0.0570485 15.7114 4.3305 19.9982 9.53249 20.0064Z" fill="#A2BB8A"/> <path d="M19.0295 10.5387L9.54735 10.5239L9.53254 20.0062C14.7345 20.0143 19.0214 15.7408 19.0295 10.5387Z" fill="#D1D7B5"/> <path d="M19.0444 1.05664L19.0296 10.5389L28.5118 10.5538C28.5199 5.35165 24.2464 1.06477 19.0444 1.05664Z" fill="#E1AE89"/> <path d="M9.54743 10.5238L19.0296 10.5386L19.0444 1.05631C13.8424 1.04819 9.55556 5.3217 9.54743 10.5238Z" fill="#F1DEC5"/> <path d="M28.5119 10.5539L19.0298 10.5391L19.015 20.0213C24.217 20.0295 28.5038 15.7559 28.5119 10.5539Z" fill="#B86845"/> <path d="M36.7029 10.8031C36.6952 15.7546 38.3228 19.1813 41.2464 19.1859C43.1956 19.1889 44.62 17.7954 44.6239 15.3192L44.6254 14.3449C44.6281 12.6328 44.3659 11.7895 43.1817 11.1819L43.1818 11.1291L47.5803 11.136L47.5666 19.9095L46.7054 19.9082L45.4111 17.1381C44.7764 18.7436 43.0623 20.058 40.7972 20.0544C36.425 20.0476 33.244 16.1971 33.2524 10.7977C33.2614 5.00337 37.0076 1.08445 41.3798 1.09128C43.1707 1.09408 44.3021 1.91231 45.1186 1.91358C45.8299 1.91469 46.2256 1.52028 46.5685 1.09939L46.6476 1.09951L46.638 7.26292L46.193 7.26223C45.2234 4.1792 43.9338 1.70142 41.5896 1.69776C38.4289 1.69282 36.7111 5.32502 36.7026 10.8035L36.7029 10.8031Z" fill="black"/> <path d="M83.6163 3.02783C83.6189 1.34214 83.2768 0.735856 82.1721 0.181161L82.1722 0.128383L86.5444 0.135212L86.5181 16.9921C86.5155 18.6251 86.725 19.2575 87.8039 19.8126L87.8039 19.8653L83.59 19.8587L83.5949 16.6981C83.1174 18.7253 81.666 20.1192 79.6118 20.116C76.9257 20.1118 74.6642 17.6589 74.6708 13.4711C74.6773 9.28322 76.9994 6.70555 79.7383 6.70983C81.7668 6.713 83.1342 8.0058 83.6054 9.98167L83.6163 3.02783ZM83.598 14.6957L83.602 12.1408C83.6064 9.37515 82.1331 7.8191 80.7109 7.81687C78.8935 7.81404 77.863 10.0247 77.8576 13.4753C77.8522 16.9258 78.8762 18.8762 80.6936 18.879C82.0901 18.8812 83.5938 17.3822 83.598 14.6957Z" fill="black"/> <path d="M104.514 13.4385C104.52 9.54059 107.026 6.75244 110.398 6.75771C113.769 6.76298 116.241 9.55889 116.235 13.4568C116.228 17.3548 113.722 20.1693 110.377 20.1641C107.032 20.1588 104.508 17.3629 104.514 13.4385ZM113.051 13.4518C113.056 9.84336 112.217 7.26115 110.4 7.25831C108.582 7.25547 107.709 9.83543 107.703 13.4435C107.698 17.0516 108.537 19.6606 110.38 19.6635C112.223 19.6664 113.045 17.06 113.051 13.4518Z" fill="black"/> <path d="M124.229 9.83436C124.23 9.12304 123.808 8.64856 122.986 8.64728C121.717 8.6453 120.593 10.5135 120.589 13.1212L120.582 17.204C120.58 18.9424 121.102 19.3383 122.271 19.8667L122.271 19.9194L116.618 19.9106L116.618 19.8578C117.64 19.3065 117.815 18.8853 117.818 17.1469L117.829 9.92992C117.832 8.24423 117.558 7.63804 116.513 7.08342L116.514 7.03065L120.598 7.03703L120.592 10.8826C121.094 8.72349 122.167 6.80278 123.985 6.80562C125.306 6.80768 126.226 7.70477 126.224 9.02136C126.221 10.47 125.324 11.285 124.327 11.2835C123.929 11.2829 123.605 11.1508 123.506 10.9923C123.904 10.835 124.229 10.4141 124.23 9.83471L124.229 9.83436Z" fill="black"/> <path d="M134.981 3.10812C134.983 1.42243 134.661 0.81618 133.616 0.261579L133.616 0.208801L137.75 0.215258L137.724 17.0722C137.721 18.7051 137.919 19.3376 138.939 19.8925L138.939 19.9453L134.954 19.939L134.959 16.7783C134.508 18.8056 133.136 20.1997 131.194 20.1966C128.653 20.1927 126.516 17.74 126.522 13.5521C126.529 9.36427 128.724 6.78641 131.315 6.79046C133.232 6.79345 134.524 8.08613 134.97 10.062L134.981 3.10812ZM134.963 14.776L134.967 12.2211C134.971 9.45544 133.579 7.89952 132.234 7.89742C130.516 7.89473 129.541 10.1055 129.536 13.5561C129.531 17.0066 130.498 18.9569 132.217 18.9596C133.537 18.9616 134.958 17.4625 134.963 14.776Z" fill="black"/> <path d="M49.1634 13.3521C49.1695 9.45416 51.676 6.66602 55.0474 6.67128C58.4188 6.67655 60.8902 9.47247 60.8841 13.3704C60.878 17.2684 58.3715 20.0829 55.0265 20.0776C51.6814 20.0724 49.1572 17.2764 49.1634 13.3521ZM57.697 13.3654C57.7027 9.75693 56.8639 7.17472 55.0466 7.17188C53.2293 7.16904 52.3561 9.749 52.3504 13.3571C52.3448 16.9652 53.1836 19.5742 55.0273 19.5771C56.8709 19.58 57.6914 16.9735 57.697 13.3654Z" fill="black"/> <path d="M61.9158 13.3721C61.9219 9.47418 64.4284 6.68604 67.7999 6.6913C71.1709 6.69657 73.6429 9.49249 73.6368 13.3904C73.6307 17.2884 71.1236 20.1029 67.7789 20.0976C64.4339 20.0924 61.9097 17.2965 61.9158 13.3721ZM70.4493 13.3854C70.455 9.77695 69.6166 7.19474 67.7991 7.1919C65.9818 7.18906 65.1085 9.76902 65.1029 13.3771C65.0973 16.9852 65.936 19.5942 67.7797 19.5971C69.6237 19.6 70.4437 16.9935 70.4493 13.3854Z" fill="black"/> <path d="M96.641 11.6346L93.3882 20.1368L93.3354 20.1367L89.3744 9.83195C88.6924 8.06603 88.4027 7.69696 87.5878 7.03715L87.5879 6.98438L92.6712 6.99231L92.6711 7.04509C92.0908 7.33404 91.9326 7.70247 91.9317 8.25546C91.9311 8.67685 92.0886 9.20369 92.2981 9.78374L94.423 15.6078L96.3002 10.6328L96.0119 9.84232C95.33 8.05042 95.0673 7.73376 94.2517 7.04756L94.2518 6.99478L99.3094 7.00268L99.3093 7.05546C98.6762 7.37072 98.4916 7.73911 98.4907 8.31848C98.4901 8.71348 98.6476 9.24074 98.8307 9.82033L100.692 15.4861L102.623 10.0106C102.782 9.56303 102.888 9.11542 102.889 8.74674C102.89 7.98306 102.522 7.35033 101.707 7.0592L101.707 7.00643L105.35 7.01212L105.35 7.0649C104.405 7.89584 103.789 8.98808 103.313 10.2828L99.7104 20.1462L99.6576 20.1462L96.6417 11.6342L96.641 11.6346Z" fill="black"/> <path d="M104.514 13.4375C104.52 9.53956 107.026 6.75147 110.398 6.75673C113.769 6.762 116.241 9.55787 116.235 13.4559C116.228 17.3538 113.722 20.1683 110.377 20.1631C107.032 20.1579 104.508 17.3619 104.514 13.4375ZM113.051 13.4509C113.056 9.84241 112.217 7.26019 110.4 7.25735C108.582 7.25451 107.709 9.83447 107.703 13.4425C107.698 17.0506 108.537 19.6597 110.38 19.6625C112.223 19.6654 113.045 17.059 113.051 13.4509Z" fill="black"/> </g> <defs> <clipPath id="clip0_4052_4403"> <rect width="138.958" height="20" fill="white" transform="translate(0.0312381) rotate(0.0894905)"/> </clipPath> </defs> </svg>';
   function countUp(el, target, dur) {
     el.textContent = "0.0M";
     var start = null;
-    function tick(ts) { if (start === null) start = ts; var p = Math.min(1, (ts - start) / dur); var e = 1 - Math.pow(1 - p, 3); el.textContent = (target * e).toFixed(1) + "M"; if (p < 1) requestAnimationFrame(tick); else el.textContent = target.toFixed(1) + "M"; }
+    function tick(ts) { if (start === null) start = ts; var p = Math.min(1, (ts - start) / dur); var e = 1 - Math.pow(1 - p, 3); el.textContent = (target * e).toFixed(1) + "M"; if (p < 1) requestAnimationFrame(tick); else el.textContent = target.toFixed(1) + "M+"; }
     requestAnimationFrame(tick);
   }
   var surfaceRender = null;
