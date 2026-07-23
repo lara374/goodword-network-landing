@@ -322,10 +322,10 @@
   .bnet{color:var(--line);transition:color .55s ease;}\
   .bnet.lit{color:var(--ink);}\
   .qtag{display:inline-block;margin-left:8px;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--clay);background:rgba(184,104,69,.1);border-radius:6px;padding:2px 6px;font-weight:700;vertical-align:middle;}\
-  .cstat{display:inline-flex;flex-direction:column;align-items:center;gap:3px;margin:24px auto 0;padding:15px 26px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 16px 36px -24px rgba(29,78,19,.5);opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .6s cubic-bezier(.2,.8,.2,1);}\
+  .cstat{margin:26px 0 0;text-align:center;line-height:1.25;opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .6s cubic-bezier(.2,.8,.2,1);}\
   .cstat.show{opacity:1;transform:none;}\
-  .cstat-num{font-size:30px;font-weight:800;color:var(--green);font-variant-numeric:tabular-nums;letter-spacing:-.02em;line-height:1;}\
-  .cstat-lbl{font-size:13.5px;color:var(--muted);font-weight:600;}\
+  .cstat-num{display:block;font-family:'Domaine Display',Georgia,serif;font-style:italic;font-size:clamp(34px,9vw,46px);color:var(--green);font-variant-numeric:tabular-nums;letter-spacing:-.01em;}\
+  .cstat-lbl{display:block;font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-top:4px;}\
   .reassure{text-align:center;font-size:12.5px;color:var(--muted);margin:12px 0 0;}\
   .moat{text-align:center;font-family:'Domaine Display',Georgia,serif;font-size:clamp(19px,4.8vw,23px);line-height:1.3;color:var(--ink);margin:6px 0 16px;}\
   .moat em{color:var(--green);font-style:italic;}\
@@ -465,7 +465,7 @@
       '<div class="gwmark">' + logo + "</div>" +
       '<p class="ccap">Everyone, in <em>one place</em>.</p>' +
       '<p class="csub">Who you need, ready when you need them.</p>' +
-      '<div class="cstat"><span class="cstat-num">5.2M</span><span class="cstat-lbl">people already mapped in Goodword</span></div></div></div>' +
+      '<p class="cstat"><span class="cstat-num">5.2M+</span><span class="cstat-lbl">people already mapped in Goodword</span></p></div></div>' +
       "</div>" +
       '<button class="cta fade" data-next style="margin-top:26px">Show me how</button>';
     var b1 = screenEl.querySelector(".b1 h1"), b2 = screenEl.querySelector(".b2"), cta = screenEl.querySelector(".cta"),
@@ -499,8 +499,9 @@
     if (!state.refine || state.refineGoal !== state.goal) { state.refine = o.refine.map(function (gr) { return gr.opts[0]; }); state.refineGoal = state.goal; }
     var groups = o.refine.map(function (gr, gi) {
       var custom = state.refine[gi] && gr.opts.indexOf(state.refine[gi]) < 0;
+      var ph = /^who/i.test(gr.label) ? "Someone else…" : "Something else…";
       var chips = gr.opts.map(function (opt) { return '<button class="rchip' + (state.refine[gi] === opt ? " on" : "") + '" data-refine="' + gi + '" data-val="' + esc(opt) + '">' + esc(opt) + "</button>"; }).join("");
-      chips += '<input class="rtype" data-refine-input="' + gi + '" placeholder="Something else…" value="' + (custom ? esc(state.refine[gi]) : "") + '">';
+      chips += '<input class="rtype" data-refine-input="' + gi + '" placeholder="' + ph + '" value="' + (custom ? esc(state.refine[gi]) : "") + '">';
       return '<div class="rgroup reveal" style="--d:' + (100 + gi * 120) + 'ms"><div class="rlabel">' + esc(gr.label) + '</div><div class="rchips">' + chips + "</div></div>";
     }).join("");
     screenEl.innerHTML =
