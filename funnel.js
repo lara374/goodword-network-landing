@@ -96,7 +96,7 @@
   background:radial-gradient(120% 80% at 50% -10%,#FFFDF8 0%,var(--paper) 44%,var(--paper-2) 100%);}\
   canvas.net{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;}\
   .grain{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.5;mix-blend-mode:multiply;background-image:radial-gradient(rgba(29,78,19,.05) 1px,transparent 1px);background-size:3px 3px;}\
-  .stage{position:relative;z-index:2;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;}\
+  .stage{position:relative;z-index:2;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;overflow-x:hidden;max-width:100%;}\
   .bar{width:100%;max-width:620px;padding:20px 24px 0;opacity:0;transition:opacity .5s ease;}\
   .bar.on{opacity:1;}\
   .bar-row{display:flex;align-items:center;gap:14px;min-height:26px;}\
@@ -156,13 +156,13 @@
   .gwmark{width:180px;max-width:70%;margin:10px auto 26px;opacity:0;transform:scale(.6);transition:opacity .7s ease,transform .8s cubic-bezier(.2,.8,.2,1);}\
   .gwmark.show{opacity:1;transform:scale(1);}\
   .gwmark svg{width:100%;height:auto;display:block;}\
-  .netviz{position:relative;width:100%;max-width:340px;height:184px;margin:2px auto 16px;}\
+  .netviz{position:relative;width:100%;max-width:384px;height:188px;margin:2px auto 16px;}\
   .netlines{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 1s ease;pointer-events:none;z-index:1;}\
   .netviz.lit .netlines{opacity:1;}\
-  .netlines path{stroke:var(--green-soft);stroke-width:1;fill:none;vector-effect:non-scaling-stroke;stroke-dasharray:44 44;stroke-linecap:round;opacity:.5;animation:flowline 3.4s linear infinite;}\
+  .netlines path{stroke:var(--line);stroke-width:1;fill:none;vector-effect:non-scaling-stroke;stroke-dasharray:44 44;stroke-linecap:round;opacity:.7;animation:flowline 3.8s linear infinite;}\
   @keyframes flowline{to{stroke-dashoffset:-88;}}\
-  .netviz .itile{position:absolute;width:38px;height:38px;border-radius:11px;margin:0;z-index:2;transform:translate(-50%,-50%) scale(.85);}\
-  .netviz .itile svg,.netviz .itile img{width:22px !important;height:22px !important;}\
+  .netviz .itile{position:absolute;width:42px;height:42px;border-radius:12px;margin:0;z-index:2;transform:translate(-50%,-50%) scale(.85);}\
+  .netviz .itile svg,.netviz .itile img{width:24px !important;height:24px !important;}\
   .netviz .itile.show{opacity:1;transform:translate(-50%,-50%) scale(1);}\
   .netviz .gwmark{position:absolute;left:50%;top:84%;width:168px;max-width:62%;margin:0;z-index:2;transform:translate(-50%,-50%) scale(.6);}\
   .netviz .gwmark.show{opacity:1;transform:translate(-50%,-50%) scale(1);}\
@@ -495,7 +495,7 @@
     var o = g();
     var N = ICON_ORDER.length;
     var pts = [];
-    for (var pi = 0; pi < N; pi++) { var x = 7 + (N > 1 ? pi / (N - 1) : 0.5) * 86; pts.push({ x: x, y: 25 }); }
+    for (var pi = 0; pi < N; pi++) { var x = 5 + (N > 1 ? pi / (N - 1) : 0.5) * 90; pts.push({ x: x, y: 25 }); }
     var anchor = { x: 50, y: 63 };
     var tiles = ICON_ORDER.map(function (k, i) { return '<span class="itile" style="left:' + pts[i].x.toFixed(1) + "%;top:" + pts[i].y.toFixed(1) + '%">' + (window.__GW_ICONS && window.__GW_ICONS[k] ? window.__GW_ICONS[k] : "") + "</span>"; }).join("");
     var lines = pts.map(function (p) { var mid = ((p.y + anchor.y) / 2).toFixed(1); return '<path d="M ' + p.x.toFixed(1) + " " + p.y.toFixed(1) + " C " + p.x.toFixed(1) + " " + mid + " " + anchor.x + " " + mid + " " + anchor.x + " " + anchor.y + '"/>'; }).join("");
