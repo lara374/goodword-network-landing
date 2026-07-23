@@ -71,12 +71,12 @@
   var KATIE = { text: "I dictate notes after meeting someone and Goodword reminds me why the relationship matters, without relying on my memory.", name: "Katie", title: "Angel Investor" };
   var QUOTES = { founder: RANA, investor: RANA, sales: RANA, recruiter: LAUREN, community: KATIE, operator: KATIE };
   var CLOSE = {
-    founder: { h: "Founders sell through people — <em>not ads.</em>", sub: "Goodword turns the network you've already built into your warmest pipeline." },
+    founder: { h: "Founders sell, hire, and raise <em>through their network.</em>", sub: "Goodword turns the network you've already built into your warmest pipeline." },
     investor: { h: "Your best deals come from people you <em>already trust.</em>", sub: "Goodword surfaces the founders and intros already sitting in your network." },
     recruiter: { h: "Your next great hire is a <em>warm intro away.</em>", sub: "Find candidates across the people you already know — skip the cold InMails." },
     sales: { h: "Your warmest pipeline is the one you <em>already know.</em>", sub: "Goodword shows you who-knows-whom into every account." },
     community: { h: "You're the connector. <em>Goodword makes it effortless.</em>", sub: "Every person, every detail, every intro — in one place." },
-    operator: { h: "Never walk into a meeting <em>cold again.</em>", sub: "Goodword captures every conversation and hands you the context." }
+    operator: { h: "Every relationship, <em>remembered for you.</em>", sub: "Goodword captures every conversation and hands you the context." }
   };
   var GOAL_ORDER = ["customer", "investor", "hire", "partner", "advisor", "career"];
   var ROLE_ORDER = ["founder", "investor", "recruiter", "sales", "community", "operator"];
@@ -327,6 +327,8 @@
   .cstat-num{font-size:30px;font-weight:800;color:var(--green);font-variant-numeric:tabular-nums;letter-spacing:-.02em;line-height:1;}\
   .cstat-lbl{font-size:13.5px;color:var(--muted);font-weight:600;}\
   .reassure{text-align:center;font-size:12.5px;color:var(--muted);margin:12px 0 0;}\
+  .moat{text-align:center;font-family:'Domaine Display',Georgia,serif;font-size:clamp(19px,4.8vw,23px);line-height:1.3;color:var(--ink);margin:6px 0 16px;}\
+  .moat em{color:var(--green);font-style:italic;}\
   .reveal{opacity:0;transform:translateY(14px);}\
   .screen.in .reveal{animation:rise .55s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:var(--d,0ms);}\
   .screen.out{opacity:0;transform:translateY(-10px) scale(.995);transition:opacity .2s ease,transform .2s ease;}\
@@ -630,7 +632,8 @@
       '<p class="body reveal" style="--d:700ms">' + esc(cl.sub) + "</p>" +
       '<ul class="feat reveal" style="--d:1400ms">' + feats + "</ul>" +
       '<figure class="quote reveal" style="--d:2100ms"><div class="stars">★★★★★</div><p>“' + esc(qt.text) + '”</p><figcaption><span class="qavatar">' + esc(qt.name.charAt(0)) + '</span><span class="qwho"><span class="qname">' + esc(qt.name) + '</span><span class="qrole">' + esc(qt.title) + "</span></span></figcaption></figure>" +
-      '<a class="cta reveal" style="--d:2800ms" data-signup href="' + esc(signupHref()) + '">Start free →</a>';
+      '<p class="moat reveal" style="--d:2600ms">The biggest moat in the age of AI is <em>your network.</em></p>' +
+      '<a class="cta reveal" style="--d:3000ms" data-signup href="' + esc(signupHref()) + '">Get Started for Free</a>';
     screenEl.classList.remove("in"); void screenEl.offsetWidth; screenEl.classList.add("in");
   }
 
