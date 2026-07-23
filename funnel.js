@@ -76,7 +76,7 @@
     recruiter: { h: "Your next great hire is a <em>warm intro away.</em>", sub: "Find candidates across the people you already know — skip the cold InMails." },
     sales: { h: "Your warmest pipeline is the one you <em>already know.</em>", sub: "Goodword shows you who-knows-whom into every account." },
     community: { h: "You're the connector. <em>Goodword makes it effortless.</em>", sub: "Every person, every detail, every intro — in one place." },
-    operator: { h: "The network you've spent a career building, <em>finally searchable.</em>", sub: "Goodword captures every conversation and hands you the context." }
+    operator: { h: "A career's worth of relationships, <em>working for you.</em>", sub: "Goodword captures every conversation and hands you the context." }
   };
   var GOAL_ORDER = ["customer", "investor", "hire", "partner", "advisor", "career"];
   var ROLE_ORDER = ["founder", "investor", "recruiter", "sales", "community", "operator"];
@@ -156,15 +156,15 @@
   .gwmark{width:180px;max-width:70%;margin:10px auto 26px;opacity:0;transform:scale(.6);transition:opacity .7s ease,transform .8s cubic-bezier(.2,.8,.2,1);}\
   .gwmark.show{opacity:1;transform:scale(1);}\
   .gwmark svg{width:100%;height:auto;display:block;}\
-  .netviz{position:relative;width:100%;max-width:340px;height:172px;margin:2px auto 18px;}\
-  .netlines{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .8s ease;pointer-events:none;z-index:1;}\
-  .netviz.lit .netlines{opacity:.85;}\
-  .netlines line{stroke:var(--green-soft);stroke-width:1.3;fill:none;vector-effect:non-scaling-stroke;stroke-dasharray:13 11;stroke-linecap:round;animation:flowline 2.6s linear infinite;}\
-  @keyframes flowline{to{stroke-dashoffset:-24;}}\
-  .netviz .itile{position:absolute;width:36px;height:36px;border-radius:10px;margin:0;z-index:2;transform:translate(-50%,-50%) scale(.85);}\
-  .netviz .itile svg,.netviz .itile img{width:20px !important;height:20px !important;}\
+  .netviz{position:relative;width:100%;max-width:340px;height:184px;margin:2px auto 16px;}\
+  .netlines{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 1s ease;pointer-events:none;z-index:1;}\
+  .netviz.lit .netlines{opacity:1;}\
+  .netlines path{stroke:var(--green-soft);stroke-width:1;fill:none;vector-effect:non-scaling-stroke;stroke-dasharray:44 44;stroke-linecap:round;opacity:.5;animation:flowline 3.4s linear infinite;}\
+  @keyframes flowline{to{stroke-dashoffset:-88;}}\
+  .netviz .itile{position:absolute;width:38px;height:38px;border-radius:11px;margin:0;z-index:2;transform:translate(-50%,-50%) scale(.85);}\
+  .netviz .itile svg,.netviz .itile img{width:22px !important;height:22px !important;}\
   .netviz .itile.show{opacity:1;transform:translate(-50%,-50%) scale(1);}\
-  .netviz .gwmark{position:absolute;left:50%;top:83%;width:168px;max-width:62%;margin:0;z-index:2;transform:translate(-50%,-50%) scale(.6);}\
+  .netviz .gwmark{position:absolute;left:50%;top:84%;width:168px;max-width:62%;margin:0;z-index:2;transform:translate(-50%,-50%) scale(.6);}\
   .netviz .gwmark.show{opacity:1;transform:translate(-50%,-50%) scale(1);}\
   .ccap{font-family:'Domaine Display','Domaine Text',Georgia,serif;font-size:clamp(22px,5.6vw,29px);line-height:1.15;color:var(--ink);margin:0 0 12px;opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease;}\
   .ccap.show{opacity:1;transform:none;}\
@@ -248,10 +248,13 @@
   .rinfo small{display:block;color:var(--muted);font-size:13px;margin-top:1px;}\
   .rhist{display:block;color:var(--green);font-size:12.5px;margin-top:5px;}\
   .rgo{flex:none;color:var(--green-soft);font-size:18px;}\
-  .shead{font-family:'Domaine Display',Georgia,serif;font-size:clamp(22px,5.6vw,30px);color:var(--ink);text-align:center;margin:0 0 16px;min-height:1.25em;opacity:0;transition:opacity .35s ease;}\
+  .sheads{list-style:none;margin:2px 0 18px;padding:0;display:flex;flex-direction:column;gap:11px;}\
+  .shrow{display:flex;align-items:center;gap:11px;font-size:16px;font-weight:500;color:var(--ink);opacity:0;transform:translateY(8px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1);}\
+  .shrow.show{opacity:1;transform:none;}\
+  .shn{flex:none;width:25px;height:25px;border-radius:50%;background:var(--green-tint);border:1px solid var(--green-soft);color:var(--green);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;}\
   .surface{margin-top:12px;margin-bottom:24px;min-height:452px;}\
   .results.gone{display:none;}\
-  .pcard{display:none;padding:11px 12px 10px;opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.8,.2,1);}\
+  .pcard{display:none;width:290px;max-width:88%;margin:14px auto 16px;padding:13px 14px 11px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 22px 50px -26px rgba(29,78,19,.55);opacity:0;transform:translateY(16px) scale(.97);transition:opacity .5s ease,transform .55s cubic-bezier(.2,.8,.2,1);}\
   .pcard.open{display:block;opacity:1;transform:none;}\
   .pc-hd{display:flex;gap:11px;align-items:flex-start;padding:2px 2px 10px;}\
   .pc-av{flex:none;width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--green-soft),var(--green));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;}\
@@ -354,10 +357,10 @@
   .bnet{color:var(--line);transition:color .55s ease;}\
   .bnet.lit{color:var(--ink);}\
   .qtag{display:inline-block;margin-left:8px;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--clay);background:rgba(184,104,69,.1);border-radius:6px;padding:2px 6px;font-weight:700;vertical-align:middle;}\
-  .cstat{margin:20px 0 0;text-align:center;line-height:1.3;opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .6s cubic-bezier(.2,.8,.2,1);}\
+  .cstat{margin:22px 0 0;text-align:center;line-height:1.4;font-size:14.5px;color:var(--muted);font-weight:600;opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .6s cubic-bezier(.2,.8,.2,1);}\
   .cstat.show{opacity:1;transform:none;}\
-  .cstat-num{font-family:'Domaine Display',Georgia,serif;font-style:italic;font-size:clamp(22px,5.4vw,27px);color:var(--green);font-variant-numeric:tabular-nums;margin-right:6px;}\
-  .cstat-lbl{font-size:14px;color:var(--muted);font-weight:600;}\
+  .cstat-num{display:inline-block;font-weight:800;color:#fff;background:var(--green);border-radius:8px;padding:3px 10px;margin-right:8px;font-size:16px;font-variant-numeric:tabular-nums;letter-spacing:-.01em;box-shadow:0 8px 18px -10px rgba(29,78,19,.6);}\
+  .cstat-lbl{color:var(--muted);}\
   .reassure{text-align:center;font-size:12.5px;color:var(--muted);margin:12px 0 0;}\
   .moat{text-align:center;font-family:'Domaine Display',Georgia,serif;font-size:clamp(19px,4.8vw,23px);line-height:1.3;color:var(--ink);margin:6px 0 16px;}\
   .moat em{color:var(--green);font-style:italic;}\
@@ -367,7 +370,7 @@
   .screen.in{animation:screenin .5s ease both;}\
   @keyframes screenin{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}\
   @keyframes rise{to{opacity:1;transform:none;}}\
-  @media (prefers-reduced-motion:reduce){.reveal,.fade,.ccap,.csub,.cstat,.tabs2,.qpills,.rescard,.webframe,.tmsg,.ailogos,.aiuser,.airesp,.ailabel,.bstep,.bhelps,.bask{opacity:1!important;transform:none!important;animation:none!important;transition:none!important;}.netviz .itile,.netviz .gwmark{opacity:1!important;transform:translate(-50%,-50%)!important;animation:none!important;transition:none!important;}.netlines line{animation:none!important;}.qpills{display:none!important;}.tmsg.typing{display:none!important;}.cta:before,.cursor,.edots i,.qtype::after,.screen.in{animation:none!important;}.screen.out{transition:none;}}\
+  @media (prefers-reduced-motion:reduce){.reveal,.fade,.ccap,.csub,.cstat,.tabs2,.qpills,.rescard,.webframe,.tmsg,.ailogos,.aiuser,.airesp,.ailabel,.bstep,.bhelps,.bask,.shrow{opacity:1!important;transform:none!important;animation:none!important;transition:none!important;}.netviz .itile,.netviz .gwmark{opacity:1!important;transform:translate(-50%,-50%)!important;animation:none!important;transition:none!important;}.netlines line{animation:none!important;}.qpills{display:none!important;}.tmsg.typing{display:none!important;}.cta:before,.cursor,.edots i,.qtype::after,.screen.in{animation:none!important;}.screen.out{transition:none;}}\
   ";
 
   var shadow = mount.attachShadow ? mount.attachShadow({ mode: "open" }) : mount;
@@ -492,10 +495,10 @@
     var o = g();
     var N = ICON_ORDER.length;
     var pts = [];
-    for (var pi = 0; pi < N; pi++) { var x = 6 + (N > 1 ? pi / (N - 1) : 0.5) * 88; pts.push({ x: x, y: 22 }); }
-    var anchor = { x: 50, y: 58 };
+    for (var pi = 0; pi < N; pi++) { var x = 7 + (N > 1 ? pi / (N - 1) : 0.5) * 86; pts.push({ x: x, y: 25 }); }
+    var anchor = { x: 50, y: 63 };
     var tiles = ICON_ORDER.map(function (k, i) { return '<span class="itile" style="left:' + pts[i].x.toFixed(1) + "%;top:" + pts[i].y.toFixed(1) + '%">' + (window.__GW_ICONS && window.__GW_ICONS[k] ? window.__GW_ICONS[k] : "") + "</span>"; }).join("");
-    var lines = pts.map(function (p) { return '<line x1="' + p.x.toFixed(1) + '" y1="' + p.y.toFixed(1) + '" x2="' + anchor.x + '" y2="' + anchor.y + '"/>'; }).join("");
+    var lines = pts.map(function (p) { var mid = ((p.y + anchor.y) / 2).toFixed(1); return '<path d="M ' + p.x.toFixed(1) + " " + p.y.toFixed(1) + " C " + p.x.toFixed(1) + " " + mid + " " + anchor.x + " " + mid + " " + anchor.x + " " + anchor.y + '"/>'; }).join("");
     screenEl.innerHTML =
       '<div class="beats">' +
       '<div class="beat b1"><h1 class="fade">' + esc(o.hook) + "</h1></div>" +
@@ -592,11 +595,12 @@
     }
 
     screenEl.innerHTML =
-      '<div class="srch2"><h1 class="shead"></h1><div class="tabs tabs2"><button class="tab on" data-tab="app">In the web app</button><button class="tab" data-tab="text">Over text</button><button class="tab" data-tab="ai">In your AI</button></div>' +
+      '<div class="srch2"><ol class="sheads"><li class="shrow"><span class="shn">1</span><span>Search your network, anywhere you want</span></li><li class="shrow"><span class="shn">2</span><span>Find who you need in seconds</span></li><li class="shrow"><span class="shn">3</span><span>See the full story on anyone</span></li></ol><div class="tabs tabs2"><button class="tab on" data-tab="app">In the web app</button><button class="tab" data-tab="text">Over text</button><button class="tab" data-tab="ai">In your AI</button></div>' +
       '<div class="surface"></div></div>' +
       '<button class="cta" data-next>Keep going →</button>';
-    var srch = screenEl.querySelector(".srch2"), surface = screenEl.querySelector(".surface"), cta = screenEl.querySelector(".cta"), shead = screenEl.querySelector(".shead");
-    function setHead(t) { if (!shead) return; if (!shead.textContent) { shead.textContent = t; shead.style.opacity = "1"; return; } if (shead.textContent === t) return; shead.style.opacity = "0"; later(function () { shead.textContent = t; shead.style.opacity = "1"; }, 200); }
+    var srch = screenEl.querySelector(".srch2"), surface = screenEl.querySelector(".surface"), cta = screenEl.querySelector(".cta"), shrows = screenEl.querySelectorAll(".shrow");
+    function showStep(i) { if (shrows[i]) shrows[i].classList.add("show"); }
+    function showAllSteps() { for (var i = 0; i < shrows.length; i++) shrows[i].classList.add("show"); }
     function showCta() { cta.classList.add("show"); }
     function showTabs() { var t = screenEl.querySelector(".tabs2"); if (t) t.classList.add("show"); }
     function stagger(sel, base) { var els = surface.querySelectorAll(sel); for (var i = 0; i < els.length; i++)(function (el, k) { later(function () { el.classList.add("show"); }, base + k * 190); })(els[i], i); later(showCta, base + els.length * 190 + 120); }
@@ -609,14 +613,14 @@
         '<div class="results">' + rows() + "</div>" + profileCard() + "</div>";
       var qpz = surface.querySelector(".qpills"), qtype = surface.querySelector(".qtype"), qwrap = surface.querySelector(".qwrap"), frame = surface.querySelector(".webframe"), results = surface.querySelector(".results"), pcard = surface.querySelector(".pcard");
       qwrap.classList.add("box");
-      function openProfile() { setHead("See the full story on anyone"); var first = surface.querySelector(".rescard"); if (first) first.classList.add("picked"); later(function () { results.classList.add("gone"); pcard.classList.add("open"); showCta(); }, 950); }
+      function openProfile() { showStep(2); var first = surface.querySelector(".rescard"); if (first) first.classList.add("picked"); later(function () { results.classList.add("gone"); pcard.classList.add("open"); showCta(); }, 950); }
       function buildResults() { frame.classList.add("built"); var cards = surface.querySelectorAll(".rescard"); for (var i = 0; i < cards.length; i++)(function (el, k) { later(function () { el.classList.add("show"); }, k * 220); })(cards[i], i); later(openProfile, cards.length * 220 + 1600); }
-      if (!animate) { setHead("See the full story on anyone"); showTabs(); frame.classList.remove("pre"); frame.classList.add("built"); qpz.style.display = "none"; qtype.textContent = question; var cs = surface.querySelectorAll(".rescard"); for (var i = 0; i < cs.length; i++) cs[i].classList.add("show"); results.classList.add("gone"); pcard.classList.add("open"); showCta(); return; }
+      if (!animate) { showAllSteps(); showTabs(); frame.classList.remove("pre"); frame.classList.add("built"); qpz.style.display = "none"; qtype.textContent = question; var cs = surface.querySelectorAll(".rescard"); for (var i = 0; i < cs.length; i++) cs[i].classList.add("show"); results.classList.add("gone"); pcard.classList.add("open"); showCta(); return; }
       // Slow, sequential unfold — one idea at a time, with time to read each.
       frame.classList.add("pre"); // hide the search window during beat 1
-      setHead("Search your network anywhere you want");
+      showStep(0);
       later(showTabs, 1900); // beat 1: read the message, THEN the three places appear
-      later(function () { setHead("Find who you need in seconds"); }, 3500);
+      later(function () { showStep(1); }, 3500);
       later(function () { frame.classList.remove("pre"); raf2(function () { qpz.classList.add("in"); }); }, 4200); // reveal the bar + the pills
       later(function () { qpz.classList.add("intobar"); }, 5500); // pills glide slowly into the bar
       later(function () { qpz.style.display = "none"; typewriter(qtype, question, buildResults); }, 6700); // type → results → pause → profile opens
@@ -628,7 +632,7 @@
         '<div class="tmsg gw reply"><span class="gwtag"><span class="gwlogo">' + GWLOGO + "</span>Goodword</span>Found 3 people in your network 👇</div>" +
         bubbles() + "</div>";
       var me = surface.querySelector(".me"), typing = surface.querySelector(".typing"), reply = surface.querySelector(".reply");
-      setHead("Find who you need in seconds"); showTabs();
+      showAllSteps(); showTabs();
       if (!animate) { var all = surface.querySelectorAll(".tmsg"); for (var i = 0; i < all.length; i++) all[i].classList.add("show"); typing.style.display = "none"; showCta(); return; }
       raf2(function () { me.classList.add("show"); });
       later(function () { typing.classList.add("show"); }, 550);
@@ -642,7 +646,7 @@
         '<div class="aistatus">Searching your Goodword network<span class="edots"><i>.</i><i>.</i><i>.</i></span></div>' +
         '<div class="results">' + rows() + "</div></div></div></div></div>";
       var logos = surface.querySelector(".ailogos"), label = surface.querySelector(".ailabel"), aiuser = surface.querySelector(".aiuser"), airesp = surface.querySelector(".airesp"), status = surface.querySelector(".aistatus");
-      setHead("Find who you need in seconds"); showTabs();
+      showAllSteps(); showTabs();
       if (!animate) { label.classList.add("show"); logos.classList.add("show"); aiuser.classList.add("show"); airesp.classList.add("show"); status.classList.add("done"); var cs = surface.querySelectorAll(".rescard"); for (var i = 0; i < cs.length; i++) cs[i].classList.add("show"); showCta(); return; }
       raf2(function () { label.classList.add("show"); logos.classList.add("show"); });
       later(function () { aiuser.classList.add("show"); }, 450);
@@ -717,7 +721,7 @@
     if (btn.hasAttribute("data-tab")) {
       var tabs = screenEl.querySelectorAll(".tab"); for (var ti = 0; ti < tabs.length; ti++) tabs[ti].classList.remove("on"); btn.classList.add("on");
       var want = btn.getAttribute("data-tab");
-      if (surfaceRender) surfaceRender(want, !REDUCE);
+      if (surfaceRender) surfaceRender(want, false);
       return;
     }
     if (btn.hasAttribute("data-role")) { btn.classList.add("chosen"); var v2 = btn.getAttribute("data-role"); track("funnel_role_selected", { role: v2, goal: state.goal || "" }); later(function () { state.role = v2; go("sell"); }, REDUCE ? 0 : 160); return; }
