@@ -256,7 +256,7 @@
   .rinfo small{display:block;color:var(--muted);font-size:13px;margin-top:1px;}\
   .rhist{display:block;color:var(--green);font-size:12.5px;margin-top:5px;}\
   .rgo{flex:none;color:var(--green-soft);font-size:18px;}\
-  .sheads{list-style:none;margin:2px 0 20px;padding:0;display:flex;flex-direction:column;gap:10px;}\
+  .sheads{list-style:none;margin:2px 0 12px;padding:0;display:flex;flex-direction:column;gap:8px;}\
   .shrow{display:flex;align-items:center;gap:11px;font-size:15px;color:var(--muted);opacity:0;transform:translateY(8px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1),color .4s ease,font-size .4s ease;}\
   .shrow.show{opacity:1;transform:none;}\
   .shdot{flex:none;width:7px;height:7px;border-radius:50%;background:var(--line);transition:background .4s ease,transform .4s ease;}\
@@ -264,7 +264,7 @@
   .shrow.done .shdot{background:var(--green-soft);}\
   .shrow.cur{color:var(--ink);font-size:clamp(19px,4.6vw,24px);font-family:'Domaine Display',Georgia,serif;font-weight:500;}\
   .shrow.cur .shdot{background:var(--green);transform:scale(1.35);}\
-  .surface{margin-top:12px;margin-bottom:24px;min-height:452px;}\
+  .surface{margin-top:10px;margin-bottom:16px;min-height:340px;}\
   .results.dim{position:relative;min-height:372px;}\
   .results.dim .rescard{opacity:.4;filter:grayscale(.55) blur(1.2px);pointer-events:none;transition:opacity .5s ease,filter .5s ease;}\
   .pcard{position:absolute;left:50%;top:2px;z-index:5;width:290px;max-width:92%;padding:13px 14px 11px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 26px 56px -22px rgba(29,78,19,.6);opacity:0;pointer-events:none;transform:translate(-50%,18px) scale(.96);transition:opacity .5s ease,transform .55s cubic-bezier(.2,.8,.2,1);}\
@@ -663,7 +663,7 @@
     }
     function renderAI(animate) {
       surface.innerHTML =
-        '<div class="aiwrap"><div class="ailabel">Ask Goodword right inside</div><div class="ailogos">' + aichip("Claude", "claude") + aichip("ChatGPT", "chatgpt") + aichip("Gemini", "gemini") + "</div>" +
+        '<div class="aiwrap"><div class="ailabel">Ask Goodword right inside</div><div class="ailogos">' + aichip("Claude", "claude") + aichip("ChatGPT/Codex", "chatgpt") + aichip("Gemini", "gemini") + "</div>" +
         '<div class="aichat"><div class="aiuser">' + esc(question) + "</div>" +
         '<div class="airesp"><span class="aiava">' + GWLOGO + '</span><div class="aibody">' +
         '<div class="aistatus">Searching your Goodword network<span class="edots"><i>.</i><i>.</i><i>.</i></span></div>' +
@@ -716,8 +716,8 @@
       '<h1 class="reveal" style="--d:0ms">' + cl.h + "</h1>" +
       '<p class="body reveal" style="--d:700ms">' + esc(cl.sub) + "</p>" +
       '<figure class="quote reveal" style="--d:1200ms"><div class="stars">★★★★★</div><p>“' + esc(qt.text) + '”</p><figcaption>' + (qt.img ? '<img class="qavatar" src="' + qt.img + '" alt="' + esc(qt.name) + '">' : '<span class="qavatar">' + esc(qt.name.charAt(0)) + '</span>') + '<span class="qwho"><span class="qname">' + esc(qt.name) + '</span><span class="qrole">' + esc(qt.title) + "</span></span></figcaption></figure>" +
-      '<p class="moat reveal" style="--d:1700ms">The biggest moat in the age of AI is <em>your network.</em></p>' +
-      '<a class="cta reveal" style="--d:2100ms" data-signup href="' + esc(signupHref()) + '">Get Started for Free</a>';
+      '<p class="moat reveal" style="--d:1700ms;margin-top:auto">The biggest moat in the age of AI is <em>your network.</em></p>' +
+      '<a class="cta reveal" style="--d:2100ms;margin-top:14px" data-signup href="' + esc(signupHref()) + '">Get Started for Free</a>';
     screenEl.classList.remove("in"); void screenEl.offsetWidth; screenEl.classList.add("in");
   }
 
