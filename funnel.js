@@ -357,12 +357,40 @@
   function raf2(fn) { requestAnimationFrame(function () { requestAnimationFrame(fn); }); }
   function typewriter(el, text, cb, onProg) { var i = 0, n = text.length; (function tick() { el.textContent = text.slice(0, i); if (onProg) onProg(n ? i / n : 1); i++; if (i <= n) later(tick, 28); else if (cb) later(cb, 260); })(); }
   function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+  // ---- Tracking: first-touch attribution + event layer (PostHog via GTM dataLayer; direct posthog if present) ----
+  var ATTR = (function () {
+    var out = {};
+    try {
+      var p = new URLSearchParams(location.search);
+      ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "fbclid", "li_fat_id"].forEach(function (k) { if (p.get(k)) out[k] = p.get(k); });
+      out.landing_path = location.pathname;
+      out.referrer = document.referrer || "";
+      var saved = JSON.parse(localStorage.getItem("gw_funnel_attr") || "null");
+      if (saved) { for (var k in saved) { if (!(k in out)) out[k] = saved[k]; } } // first-touch wins
+      localStorage.setItem("gw_funnel_attr", JSON.stringify(out));
+    } catch (e) {}
+    return out;
+  })();
+  function phId() { try { return (window.posthog && window.posthog.get_distinct_id) ? window.posthog.get_distinct_id() : ""; } catch (e) { return ""; } }
+  try { if (window.posthog && window.posthog.register) window.posthog.register(ATTR); } catch (e) {}
+  function track(ev, props) {
+    var payload = { schema: "gw_funnel_v1" };
+    for (var k in ATTR) payload[k] = ATTR[k];
+    if (props) { for (var k2 in props) payload[k2] = props[k2]; }
+    try { if (window.posthog && window.posthog.capture) window.posthog.capture(ev, payload); } catch (e) {}
+    try { window.dataLayer = window.dataLayer || []; var dl = { event: ev }; for (var k3 in payload) dl[k3] = payload[k3]; window.dataLayer.push(dl); } catch (e) {}
+    try { if (typeof window.gwFunnelStep === "function") window.gwFunnelStep(ev, payload); } catch (e) {}
+  }
+  function picksNow() { var o = g(); return (state.refine && state.refineGoal === state.goal) ? state.refine : o.refine.map(function (gr) { return gr.opts[0]; }); }
   function g() { return GOALS[state.goal || "customer"]; }
   function r() { return ROLES[state.role || "founder"]; }
   function builtQuery() { var o = g(); return tidy(state.query || o.q(o.refine.map(function (gr) { return gr.opts[0]; }))); }
   function signupHref() {
     var p; try { p = new URLSearchParams(location.search); } catch (e) { p = new URLSearchParams(); }
     p.set("goal", state.goal || "customer"); if (state.role) p.set("role", state.role);
+    var pk = picksNow(); if (pk[0]) p.set("refine1", pk[0]); if (pk[1]) p.set("refine2", pk[1]);
+    p.set("q", builtQuery());
+    var did = phId(); if (did) p.set("ph_distinct_id", did);
     if (!p.get("utm_source")) p.set("utm_source", "funnel"); p.set("lp", "start");
     return "https://app.goodword.com/auth/signup?" + p.toString();
   }
@@ -371,7 +399,7 @@
     for (var i = 0; i < dots.length; i++) dots[i].className = i < idx ? "done" : (i === idx ? "cur" : "");
     stepEl.textContent = "Step " + (idx + 1) + " of " + ORDER.length;
     backBtn.disabled = state.history.length === 0;
-    if (typeof window.gwFunnelStep === "function") { try { window.gwFunnelStep(current, { goal: state.goal, role: state.role, query: state.query }); } catch (e) {} }
+    track("funnel_step_viewed", { step: current, step_index: idx + 1, step_count: ORDER.length, goal: state.goal || "", role: state.role || "" });
   }
 
   // ---- GOAL opener: Imagine → headline → reel → options (top-aligned) ----
@@ -503,6 +531,7 @@
     var o = g();
     var picks = (state.refine && state.refineGoal === state.goal) ? state.refine : o.refine.map(function (gr) { return gr.opts[0]; });
     var question = tidy(o.q(picks));
+    track("funnel_search_viewed", { goal: state.goal || "", refine1: picks[0] || "", refine2: picks[1] || "", query: question });
     var pills = picks.map(function (p) { return '<span class="qpill">' + esc(tidy(p)) + "</span>"; }).join("");
     var res = RESULTS[state.goal || "customer"] || [];
     function rows() { return res.map(function (r, i) { return '<div class="rescard" data-ri="' + i + '"><span class="rav">' + esc(r.i) + '</span><div class="rinfo"><b>' + esc(r.n) + '</b><small>' + esc(r.r) + '</small><span class="rhist">' + esc(r.h) + '</span></div><span class="rgo">→</span></div>'; }).join(""); }
@@ -614,11 +643,12 @@
   screenEl.addEventListener("click", function (e) {
     var btn = e.target.closest ? e.target.closest("button, a") : null;
     if (!btn) return;
-    if (btn.hasAttribute("data-signup")) return;
-    if (btn.hasAttribute("data-goal")) { if (!btn.classList.contains("show")) return; btn.classList.add("chosen"); var v = btn.getAttribute("data-goal"); later(function () { state.goal = v; state.query = null; go("value"); }, REDUCE ? 0 : 160); return; }
+    if (btn.hasAttribute("data-signup")) { var pk = picksNow(); track("funnel_cta_clicked", { goal: state.goal || "", role: state.role || "", refine1: pk[0] || "", refine2: pk[1] || "", query: builtQuery(), ph_distinct_id: phId() }); return; }
+    if (btn.hasAttribute("data-goal")) { if (!btn.classList.contains("show")) return; btn.classList.add("chosen"); var v = btn.getAttribute("data-goal"); track("funnel_goal_selected", { goal: v }); later(function () { state.goal = v; state.query = null; go("value"); }, REDUCE ? 0 : 160); return; }
     if (btn.hasAttribute("data-refine")) {
       var gi = +btn.getAttribute("data-refine"), val = btn.getAttribute("data-val");
       state.refine[gi] = val; state.query = null;
+      track("funnel_refine_selected", { group: gi, value: val, goal: state.goal || "" });
       var grp = btn.parentNode, cs = grp.querySelectorAll(".rchip");
       for (var k = 0; k < cs.length; k++) cs[k].classList.toggle("on", cs[k] === btn);
       var inp = grp.querySelector(".rtype"); if (inp) inp.value = "";
@@ -630,7 +660,7 @@
       if (surfaceRender) surfaceRender(want, !REDUCE);
       return;
     }
-    if (btn.hasAttribute("data-role")) { btn.classList.add("chosen"); var v2 = btn.getAttribute("data-role"); later(function () { state.role = v2; go("sell"); }, REDUCE ? 0 : 160); return; }
+    if (btn.hasAttribute("data-role")) { btn.classList.add("chosen"); var v2 = btn.getAttribute("data-role"); track("funnel_role_selected", { role: v2, goal: state.goal || "" }); later(function () { state.role = v2; go("sell"); }, REDUCE ? 0 : 160); return; }
     if (btn.hasAttribute("data-next")) { if (current === "refine") { state.query = g().q(state.refine); } var i = ORDER.indexOf(current); if (i < ORDER.length - 1) go(ORDER[i + 1]); return; }
   });
   screenEl.addEventListener("input", function (e) {
@@ -676,5 +706,6 @@
     document.addEventListener("visibilitychange", function () { if (document.hidden) { running = false; cancelAnimationFrame(raf); } else if (!REDUCE) { running = true; raf = requestAnimationFrame(frame); } });
   })();
 
+  track("funnel_landed", {});
   paint();
 })();
