@@ -58,7 +58,7 @@
       person: { role: "Director · Acme (hiring now)", match: "Hiring for roles like yours", history: "2nd degree · your mentor knows her well", act: "Ask for a warm intro" } }
   };
   var ROLES = {
-    founder: { label: "Founder", features: ["Find any hire or investor across people you already know", "See the warm path to anyone — skip the cold outreach", "Walk into every meeting already briefed"] },
+    founder: { label: "Founder", features: ["Find your next customer, hire, or investor across people you already know", "See who you both know before you reach out", "Every conversation and detail, remembered for you"] },
     investor: { label: "Investor", features: ["Source deals from founders you already trust", "Share portfolio & founder lists in a tap", "Never lose a founder relationship to time"] },
     recruiter: { label: "Recruiter", features: ["Search candidates in plain language, not boolean", "Surface warm referrals over cold InMails", "Every past candidate, one query away"] },
     sales: { label: "Sales or BD", features: ["Find prospects hiding in your own network", "See who-knows-whom into any account", "Timely nudges that keep every deal warm"] },
@@ -248,14 +248,19 @@
   .rinfo small{display:block;color:var(--muted);font-size:13px;margin-top:1px;}\
   .rhist{display:block;color:var(--green);font-size:12.5px;margin-top:5px;}\
   .rgo{flex:none;color:var(--green-soft);font-size:18px;}\
-  .sheads{list-style:none;margin:2px 0 18px;padding:0;display:flex;flex-direction:column;gap:11px;}\
-  .shrow{display:flex;align-items:center;gap:11px;font-size:16px;font-weight:500;color:var(--ink);opacity:0;transform:translateY(8px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1);}\
+  .sheads{list-style:none;margin:2px 0 20px;padding:0;display:flex;flex-direction:column;gap:10px;}\
+  .shrow{display:flex;align-items:center;gap:11px;font-size:15px;color:var(--muted);opacity:0;transform:translateY(8px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1),color .4s ease,font-size .4s ease;}\
   .shrow.show{opacity:1;transform:none;}\
-  .shn{flex:none;width:25px;height:25px;border-radius:50%;background:var(--green-tint);border:1px solid var(--green-soft);color:var(--green);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;}\
+  .shdot{flex:none;width:7px;height:7px;border-radius:50%;background:var(--line);transition:background .4s ease,transform .4s ease;}\
+  .shrow.done{color:var(--muted);font-size:14px;}\
+  .shrow.done .shdot{background:var(--green-soft);}\
+  .shrow.cur{color:var(--ink);font-size:clamp(19px,4.6vw,24px);font-family:'Domaine Display',Georgia,serif;font-weight:500;}\
+  .shrow.cur .shdot{background:var(--green);transform:scale(1.35);}\
   .surface{margin-top:12px;margin-bottom:24px;min-height:452px;}\
-  .results.gone{display:none;}\
-  .pcard{display:none;width:290px;max-width:88%;margin:14px auto 16px;padding:13px 14px 11px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 22px 50px -26px rgba(29,78,19,.55);opacity:0;transform:translateY(16px) scale(.97);transition:opacity .5s ease,transform .55s cubic-bezier(.2,.8,.2,1);}\
-  .pcard.open{display:block;opacity:1;transform:none;}\
+  .results.dim{position:relative;min-height:372px;}\
+  .results.dim .rescard{opacity:.4;filter:grayscale(.55) blur(1.2px);pointer-events:none;transition:opacity .5s ease,filter .5s ease;}\
+  .pcard{position:absolute;left:50%;top:2px;z-index:5;width:290px;max-width:92%;padding:13px 14px 11px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 26px 56px -22px rgba(29,78,19,.6);opacity:0;pointer-events:none;transform:translate(-50%,18px) scale(.96);transition:opacity .5s ease,transform .55s cubic-bezier(.2,.8,.2,1);}\
+  .pcard.open{opacity:1;pointer-events:auto;transform:translate(-50%,0) scale(1);}\
   .pc-hd{display:flex;gap:11px;align-items:flex-start;padding:2px 2px 10px;}\
   .pc-av{flex:none;width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--green-soft),var(--green));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;}\
   .pc-idw{display:flex;flex-direction:column;min-width:0;}\
@@ -285,7 +290,7 @@
   .gwlogo svg{width:100%;height:100%;display:block;}\
   .webframe .qwrap{margin:0;padding:13px 15px;border:1px solid var(--line);background:var(--green-tint);border-radius:12px;min-height:auto;box-shadow:none;}\
   .webframe .qwrap.box{background:#fff;}\
-  .webframe .results{padding:2px 8px 10px;margin:0;gap:0;}\
+  .webframe .results{padding:2px 8px 10px;margin:0;gap:0;position:relative;}\
   .webframe .rescard{border:none;border-top:1px solid var(--line);border-radius:0;box-shadow:none;background:transparent;padding:14px 8px;}\
   .webframe .rescard:first-child{border-top:none;}\
   .thread{display:flex;flex-direction:column;gap:9px;padding:6px 2px;}\
@@ -371,6 +376,7 @@
   @keyframes screenin{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}\
   @keyframes rise{to{opacity:1;transform:none;}}\
   @media (prefers-reduced-motion:reduce){.reveal,.fade,.ccap,.csub,.cstat,.tabs2,.qpills,.rescard,.webframe,.tmsg,.ailogos,.aiuser,.airesp,.ailabel,.bstep,.bhelps,.bask,.shrow{opacity:1!important;transform:none!important;animation:none!important;transition:none!important;}.netviz .itile,.netviz .gwmark{opacity:1!important;transform:translate(-50%,-50%)!important;animation:none!important;transition:none!important;}.netlines line{animation:none!important;}.qpills{display:none!important;}.tmsg.typing{display:none!important;}.cta:before,.cursor,.edots i,.qtype::after,.screen.in{animation:none!important;}.screen.out{transition:none;}}\
+  @media (max-width:430px){.screen{padding-left:18px;padding-right:18px;}.netviz{max-width:100%;}.netviz .itile{width:34px;height:34px;border-radius:10px;}.netviz .itile svg,.netviz .itile img{width:19px !important;height:19px !important;}.shrow.cur{font-size:20px;}}\
   ";
 
   var shadow = mount.attachShadow ? mount.attachShadow({ mode: "open" }) : mount;
@@ -580,11 +586,16 @@
     function rows() { return res.map(function (r, i) { return '<div class="rescard" data-ri="' + i + '"><span class="rav">' + esc(r.i) + '</span><div class="rinfo"><b>' + esc(r.n) + '</b><small>' + esc(r.r) + '</small><span class="rhist">' + esc(r.h) + '</span></div><span class="rgo">→</span></div>'; }).join(""); }
     function bubbles() { return res.map(function (r, i) { return '<div class="tmsg tres" data-ri="' + i + '"><span class="rav sm">' + esc(r.i) + '</span><div class="rinfo"><b>' + esc(r.n) + '</b><small>' + esc(r.r) + '</small><span class="rhist">' + esc(r.h) + '</span></div></div>'; }).join(""); }
     function aichip(name, key) { return '<span class="aichip"><span class="ailogo">' + (AILOGOS[key] || "") + "</span>" + esc(name) + "</span>"; }
+    var topRes = res[0] || { n: "Sarah Chen", r: "VP of Sales · Riverline" };
+    var profName = topRes.n;
+    var profRole;
+    if (state.goal === "customer") { var pw = tidy(picks[0] || "Founder").replace(/s$/, ""); profRole = pw.charAt(0).toUpperCase() + pw.slice(1) + " · Riverline"; }
+    else { profRole = topRes.r; }
     function profileCard() {
       var I = window.__GW_ICONS || {};
       function row(cls, icon, title, sub) { return '<div class="pc-row ' + cls + '"><span class="pc-ri">' + (I[icon] || "") + '</span><div class="pc-rt"><b>' + title + "</b><small>" + sub + "</small></div></div>"; }
-      return '<div class="pcard"><div class="pc-hd"><span class="pc-av">SC</span><div class="pc-idw">' +
-        '<b class="pc-nm">Sarah Chen</b><span class="pc-role">VP of Sales · Riverline</span>' +
+      return '<div class="pcard"><div class="pc-hd"><span class="pc-av">' + esc(topRes.i || "SC") + '</span><div class="pc-idw">' +
+        '<b class="pc-nm">' + esc(profName) + '</b><span class="pc-role">' + esc(profRole) + "</span>" +
         '<span class="pc-meta">Brooklyn, NY · 500+ connections</span>' +
         '<span class="pc-chip"><span class="pc-ci">' + (I.gmail || "") + "</span>Emailed 2 weeks ago</span></div></div>" +
         row("r-blue", "outlook", "Met at Primary Summit", "Javits Center · Apr 21") +
@@ -595,12 +606,12 @@
     }
 
     screenEl.innerHTML =
-      '<div class="srch2"><ol class="sheads"><li class="shrow"><span class="shn">1</span><span>Search your network, anywhere you want</span></li><li class="shrow"><span class="shn">2</span><span>Find who you need in seconds</span></li><li class="shrow"><span class="shn">3</span><span>See the full story on anyone</span></li></ol><div class="tabs tabs2"><button class="tab on" data-tab="app">In the web app</button><button class="tab" data-tab="text">Over text</button><button class="tab" data-tab="ai">In your AI</button></div>' +
+      '<div class="srch2"><div class="sheads"><div class="shrow"><span class="shdot"></span><span>Search your network, anywhere you want</span></div><div class="shrow"><span class="shdot"></span><span>Find who you need in seconds</span></div><div class="shrow"><span class="shdot"></span><span>See the full story on anyone</span></div></div><div class="tabs tabs2"><button class="tab on" data-tab="app">In the web app</button><button class="tab" data-tab="text">Over text</button><button class="tab" data-tab="ai">In your AI</button></div>' +
       '<div class="surface"></div></div>' +
       '<button class="cta" data-next>Keep going →</button>';
     var srch = screenEl.querySelector(".srch2"), surface = screenEl.querySelector(".surface"), cta = screenEl.querySelector(".cta"), shrows = screenEl.querySelectorAll(".shrow");
-    function showStep(i) { if (shrows[i]) shrows[i].classList.add("show"); }
-    function showAllSteps() { for (var i = 0; i < shrows.length; i++) shrows[i].classList.add("show"); }
+    function showStep(i) { for (var j = 0; j <= i && j < shrows.length; j++) { shrows[j].classList.add("show"); shrows[j].classList.toggle("cur", j === i); shrows[j].classList.toggle("done", j < i); } }
+    function showAllSteps() { var last = shrows.length - 1; for (var j = 0; j < shrows.length; j++) { shrows[j].classList.add("show"); shrows[j].classList.toggle("cur", j === last); shrows[j].classList.toggle("done", j < last); } }
     function showCta() { cta.classList.add("show"); }
     function showTabs() { var t = screenEl.querySelector(".tabs2"); if (t) t.classList.add("show"); }
     function stagger(sel, base) { var els = surface.querySelectorAll(sel); for (var i = 0; i < els.length; i++)(function (el, k) { later(function () { el.classList.add("show"); }, base + k * 190); })(els[i], i); later(showCta, base + els.length * 190 + 120); }
@@ -610,12 +621,12 @@
         '<div class="webframe"><div class="webtop"><span class="wdots"><i></i><i></i><i></i></span><span class="wbrand"><span class="gwlogo">' + GWLOGO + "</span>Goodword</span></div>" +
         '<div class="qzone"><div class="qpills">' + pills + "</div>" +
         '<div class="qwrap"><span class="qchrome">⌕</span><span class="qtype"></span></div></div>' +
-        '<div class="results">' + rows() + "</div>" + profileCard() + "</div>";
+        '<div class="results">' + rows() + profileCard() + "</div></div>";
       var qpz = surface.querySelector(".qpills"), qtype = surface.querySelector(".qtype"), qwrap = surface.querySelector(".qwrap"), frame = surface.querySelector(".webframe"), results = surface.querySelector(".results"), pcard = surface.querySelector(".pcard");
       qwrap.classList.add("box");
-      function openProfile() { showStep(2); var first = surface.querySelector(".rescard"); if (first) first.classList.add("picked"); later(function () { results.classList.add("gone"); pcard.classList.add("open"); showCta(); }, 950); }
+      function openProfile() { showStep(2); var first = surface.querySelector(".rescard"); if (first) first.classList.add("picked"); later(function () { results.classList.add("dim"); pcard.classList.add("open"); showCta(); }, 950); }
       function buildResults() { frame.classList.add("built"); var cards = surface.querySelectorAll(".rescard"); for (var i = 0; i < cards.length; i++)(function (el, k) { later(function () { el.classList.add("show"); }, k * 220); })(cards[i], i); later(openProfile, cards.length * 220 + 1600); }
-      if (!animate) { showAllSteps(); showTabs(); frame.classList.remove("pre"); frame.classList.add("built"); qpz.style.display = "none"; qtype.textContent = question; var cs = surface.querySelectorAll(".rescard"); for (var i = 0; i < cs.length; i++) cs[i].classList.add("show"); results.classList.add("gone"); pcard.classList.add("open"); showCta(); return; }
+      if (!animate) { showAllSteps(); showTabs(); frame.classList.remove("pre"); frame.classList.add("built"); qpz.style.display = "none"; qtype.textContent = question; var cs = surface.querySelectorAll(".rescard"); for (var i = 0; i < cs.length; i++) cs[i].classList.add("show"); results.classList.add("dim"); pcard.classList.add("open"); showCta(); return; }
       // Slow, sequential unfold — one idea at a time, with time to read each.
       frame.classList.add("pre"); // hide the search window during beat 1
       showStep(0);
@@ -721,7 +732,7 @@
     if (btn.hasAttribute("data-tab")) {
       var tabs = screenEl.querySelectorAll(".tab"); for (var ti = 0; ti < tabs.length; ti++) tabs[ti].classList.remove("on"); btn.classList.add("on");
       var want = btn.getAttribute("data-tab");
-      if (surfaceRender) surfaceRender(want, false);
+      if (surfaceRender) surfaceRender(want, want !== "app");
       return;
     }
     if (btn.hasAttribute("data-role")) { btn.classList.add("chosen"); var v2 = btn.getAttribute("data-role"); track("funnel_role_selected", { role: v2, goal: state.goal || "" }); later(function () { state.role = v2; go("sell"); }, REDUCE ? 0 : 160); return; }
