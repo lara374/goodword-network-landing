@@ -24,12 +24,12 @@
     career: [{ i: "DA", n: "Diane Alvarez", r: "Director · Acme (hiring)", h: "Your mentor knows her well" }, { i: "JW", n: "James Wu", r: "Hiring Manager · Northwind", h: "2nd degree · warm path" }, { i: "ER", n: "Elena Ross", r: "Recruiter · Talent Co", h: "Placed 2 people you know" }]
   };
   var PROFILES = {
-    customer: [["r-blue","outlook","Met at SaaStr","Moscone West · last March"],["r-green","granola","Owes you an intro","Dana Lee · Head of Growth · Notion"],["r-pink","luma","At your founders dinner","+9 mutuals"],["r-dark","x","Posted about switching tools","“Finally replacing our old CRM…” · ♥ 180"]],
-    investor: [["r-blue","outlook","Met at a founder dinner","Bar Agricole · Feb 12"],["r-green","granola","3 portfolio founders you know","warm path via Dana Lee"],["r-pink","luma","Spoke at a demo day you attended","+14 mutuals"],["r-dark","x","Announced a new fund","“Backing pre-seed AI founders…” · ♥ 412"]],
-    hire: [["r-blue","outlook","You worked together in 2022","at Stripe"],["r-green","granola","Vouched for by 2 you trust","Priya Nair · Aisha Khan"],["r-pink","luma","At the same hackathon","+7 mutuals"],["r-dark","x","Open to a new role","“Wrapping up at Datadog…” · ♥ 96"]],
-    partner: [["r-blue","outlook","Met at a conference","SaaStr · Sep"],["r-green","granola","Already partners with 2 you know","Loop · Vertex"],["r-pink","luma","Co-hosted an event with a mutual","+11 mutuals"],["r-dark","x","Looking for launch partners","“Opening up our integrations…” · ♥ 143"]],
-    advisor: [["r-blue","outlook","Met at a workshop","First Round · Mar"],["r-green","granola","Backed by people you trust","intro via your mentor"],["r-pink","luma","Spoke at an event you attended","+8 mutuals"],["r-dark","x","Writes about scaling GTM","“Most founders get pricing wrong…” · ♥ 267"]],
-    career: [["r-blue","outlook","Your mentor knows them well","2nd-degree connection"],["r-green","granola","Can open the door for you","warm path via your mentor"],["r-pink","luma","At an alumni event with you","+6 mutuals"],["r-dark","x","Their team is hiring","“Growing the leadership team…” · ♥ 154"]]
+    customer: [["r-blue","outlook","Met at SaaStr","Moscone West · last March"],["r-green","granola","Owes you an intro","Dana Lee · Head of Growth · Notion"],["r-dark","x","Posted about switching tools","“Finally replacing our old CRM…” · ♥ 180"]],
+    investor: [["r-blue","outlook","Met at a founder dinner","Bar Agricole · Feb 12"],["r-green","granola","3 portfolio founders you know","warm path via Dana Lee"],["r-dark","x","Announced a new fund","“Backing pre-seed AI founders…” · ♥ 412"]],
+    hire: [["r-blue","outlook","You worked together in 2022","at Stripe"],["r-green","granola","Vouched for by 2 you trust","Priya Nair · Aisha Khan"],["r-dark","x","Open to a new role","“Wrapping up at Datadog…” · ♥ 96"]],
+    partner: [["r-blue","outlook","Met at a conference","SaaStr · Sep"],["r-green","granola","Already partners with 2 you know","Loop · Vertex"],["r-dark","x","Looking for launch partners","“Opening up our integrations…” · ♥ 143"]],
+    advisor: [["r-blue","outlook","Met at a workshop","First Round · Mar"],["r-green","granola","Backed by people you trust","intro via your mentor"],["r-dark","x","Writes about scaling GTM","“Most founders get pricing wrong…” · ♥ 267"]],
+    career: [["r-blue","outlook","Your mentor knows them well","2nd-degree connection"],["r-green","granola","Can open the door for you","warm path via your mentor"],["r-dark","x","Their team is hiring","“Growing the leadership team…” · ♥ 154"]]
   };
   function tidy(s) { return s.replace(/\bai\b/g, "AI").replace(/\bsmb\b/g, "SMB").replace(/\bic\b/g, "IC").replace(/\bsaas\b/gi, "SaaS"); }
 
@@ -129,7 +129,7 @@
   .opt:hover:after,.opt:focus-visible:after{opacity:1;transform:translateY(-50%) translateX(0);}\
   .opt:active{transform:translateY(0) scale(.99);}\
   .opt.chosen{border-color:var(--green);background:linear-gradient(180deg,rgba(255,255,255,.96),var(--green-tint));box-shadow:0 12px 30px -14px rgba(29,78,19,.5);}\
-  .cta{position:relative;overflow:hidden;font:inherit;font-size:17px;font-weight:600;color:#FFF7EF;border:none;border-radius:40px;padding:18px 26px;cursor:pointer;width:100%;margin-top:28px;text-align:center;text-decoration:none;display:block;background:linear-gradient(180deg,#C06a44,var(--clay-deep));box-shadow:0 14px 34px -14px rgba(120,43,15,.7);transition:transform .16s cubic-bezier(.2,.8,.2,1),box-shadow .16s;}\
+  .cta{position:relative;overflow:hidden;font:inherit;font-size:17px;font-weight:600;color:#FFF7EF;border:none;border-radius:40px;padding:18px 26px;cursor:pointer;width:100%;margin-top:auto;text-align:center;text-decoration:none;display:block;background:linear-gradient(180deg,#C06a44,var(--clay-deep));box-shadow:0 14px 34px -14px rgba(120,43,15,.7);transition:transform .16s cubic-bezier(.2,.8,.2,1),box-shadow .16s;}\
   .cta:hover{transform:translateY(-2px);box-shadow:0 20px 40px -16px rgba(120,43,15,.8);}\
   .cta:active{transform:translateY(0) scale(.99);}\
   .cta:before{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;transform:skewX(-20deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);animation:shine 3.6s ease-in-out infinite;}\
@@ -167,7 +167,7 @@
   .netviz{position:relative;width:100%;max-width:384px;height:188px;margin:2px auto 16px;}\
   .netlines{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 1s ease;pointer-events:none;z-index:1;}\
   .netviz.lit .netlines{opacity:1;}\
-  .netlines path{stroke:var(--line);stroke-width:1;fill:none;vector-effect:non-scaling-stroke;stroke-dasharray:44 44;stroke-linecap:round;opacity:.7;animation:flowline 3.8s linear infinite;}\
+  .netlines path{stroke:var(--green-soft);stroke-width:1.5;fill:none;vector-effect:non-scaling-stroke;stroke-dasharray:44 44;stroke-linecap:round;opacity:.6;animation:flowline 3.8s linear infinite;}\
   @keyframes flowline{to{stroke-dashoffset:-88;}}\
   .netviz .itile{position:absolute;width:42px;height:42px;border-radius:12px;margin:0;z-index:2;transform:translate(-50%,-50%) scale(.85);}\
   .netviz .itile svg,.netviz .itile img{width:24px !important;height:24px !important;}\
@@ -228,16 +228,16 @@
   .tabs2 .tab{opacity:0;transition:opacity .4s ease;}\
   .tabs2.show .tab{opacity:1;}\
   .tabs2.show .tab:nth-child(2){transition-delay:.14s;}.tabs2.show .tab:nth-child(3){transition-delay:.28s;}\
-  .qwrap{position:relative;display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin:16px 0;padding:15px 16px;font-size:16px;line-height:1.35;color:var(--ink);border:1px solid transparent;border-radius:14px;background:transparent;min-height:56px;transition:background .45s ease,border-color .45s ease,box-shadow .45s ease;}\
+  .qwrap{position:relative;display:flex;align-items:flex-start;gap:9px;margin:16px 0;padding:15px 16px;font-size:16px;line-height:1.35;color:var(--ink);border:1px solid transparent;border-radius:14px;background:transparent;min-height:56px;transition:background .45s ease,border-color .45s ease,box-shadow .45s ease;}\
   .qwrap.box{background:#fff;border-color:var(--line);box-shadow:0 16px 38px -28px rgba(29,78,19,.55);}\
-  .qchrome{color:var(--green);font-weight:600;font-size:15px;flex:none;}\
+  .qchrome{color:var(--green);font-weight:600;font-size:15px;flex:none;margin-top:1px;}\
   .qpills{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px 6px;transition:transform .95s cubic-bezier(.4,0,.2,1),opacity .7s ease;}\
   .qpills.intobar{transform:translateY(48px);opacity:0;}\
   .qpills .qpill{opacity:0;transform:translateY(-10px) scale(.92);transition:opacity .45s ease,transform .55s cubic-bezier(.2,.8,.2,1);}\
   .qpills.in .qpill{opacity:1;transform:none;}\
   .qpills.in .qpill:nth-child(2){transition-delay:.08s;}\
   .qpills .qpill.drop{opacity:0;transform:translateY(30px) scale(.8);}\
-  .qtype{flex:0 1 auto;min-width:0;white-space:normal;overflow-wrap:break-word;}\
+  .qtype{flex:1 1 auto;min-width:0;white-space:normal;overflow-wrap:break-word;}\
   .qtype::after{content:\"\";display:inline-block;width:2px;height:1.05em;background:var(--green);margin-left:2px;vertical-align:-0.14em;animation:blink 1s step-end infinite;}\
   .airow2{display:none;gap:8px;margin:-4px 0 12px;flex-wrap:wrap;}\
   .airow2 span{font-size:13px;font-weight:600;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px;}\
@@ -385,7 +385,7 @@
   @keyframes screenin{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}\
   @keyframes rise{to{opacity:1;transform:none;}}\
   @media (prefers-reduced-motion:reduce){.reveal,.fade,.ccap,.csub,.cstat,.tabs2,.qpills,.rescard,.webframe,.tmsg,.ailogos,.aiuser,.airesp,.ailabel,.bstep,.bhelps,.bask,.shrow{opacity:1!important;transform:none!important;animation:none!important;transition:none!important;}.netviz .itile,.netviz .gwmark{opacity:1!important;transform:translate(-50%,-50%)!important;animation:none!important;transition:none!important;}.netlines line{animation:none!important;}.qpills{display:none!important;}.tmsg.typing{display:none!important;}.cta:before,.cursor,.edots i,.qtype::after,.screen.in{animation:none!important;}.screen.out{transition:none;}}\
-  @media (max-width:430px){.screen{padding-left:18px;padding-right:18px;}.netviz{max-width:100%;}.netviz .itile{width:34px;height:34px;border-radius:10px;}.netviz .itile svg,.netviz .itile img{width:19px !important;height:19px !important;}.shrow.cur{font-size:20px;}}\
+  @media (max-width:430px){.screen{padding-left:18px;padding-right:18px;}.netviz{max-width:100%;}.netviz .itile{width:34px;height:34px;border-radius:10px;}.netviz .itile svg,.netviz .itile img{width:19px !important;height:19px !important;}.shrow.cur{font-size:20px;}.qtype{font-size:15px;}}\
   ";
 
   var shadow = mount.attachShadow ? mount.attachShadow({ mode: "open" }) : mount;
@@ -409,7 +409,7 @@
   function later(fn, ms) { var id = setTimeout(fn, ms); timers.push(id); return id; }
   function clearTimers() { timers.forEach(clearTimeout); timers = []; }
   function raf2(fn) { requestAnimationFrame(function () { requestAnimationFrame(fn); }); }
-  function typewriter(el, text, cb, onProg) { var i = 0, n = text.length; (function tick() { el.textContent = text.slice(0, i); if (onProg) onProg(n ? i / n : 1); i++; if (i <= n) later(tick, 28); else if (cb) later(cb, 260); })(); }
+  function typewriter(el, text, cb, onProg) { var i = 0, n = text.length; (function tick() { el.textContent = text.slice(0, i); if (onProg) onProg(n ? i / n : 1); i++; if (i <= n) later(tick, 20); else if (cb) later(cb, 180); })(); }
   function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
   // ---- Tracking: first-touch attribution + event layer (PostHog via GTM dataLayer; direct posthog if present) ----
   var ATTR = (function () {
@@ -523,7 +523,7 @@
       '<p class="csub">Who you need, ready when you need them.</p>' +
       '<p class="cstat"><span class="cstat-num">5.2M+</span><span class="cstat-lbl">people already mapped in Goodword</span></p></div></div>' +
       "</div>" +
-      '<button class="cta fade" data-next style="margin-top:26px">Show me how</button>';
+      '<button class="cta fade" data-next>Show me how</button>';
     var b1 = screenEl.querySelector(".b1 h1"), b2 = screenEl.querySelector(".b2"), cta = screenEl.querySelector(".cta"),
       netviz = screenEl.querySelector(".netviz"), gwmark = screenEl.querySelector(".gwmark"),
       ccap = screenEl.querySelector(".ccap"), csub = screenEl.querySelector(".csub"), cstat = screenEl.querySelector(".cstat"), cstatNum = screenEl.querySelector(".cstat-num"), tileEls = screenEl.querySelectorAll(".itile");
@@ -592,6 +592,12 @@
     track("funnel_search_viewed", { goal: state.goal || "", refine1: picks[0] || "", refine2: picks[1] || "", query: question });
     var pills = picks.map(function (p) { return '<span class="qpill">' + esc(tidy(p)) + "</span>"; }).join("");
     var res = RESULTS[state.goal || "customer"] || [];
+    if ((state.goal || "customer") === "hire") {
+      var _lvl = picks[1] || "Senior", _team = picks[0] || "Engineering";
+      var _noun = { Engineering: "Engineer", Sales: "AE", Design: "Designer", Product: "PM", Marketing: "Marketer", Ops: "Ops" }[_team] || _team;
+      var _cos = ["ex-Stripe", "ex-Datadog", "ex-Figma"];
+      res = res.map(function (p, i) { var role = _lvl === "Exec" ? ("Head of " + _team) : (_lvl + " " + _noun); return { i: p.i, n: p.n, r: role + " · " + _cos[i % 3], h: p.h }; });
+    }
     function rows() { return res.map(function (r, i) { return '<div class="rescard" data-ri="' + i + '"><span class="rav">' + esc(r.i) + '</span><div class="rinfo"><b>' + esc(r.n) + '</b><small>' + esc(r.r) + '</small><span class="rhist">' + esc(r.h) + '</span></div><span class="rgo">→</span></div>'; }).join(""); }
     function bubbles() { return res.map(function (r, i) { return '<div class="tmsg tres" data-ri="' + i + '"><span class="rav sm">' + esc(r.i) + '</span><div class="rinfo"><b>' + esc(r.n) + '</b><small>' + esc(r.r) + '</small><span class="rhist">' + esc(r.h) + '</span></div></div>'; }).join(""); }
     function aichip(name, key) { return '<span class="aichip"><span class="ailogo">' + (AILOGOS[key] || "") + "</span>" + esc(name) + "</span>"; }
@@ -630,17 +636,17 @@
         '<div class="results">' + rows() + profileCard() + "</div></div>";
       var qpz = surface.querySelector(".qpills"), qtype = surface.querySelector(".qtype"), qwrap = surface.querySelector(".qwrap"), frame = surface.querySelector(".webframe"), results = surface.querySelector(".results"), pcard = surface.querySelector(".pcard");
       qwrap.classList.add("box");
-      function openProfile() { showStep(2); var first = surface.querySelector(".rescard"); if (first) first.classList.add("picked"); later(function () { results.classList.add("dim"); pcard.classList.add("open"); showCta(); }, 700); }
-      function buildResults() { frame.classList.add("built"); var cards = surface.querySelectorAll(".rescard"); for (var i = 0; i < cards.length; i++)(function (el, k) { later(function () { el.classList.add("show"); }, k * 170); })(cards[i], i); later(openProfile, cards.length * 170 + 1100); }
+      function openProfile() { showStep(2); var first = surface.querySelector(".rescard"); if (first) first.classList.add("picked"); later(function () { results.classList.add("dim"); pcard.classList.add("open"); showCta(); }, 550); }
+      function buildResults() { frame.classList.add("built"); var cards = surface.querySelectorAll(".rescard"); for (var i = 0; i < cards.length; i++)(function (el, k) { later(function () { el.classList.add("show"); }, k * 130); })(cards[i], i); later(openProfile, cards.length * 130 + 800); }
       if (!animate) { showAllSteps(); showTabs(); frame.classList.remove("pre"); frame.classList.add("built"); qpz.style.display = "none"; qtype.textContent = question; var cs = surface.querySelectorAll(".rescard"); for (var i = 0; i < cs.length; i++) cs[i].classList.add("show"); results.classList.add("dim"); pcard.classList.add("open"); showCta(); return; }
       // Slow, sequential unfold — one idea at a time, with time to read each.
       frame.classList.add("pre"); // hide the search window during beat 1
       showStep(0);
-      later(showTabs, 1300); // beat 1: read the message, THEN the three places appear
-      later(function () { showStep(1); }, 2500);
-      later(function () { frame.classList.remove("pre"); raf2(function () { qpz.classList.add("in"); }); }, 3100); // reveal the bar + the pills
-      later(function () { qpz.classList.add("intobar"); }, 4100); // pills glide slowly into the bar
-      later(function () { qpz.style.display = "none"; typewriter(qtype, question, buildResults); }, 5100); // type → results → pause → profile opens
+      later(showTabs, 900); // beat 1: read the message, THEN the three places appear
+      later(function () { showStep(1); }, 1600);
+      later(function () { frame.classList.remove("pre"); raf2(function () { qpz.classList.add("in"); }); }, 2000); // reveal the bar + the pills
+      later(function () { qpz.classList.add("intobar"); }, 2600); // pills glide slowly into the bar
+      later(function () { qpz.style.display = "none"; typewriter(qtype, question, buildResults); }, 3200); // type → results → pause → profile opens
     }
     function renderText(animate) {
       surface.innerHTML =
@@ -657,7 +663,7 @@
     }
     function renderAI(animate) {
       surface.innerHTML =
-        '<div class="aiwrap"><div class="ailabel">Ask Goodword right inside</div><div class="ailogos">' + aichip("Claude", "claude") + aichip("ChatGPT", "chatgpt") + aichip("Gemini", "gemini") + aichip("Codex", "codex") + "</div>" +
+        '<div class="aiwrap"><div class="ailabel">Ask Goodword right inside</div><div class="ailogos">' + aichip("Claude", "claude") + aichip("ChatGPT", "chatgpt") + aichip("Gemini", "gemini") + "</div>" +
         '<div class="aichat"><div class="aiuser">' + esc(question) + "</div>" +
         '<div class="airesp"><span class="aiava">' + GWLOGO + '</span><div class="aibody">' +
         '<div class="aistatus">Searching your Goodword network<span class="edots"><i>.</i><i>.</i><i>.</i></span></div>' +
@@ -709,10 +715,9 @@
     screenEl.innerHTML =
       '<h1 class="reveal" style="--d:0ms">' + cl.h + "</h1>" +
       '<p class="body reveal" style="--d:700ms">' + esc(cl.sub) + "</p>" +
-      '<ul class="feat reveal" style="--d:1400ms">' + feats + "</ul>" +
-      '<figure class="quote reveal" style="--d:2100ms"><div class="stars">★★★★★</div><p>“' + esc(qt.text) + '”</p><figcaption>' + (qt.img ? '<img class="qavatar" src="' + qt.img + '" alt="' + esc(qt.name) + '">' : '<span class="qavatar">' + esc(qt.name.charAt(0)) + '</span>') + '<span class="qwho"><span class="qname">' + esc(qt.name) + '</span><span class="qrole">' + esc(qt.title) + "</span></span></figcaption></figure>" +
-      '<p class="moat reveal" style="--d:2600ms">The biggest moat in the age of AI is <em>your network.</em></p>' +
-      '<a class="cta reveal" style="--d:3000ms" data-signup href="' + esc(signupHref()) + '">Get Started for Free</a>';
+      '<figure class="quote reveal" style="--d:1200ms"><div class="stars">★★★★★</div><p>“' + esc(qt.text) + '”</p><figcaption>' + (qt.img ? '<img class="qavatar" src="' + qt.img + '" alt="' + esc(qt.name) + '">' : '<span class="qavatar">' + esc(qt.name.charAt(0)) + '</span>') + '<span class="qwho"><span class="qname">' + esc(qt.name) + '</span><span class="qrole">' + esc(qt.title) + "</span></span></figcaption></figure>" +
+      '<p class="moat reveal" style="--d:1700ms">The biggest moat in the age of AI is <em>your network.</em></p>' +
+      '<a class="cta reveal" style="--d:2100ms" data-signup href="' + esc(signupHref()) + '">Get Started for Free</a>';
     screenEl.classList.remove("in"); void screenEl.offsetWidth; screenEl.classList.add("in");
   }
 
