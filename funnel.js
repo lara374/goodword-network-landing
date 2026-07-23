@@ -36,8 +36,8 @@
   var GOALS = {
     customer: { label: "My next deal", hook: "Your next deal is already in your network.",
       refineHead: "Who's the deal with?",
-      refine: [{ label: "Who's on the other side?", opts: ["Founders", "Execs", "Business owners", "Investors"] }, { label: "Their stage or size", opts: ["Early-stage", "Growth", "Enterprise", "SMB", "Any stage"] }],
-      q: function (p) { var sm = { "Early-stage": "early-stage", "Growth": "growth-stage", "Enterprise": "enterprise", "SMB": "SMB", "Any stage": "" }; var st = (p[1] in sm) ? sm[p[1]] : p[1].toLowerCase(); var who = p[0].toLowerCase().replace(/s$/, ""); return "who's a warm " + (st ? st + " " : "") + who + " in my network?"; },
+      refine: [{ label: "Who's the buyer?", opts: ["Founders", "Execs", "Business owners", "Decision-makers"] }, { label: "Their industry", opts: ["Tech", "Finance", "Healthcare", "Retail & CPG", "Services", "Any industry"] }],
+      q: function (p) { var im = { "Tech": "tech", "Finance": "finance", "Healthcare": "healthcare", "Retail & CPG": "retail", "Services": "services", "Any industry": "" }; var ind = (p[1] in im) ? im[p[1]] : (p[1] || "").toLowerCase(); var who = (p[0] || "").toLowerCase().replace(/s$/, ""); return "who's a warm " + (ind ? ind + " " : "") + who + " in my network?"; },
       person: { role: "VP Partnerships · Acme", match: "Ideal customer fit", history: "Met at SaaStr · last spoke in March · 2 mutual connections", act: "Draft a warm intro" } },
     investor: { label: "My next investor", hook: "Your next investor is already in your network.",
       refineHead: "Tell us about your raise",
@@ -637,7 +637,7 @@
         '<div class="results">' + rows() + profileCard() + "</div></div>";
       var qpz = surface.querySelector(".qpills"), qtype = surface.querySelector(".qtype"), qwrap = surface.querySelector(".qwrap"), frame = surface.querySelector(".webframe"), results = surface.querySelector(".results"), pcard = surface.querySelector(".pcard");
       qwrap.classList.add("box");
-      function openProfile() { showStep(2); var first = surface.querySelector(".rescard"); if (first) first.classList.add("picked"); later(function () { results.classList.add("dim"); pcard.classList.add("open"); showCta(); }, 550); }
+      function openProfile() { showStep(2); var cards = surface.querySelectorAll(".rescard"); if (cards[0]) cards[0].classList.add("picked"); for (var h = 2; h < cards.length; h++) cards[h].style.display = "none"; later(function () { results.classList.add("dim"); pcard.classList.add("open"); showCta(); }, 550); }
       function buildResults() { frame.classList.add("built"); var cards = surface.querySelectorAll(".rescard"); for (var i = 0; i < cards.length; i++)(function (el, k) { later(function () { el.classList.add("show"); }, k * 130); })(cards[i], i); later(openProfile, cards.length * 130 + 800); }
       if (!animate) { showAllSteps(); showTabs(); frame.classList.remove("pre"); frame.classList.add("built"); qpz.style.display = "none"; qtype.textContent = question; var cs = surface.querySelectorAll(".rescard"); for (var i = 0; i < cs.length; i++) cs[i].classList.add("show"); results.classList.add("dim"); pcard.classList.add("open"); showCta(); return; }
       // Slow, sequential unfold — one idea at a time, with time to read each.
