@@ -17,11 +17,19 @@
   var NOUN = { customer: "Customers", investor: "Investors", hire: "Candidates", partner: "Partners", advisor: "Advisors", career: "Opportunities" };
   var RESULTS = {
     customer: [{ i: "SC", n: "Sarah Chen", r: "VP Partnerships · Acme", h: "Met at SaaStr · 2 mutual connections" }, { i: "MR", n: "Marcus Reyes", r: "Head of Growth · Northwind", h: "Intro'd by Dana · replied warmly in March" }, { i: "PN", n: "Priya Nair", r: "COO · Brightline", h: "Followed your launch · engaged 3 times" }],
-    investor: [{ i: "SC", n: "Sarah Chen", r: "Partner · Northstar Ventures", h: "Met at a founder dinner · backs 3 founders you know" }, { i: "DO", n: "David Okoro", r: "Principal · Seedwave", h: "Replied to your last update · warm" }, { i: "LF", n: "Lena Fischer", r: "GP · Atlas Fund", h: "2 portfolio founders you know well" }],
-    hire: [{ i: "SC", n: "Sarah Chen", r: "Staff Engineer · ex-Stripe", h: "Met at a hackathon · vouched for by 2 you trust" }, { i: "TR", n: "Tomás Rivera", r: "Senior Engineer · ex-Datadog", h: "Referred by a teammate · open to moving" }, { i: "AK", n: "Aisha Khan", r: "Eng Lead · ex-Figma", h: "You worked together in 2022" }],
-    partner: [{ i: "SC", n: "Sarah Chen", r: "BD Lead · Northwind", h: "Already partners with 2 companies you know" }, { i: "BC", n: "Ben Carter", r: "Head of Partnerships · Loop", h: "Met at a conference · shared customer" }, { i: "NS", n: "Nina Sato", r: "Alliances · Vertex", h: "Warm intro via your advisor" }],
-    advisor: [{ i: "SC", n: "Sarah Chen", r: "2x Founder · Advisor", h: "Been exactly where you are · trusted circle" }, { i: "RP", n: "Raj Patel", r: "Ex-VP GTM · scaled 0→$50M", h: "Intro'd by a mentor" }, { i: "MG", n: "Maria Gomez", r: "Operator → Advisor", h: "Followed your journey · offered to help" }],
-    career: [{ i: "SC", n: "Sarah Chen", r: "Director · Acme (hiring)", h: "Your mentor knows her well" }, { i: "JW", n: "James Wu", r: "Hiring Manager · Northwind", h: "2nd degree · warm path" }, { i: "ER", n: "Elena Ross", r: "Recruiter · Talent Co", h: "Placed 2 people you know" }]
+    investor: [{ i: "EV", n: "Elena Vance", r: "Partner · Northstar Ventures", h: "Met at a founder dinner · backs 3 founders you know" }, { i: "DO", n: "David Okoro", r: "Principal · Seedwave", h: "Replied to your last update · warm" }, { i: "LF", n: "Lena Fischer", r: "GP · Atlas Fund", h: "2 portfolio founders you know well" }],
+    hire: [{ i: "DP", n: "Daniel Park", r: "Staff Engineer · ex-Stripe", h: "Met at a hackathon · vouched for by 2 you trust" }, { i: "TR", n: "Tomás Rivera", r: "Senior Engineer · ex-Datadog", h: "Referred by a teammate · open to moving" }, { i: "AK", n: "Aisha Khan", r: "Eng Lead · ex-Figma", h: "You worked together in 2022" }],
+    partner: [{ i: "NR", n: "Nadia Rahman", r: "BD Lead · Northwind", h: "Already partners with 2 companies you know" }, { i: "BC", n: "Ben Carter", r: "Head of Partnerships · Loop", h: "Met at a conference · shared customer" }, { i: "NS", n: "Nina Sato", r: "Alliances · Vertex", h: "Warm intro via your advisor" }],
+    advisor: [{ i: "MH", n: "Marcus Hale", r: "2x Founder · Advisor", h: "Been exactly where you are · trusted circle" }, { i: "RP", n: "Raj Patel", r: "Ex-VP GTM · scaled 0→$50M", h: "Intro'd by a mentor" }, { i: "MG", n: "Maria Gomez", r: "Operator → Advisor", h: "Followed your journey · offered to help" }],
+    career: [{ i: "DA", n: "Diane Alvarez", r: "Director · Acme (hiring)", h: "Your mentor knows her well" }, { i: "JW", n: "James Wu", r: "Hiring Manager · Northwind", h: "2nd degree · warm path" }, { i: "ER", n: "Elena Ross", r: "Recruiter · Talent Co", h: "Placed 2 people you know" }]
+  };
+  var PROFILES = {
+    customer: [["r-blue","outlook","Met at SaaStr","Moscone West · last March"],["r-green","granola","Owes you an intro","Dana Lee · Head of Growth · Notion"],["r-pink","luma","At your founders dinner","+9 mutuals"],["r-dark","x","Posted about switching tools","“Finally replacing our old CRM…” · ♥ 180"]],
+    investor: [["r-blue","outlook","Met at a founder dinner","Bar Agricole · Feb 12"],["r-green","granola","3 portfolio founders you know","warm path via Dana Lee"],["r-pink","luma","Spoke at a demo day you attended","+14 mutuals"],["r-dark","x","Announced a new fund","“Backing pre-seed AI founders…” · ♥ 412"]],
+    hire: [["r-blue","outlook","You worked together in 2022","at Stripe"],["r-green","granola","Vouched for by 2 you trust","Priya Nair · Aisha Khan"],["r-pink","luma","At the same hackathon","+7 mutuals"],["r-dark","x","Open to a new role","“Wrapping up at Datadog…” · ♥ 96"]],
+    partner: [["r-blue","outlook","Met at a conference","SaaStr · Sep"],["r-green","granola","Already partners with 2 you know","Loop · Vertex"],["r-pink","luma","Co-hosted an event with a mutual","+11 mutuals"],["r-dark","x","Looking for launch partners","“Opening up our integrations…” · ♥ 143"]],
+    advisor: [["r-blue","outlook","Met at a workshop","First Round · Mar"],["r-green","granola","Backed by people you trust","intro via your mentor"],["r-pink","luma","Spoke at an event you attended","+8 mutuals"],["r-dark","x","Writes about scaling GTM","“Most founders get pricing wrong…” · ♥ 267"]],
+    career: [["r-blue","outlook","Your mentor knows them well","2nd-degree connection"],["r-green","granola","Can open the door for you","warm path via your mentor"],["r-pink","luma","At an alumni event with you","+6 mutuals"],["r-dark","x","Their team is hiring","“Growing the leadership team…” · ♥ 154"]]
   };
   function tidy(s) { return s.replace(/\bai\b/g, "AI").replace(/\bsmb\b/g, "SMB").replace(/\bic\b/g, "IC").replace(/\bsaas\b/gi, "SaaS"); }
 
@@ -38,7 +46,7 @@
       person: { role: "Partner · Northstar Ventures", match: "Backs your stage & space", history: "Met at a founder dinner · 3 founders you know are in her portfolio", act: "Draft a warm intro" } },
     hire: { label: "My next hire", hook: "Your next hire is already in your network.",
       refineHead: "Who are you hiring?",
-      refine: [{ label: "For which team", opts: ["Engineering", "Sales", "Design", "Product", "Marketing", "Ops"] }, { label: "At what level", opts: ["Junior", "Mid", "Senior", "Exec"] }],
+      refine: [{ label: "For which team", opts: ["Engineering", "Sales", "Design", "Product", "Marketing", "Ops"] }, { label: "At what level", opts: ["Junior", "Mid-level", "Senior", "Exec"] }],
       q: function (p) { return "who could be my next " + p[1].toLowerCase() + " " + p[0].toLowerCase() + " hire?"; },
       person: { role: "Staff Engineer · ex-Stripe", match: "Matches the role", history: "Met at a hackathon · vouched for by 2 people you trust", act: "Draft a warm intro" } },
     partner: { label: "My next partnership", hook: "Your next partnership is already in your network.",
@@ -121,7 +129,7 @@
   .opt:hover:after,.opt:focus-visible:after{opacity:1;transform:translateY(-50%) translateX(0);}\
   .opt:active{transform:translateY(0) scale(.99);}\
   .opt.chosen{border-color:var(--green);background:linear-gradient(180deg,rgba(255,255,255,.96),var(--green-tint));box-shadow:0 12px 30px -14px rgba(29,78,19,.5);}\
-  .cta{position:relative;overflow:hidden;font:inherit;font-size:17px;font-weight:600;color:#FFF7EF;border:none;border-radius:40px;padding:18px 26px;cursor:pointer;width:100%;margin-top:auto;text-align:center;text-decoration:none;display:block;background:linear-gradient(180deg,#C06a44,var(--clay-deep));box-shadow:0 14px 34px -14px rgba(120,43,15,.7);transition:transform .16s cubic-bezier(.2,.8,.2,1),box-shadow .16s;}\
+  .cta{position:relative;overflow:hidden;font:inherit;font-size:17px;font-weight:600;color:#FFF7EF;border:none;border-radius:40px;padding:18px 26px;cursor:pointer;width:100%;margin-top:28px;text-align:center;text-decoration:none;display:block;background:linear-gradient(180deg,#C06a44,var(--clay-deep));box-shadow:0 14px 34px -14px rgba(120,43,15,.7);transition:transform .16s cubic-bezier(.2,.8,.2,1),box-shadow .16s;}\
   .cta:hover{transform:translateY(-2px);box-shadow:0 20px 40px -16px rgba(120,43,15,.8);}\
   .cta:active{transform:translateY(0) scale(.99);}\
   .cta:before{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;transform:skewX(-20deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);animation:shine 3.6s ease-in-out infinite;}\
@@ -146,7 +154,7 @@
   .reel.flip{opacity:.25;transform:translateY(-6px);}\
   .skiphint{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:12px;letter-spacing:.08em;color:var(--muted);opacity:0;transition:opacity .5s;}\
   .skiphint.on{opacity:.6;}\
-  .beats{display:flex;flex-direction:column;gap:20px;flex:1;}\
+  .beats{display:flex;flex-direction:column;gap:20px;flex:none;}\
   .consolidate{text-align:center;padding:10px 0 4px;}\
   .itiles{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:30px;transition:transform .85s cubic-bezier(.5,.05,.2,1),opacity .7s ease;}\
   .itiles.flow{transform:translateY(46px) scale(.55);opacity:0;}\
@@ -481,17 +489,17 @@
     root.addEventListener("click", skipOnce, true);
     if (REDUCE) { imagine.style.display = "none"; q.classList.add("show"); revealOptions(); return; }
     raf2(function () { imagine.classList.add("show"); });
-    later(function () { hint.classList.add("on"); }, 900);
-    later(function () { imagine.classList.add("gone"); }, 1500);
-    later(function () { imagine.style.display = "none"; q.classList.add("show"); }, 2150);
-    later(function () { reelWrap.classList.add("show"); spinReel(reel, revealOptions); }, 4200);
+    later(function () { hint.classList.add("on"); }, 700);
+    later(function () { imagine.classList.add("gone"); }, 850);
+    later(function () { imagine.style.display = "none"; q.classList.add("show"); }, 1250);
+    later(function () { reelWrap.classList.add("show"); spinReel(reel, revealOptions); }, 3100);
   }
   function spinReel(el, doneCb) {
-    var i = 0, ticks = 0, total = 15;
+    var i = 0, ticks = 0, total = 8;
     function step() {
       var delay = 55 + Math.round(Math.pow(ticks / total, 2.4) * 320);
       el.classList.add("flip");
-      later(function () { i = (i + 1) % REEL.length; el.textContent = REEL[i]; el.classList.remove("flip"); ticks++; if (ticks <= total) later(step, delay); else later(doneCb, 520); }, 70);
+      later(function () { i = (i + 1) % REEL.length; el.textContent = REEL[i]; el.classList.remove("flip"); ticks++; if (ticks <= total) later(step, delay); else later(doneCb, 380); }, 70);
     }
     step();
   }
@@ -599,10 +607,7 @@
         '<b class="pc-nm">' + esc(profName) + '</b><span class="pc-role">' + esc(profRole) + "</span>" +
         '<span class="pc-meta">Brooklyn, NY · 500+ connections</span>' +
         '<span class="pc-chip"><span class="pc-ci">' + (I.gmail || "") + "</span>Emailed 2 weeks ago</span></div></div>" +
-        row("r-blue", "outlook", "Met at Primary Summit", "Javits Center · Apr 21") +
-        row("r-green", "granola", "Owes you an intro", "Liz Tran · Head of BD · Asana") +
-        row("r-pink", "luma", "Founders Coffee dinner", "+11 mutuals") +
-        row("r-dark", "x", "Posted about hiring AEs", "“Hiring 3 AEs in NYC…” · ♥ 214") +
+        (PROFILES[state.goal || "customer"] || PROFILES.customer).map(function (rw) { return row(rw[0], rw[1], rw[2], rw[3]); }).join("") +
         "</div>";
     }
 
@@ -625,17 +630,17 @@
         '<div class="results">' + rows() + profileCard() + "</div></div>";
       var qpz = surface.querySelector(".qpills"), qtype = surface.querySelector(".qtype"), qwrap = surface.querySelector(".qwrap"), frame = surface.querySelector(".webframe"), results = surface.querySelector(".results"), pcard = surface.querySelector(".pcard");
       qwrap.classList.add("box");
-      function openProfile() { showStep(2); var first = surface.querySelector(".rescard"); if (first) first.classList.add("picked"); later(function () { results.classList.add("dim"); pcard.classList.add("open"); showCta(); }, 950); }
-      function buildResults() { frame.classList.add("built"); var cards = surface.querySelectorAll(".rescard"); for (var i = 0; i < cards.length; i++)(function (el, k) { later(function () { el.classList.add("show"); }, k * 220); })(cards[i], i); later(openProfile, cards.length * 220 + 1600); }
+      function openProfile() { showStep(2); var first = surface.querySelector(".rescard"); if (first) first.classList.add("picked"); later(function () { results.classList.add("dim"); pcard.classList.add("open"); showCta(); }, 700); }
+      function buildResults() { frame.classList.add("built"); var cards = surface.querySelectorAll(".rescard"); for (var i = 0; i < cards.length; i++)(function (el, k) { later(function () { el.classList.add("show"); }, k * 170); })(cards[i], i); later(openProfile, cards.length * 170 + 1100); }
       if (!animate) { showAllSteps(); showTabs(); frame.classList.remove("pre"); frame.classList.add("built"); qpz.style.display = "none"; qtype.textContent = question; var cs = surface.querySelectorAll(".rescard"); for (var i = 0; i < cs.length; i++) cs[i].classList.add("show"); results.classList.add("dim"); pcard.classList.add("open"); showCta(); return; }
       // Slow, sequential unfold — one idea at a time, with time to read each.
       frame.classList.add("pre"); // hide the search window during beat 1
       showStep(0);
-      later(showTabs, 1900); // beat 1: read the message, THEN the three places appear
-      later(function () { showStep(1); }, 3500);
-      later(function () { frame.classList.remove("pre"); raf2(function () { qpz.classList.add("in"); }); }, 4200); // reveal the bar + the pills
-      later(function () { qpz.classList.add("intobar"); }, 5500); // pills glide slowly into the bar
-      later(function () { qpz.style.display = "none"; typewriter(qtype, question, buildResults); }, 6700); // type → results → pause → profile opens
+      later(showTabs, 1300); // beat 1: read the message, THEN the three places appear
+      later(function () { showStep(1); }, 2500);
+      later(function () { frame.classList.remove("pre"); raf2(function () { qpz.classList.add("in"); }); }, 3100); // reveal the bar + the pills
+      later(function () { qpz.classList.add("intobar"); }, 4100); // pills glide slowly into the bar
+      later(function () { qpz.style.display = "none"; typewriter(qtype, question, buildResults); }, 5100); // type → results → pause → profile opens
     }
     function renderText(animate) {
       surface.innerHTML =
